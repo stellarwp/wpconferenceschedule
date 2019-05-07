@@ -1,0 +1,198 @@
+.wpcs-schedule {
+  width: 100%;
+  border-spacing: 0px;
+  table-layout: fixed;
+  margin-bottom: 0;
+}
+
+@media screen and (max-width: 700px) {
+  .wpcs-schedule {
+    border: none;
+    width: 100%;
+  }
+}
+
+.wpcs-schedule thead th {
+  background: #f2f2f2;
+  color: #000000;
+  border-bottom: none;
+  font-weight: 300;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border: 1px solid #dee2e6;
+}
+
+@media screen and (max-width: 700px) {
+  .wpcs-schedule thead {
+    display: none;
+  }
+}
+
+.wpcs-schedule tbody,
+.wpcs-schedule tr,
+.wpcs-schedule td,
+.wpcs-schedule th {
+  text-align: center;
+  vertical-align: top;
+}
+
+@media screen and (max-width: 700px) {
+  .wpcs-schedule tbody,
+  .wpcs-schedule tr,
+  .wpcs-schedule td,
+  .wpcs-schedule th {
+    display: block;
+  }
+}
+
+.wpcs-schedule tr {
+  background: #ffffff;
+}
+
+@media screen and (max-width: 700px) {
+  .wpcs-schedule tr {
+    border: 1px solid #32383e;
+    margin-bottom: 16px;
+  }
+}
+
+.wpcs-schedule tr td {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  border: 1px solid #dee2e6;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+@media screen and (max-width: 700px) {
+  .wpcs-schedule tr td {
+    border: none;
+  }
+}
+
+.wpcs-schedule .wpcs-time {
+  min-width: 105px;
+}
+
+@media screen and (max-width: 700px) {
+  .wpcs-schedule .wpcs-time {
+    font-size: 22px;
+    padding: 0 16px;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .wpcs-schedule .wpcs-session-type-session {
+    line-height: 1.4;
+    margin-bottom: 16px;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .wpcs-schedule .wpcs-session-type-session:before {
+    color: #909294;
+    content: attr(data-track-title);
+    border-bottom: 1px dashed #dee2e6;
+    border-top: 1px dashed #dee2e6;
+    display: block;
+    font-size: 110%;
+    line-height: 1;
+    margin-bottom: 8px;
+    padding: 3px 10px;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .wpcs-schedule .wpcs-global-session .wpcs-session-type-session:before {
+    display: none;
+  }
+}
+
+.wpcs-schedule .wpcs-session-cell-content h3 {
+  font-size: 26px;
+  margin-bottom: 10px;
+}
+
+@media screen and (max-width: 700px) {
+  .wpcs-schedule .wpcs-session-title {
+    display: block;
+    padding: 10px;
+  }
+}
+
+.wpcs-schedule .wpcs-track-description,
+.wpcs-schedule .wpcs-session-speakers {
+  display: inline-block;
+}
+
+.wpcs-schedule .wpcs-session-speakers:before {
+  content: '- ';
+}
+
+@media screen and (max-width: 700px) {
+  .wpcs-schedule .wpcs-session-speakers:before {
+    font-style: italic;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .wpcs-schedule .wpcs-session-speakers {
+    display: block;
+    padding-left: 20px;
+  }
+}
+
+.wpcs-schedule .wpcs-global-session {
+  background: #f2f2f2;
+}
+
+.wpcs-schedule .wpcs-global-session td {
+  padding: 20px 0 !important;
+}
+
+.wpcs-schedule .wpcs-global-session-mainstage,
+.wpcs-schedule .wpcs-session-type-mainstage {
+  background: #bfdcea;
+}
+
+.wpcs-schedule.wpcs-color-scheme-dark {
+  color: #ffffff;
+}
+
+.wpcs-schedule.wpcs-color-scheme-dark thead th {
+  background: #212529;
+  color: #ffffff;
+  border: 1px solid #32383e;
+}
+
+.wpcs-schedule.wpcs-color-scheme-dark a {
+  color: #ffffff;
+}
+
+.wpcs-schedule.wpcs-color-scheme-dark tr {
+  background-color: #212529;
+}
+
+.wpcs-schedule.wpcs-color-scheme-dark td {
+  border-color: #32383e;
+}
+
+.wpcs-schedule.wpcs-color-scheme-dark .wpcs-session-title {
+  color: #ffffff;
+}
+
+@media screen and (max-width: 700px) {
+  .wpcs-schedule.wpcs-color-scheme-dark .wpcs-session-type-session:before {
+    border-bottom-color: #32383e;
+    border-top-color: #32383e;
+  }
+}
+
+.wpcs-schedule.wpcs-color-scheme-dark .wpcs-global-session {
+  background: #2C2F33;
+}
+
+.wpcs-schedule.wpcs-color-scheme-dark .wpcs-global-session-mainstage,
+.wpcs-schedule.wpcs-color-scheme-dark .wpcs-session-type-mainstage {
+  background: #4a4a4a;
+}
