@@ -43,7 +43,7 @@ Coming Soon! [Learn more](https://wpconferenceschedule.com/pro)
 
 = What kind of events is this plugin good for? =
 
-This plugin is intended for both multi-track and single-track events that would like to display thier event schedule in an easy to read, tabular format. It can be used by confrences, trade shows, conventions, festivals, company retreats, online events, and even wedding weekends...anything you want!
+This plugin is intended for both multi-track and single-track events that would like to display their event schedule in an easy to read, tabular format. It can be used by conferences, trade shows, conventions, festivals, company retreats, online events, and even wedding weekends...anything you want!
 
 = Is the schedule mobile responsive? =
 
@@ -87,6 +87,7 @@ Yes! We want to make our plugin work for you. If you need help regarding customi
 2. screenshot-2.png shows the schedule in dark mode.
 3. screenshot-3.png shows the edit screen of a single session.
 4. screenshot-4.png shows the editing options and live preview for the sessions Gutenberg block.
+5. screenshot-5.png shows what the schedule looks like on mobile screens.
 
 == Changelog ==
 
