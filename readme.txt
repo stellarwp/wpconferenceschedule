@@ -1,7 +1,7 @@
 === WP Conference Schedule ===
 Contributors: roadwarriorwp, alh0319, stevejonesdev
 Donate link: https://roadwarriorcreative.com/donate
-Tags: conference schedule, conference, schedule, sessions, speakers, events, events calendar
+Tags: conference schedule, conference, schedule, event schedule, event, events, block, blocks, gutenberg, sessions, speakers, events, events calendar
 Requires at least: 5.0.0
 Tested up to: 5.2
 Stable tag: 1.0.0
