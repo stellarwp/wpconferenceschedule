@@ -167,7 +167,7 @@ function wpcs_preprocess_schedule_attributes( $props ) {
 		'tracks'       => 'all',
 		'session_link' => 'permalink', // permalink|anchor|none
 		'color_scheme' => 'light', // light/dark
-		'align'        => 'alignwide' // alignwide|alignfull
+		'align'        => '' // alignwide|alignfull
 	);
 
 	// Set Attribute values base on props
@@ -214,7 +214,8 @@ function wpcs_scheduleOutput( $props ) {
 	$sessions                    = wpcs_get_schedule_sessions( $attr['date'], $tracks_explicitly_specified, $tracks );
 	$columns                     = wpcs_get_schedule_columns( $tracks, $sessions, $tracks_explicitly_specified );
 
-	$html  = '<table class="wpcs-schedule wpcs-color-scheme-'.$attr['color_scheme'].' '.$attr['align'].'" border="0">';
+	$html = '<div class="wpcs-schedule-wrapper '.$attr['align'].'">';
+	$html .= '<table class="wpcs-schedule wpcs-color-scheme-'.$attr['color_scheme'].'" border="0">';
 	$html .= '<thead>';
 	$html .= '<tr>';
 
@@ -339,6 +340,7 @@ function wpcs_scheduleOutput( $props ) {
 
 	$html .= '</tbody>';
 	$html .= '</table>';
+	$html .= '</div>';
 	return $html;
 
 }

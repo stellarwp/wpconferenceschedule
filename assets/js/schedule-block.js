@@ -47,11 +47,7 @@
 			date: {type: 'string', default: wpcs_dateFormatted(null)},
 			color_scheme: {type: 'string', default: 'light'},
 			session_link: {type: 'string', default: 'permalink'},
-			tracks: {type: 'string', default: null},
-			align: {
-				type: 'string',
-				default: 'wide',
-			}
+			tracks: {type: 'string', default: null}
 		},
 
 		edit: function( props ) {
