@@ -94,7 +94,7 @@ Yes! We want to make our plugin work for you. If you need help regarding customi
 = 1.0.1 =
 * Added end time to sessions
 * Added locations custom post type and output to sessions single template
-* Added block alignment with wide alignment as the default
+* Added block alignment
 
 = 1.0.0 =
 * This is version 1 - everything is new and shiny!
