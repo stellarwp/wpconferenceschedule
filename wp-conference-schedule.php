@@ -2,14 +2,14 @@
 
 /**
  * @link              https://wpconferenceschedule.com
- * @since             1.0.1
+ * @since             1.0.0
  * @package           wp_conference_schedule
  *
  * @wordpress-plugin
  * Plugin Name:       WP Conference Schedule
  * Plugin URI:        https://wpconferenceschedule.com
  * Description:       Creates sessions post types for conference websites. Includes shortcode and custom block for fully mobile-responsive conference schedule in table format.
- * Version:           1.0.0
+ * Version:           1.0.1
  * Author:            Road Warrior Creative
  * Author URI:        https://roadwarriorcreative.com
  * License:           GPL-2.0+
