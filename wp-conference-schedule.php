@@ -2,7 +2,7 @@
 
 /**
  * @link              https://wpconferenceschedule.com
- * @since             1.0.0
+ * @since             1.0.1
  * @package           wp_conference_schedule
  *
  * @wordpress-plugin

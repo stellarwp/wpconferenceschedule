@@ -24,15 +24,20 @@ get_header(); ?>
 						<div class="entry-meta">
 							<?php 
 
-							$time_format = get_option( 'time_format', 'g:i a' );
+							$time_format      = get_option( 'time_format', 'g:i a' );
 							$post             = get_post();
 							$session_time     = absint( get_post_meta( $post->ID, '_wpcs_session_time', true ) );
+							$session_end_time = absint( get_post_meta( $post->ID, '_wpcs_session_end_time', true ) );
 							$session_date     = ( $session_time ) ? date( 'F j, Y', $session_time ) : date( 'F j, Y' );
 							$session_type     = get_post_meta( $post->ID, '_wpcs_session_type', true );
-							$session_speakers    = get_post_meta( $post->ID, '_wpcs_session_speakers',  true );
+							$session_speakers = get_post_meta( $post->ID, '_wpcs_session_speakers',  true );
 
-							if($session_date)
+							// Check if end time is available. This is for pre version 1.0.1 as the end time wasn't available.
+							if($session_date && !$session_end_time)
 								echo '<h2> '.$session_date.' at '.date($time_format, $session_time).'</h2>';
+
+							if($session_date && $session_end_time)
+								echo '<h2> '.$session_date.' from '.date($time_format, $session_time).' to '.date($time_format, $session_end_time).'</h2>';
 
 							echo get_the_term_list( $post->ID, 'wpcs_track', '<strong>Track:</strong> ', ', ' ).'<br />';
 
