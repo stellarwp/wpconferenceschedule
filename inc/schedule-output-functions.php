@@ -160,24 +160,17 @@ function wpcs_get_schedule_columns( $tracks, $sessions, $tracks_explicitly_speci
  * @return array Array of attributes, after preprocessing.
  */
 function wpcs_preprocess_schedule_attributes( $props ) {
-	/*$attr = shortcode_atts(
-		array(
-			'date'         => null,
-			'tracks'       => 'all',
-			'session_link' => 'permalink', // permalink|anchor|none
-			'color_scheme' => 'light',
-		), $attr
-	);*/
 
 	// Set Defaults
 	$attr = array(
 		'date'         => null,
 		'tracks'       => 'all',
 		'session_link' => 'permalink', // permalink|anchor|none
-		'color_scheme' => 'light',
+		'color_scheme' => 'light', // light/dark
+		'align'        => 'alignwide' // alignwide|alignfull
 	);
 
-	// Set Attribute values base on pros
+	// Set Attribute values base on props
 	if($props['date'])
 		$attr['date'] = $props['date'];
 	
@@ -186,6 +179,11 @@ function wpcs_preprocess_schedule_attributes( $props ) {
 	
 	if($props['session_link'])
 		$attr['session_link'] = $props['session_link'];
+
+	if($props['align'] == 'wide')
+		$attr['align'] = 'alignwide';
+	elseif($props['align'] == 'full')
+		$attr['align'] = 'alignfull';
 	
 	if($props['tracks'])
 		$attr['tracks'] = $props['tracks'];
@@ -216,7 +214,7 @@ function wpcs_scheduleOutput( $props ) {
 	$sessions                    = wpcs_get_schedule_sessions( $attr['date'], $tracks_explicitly_specified, $tracks );
 	$columns                     = wpcs_get_schedule_columns( $tracks, $sessions, $tracks_explicitly_specified );
 
-	$html  = '<table class="wpcs-schedule wpcs-color-scheme-'.$attr['color_scheme'].'" border="0">';
+	$html  = '<table class="wpcs-schedule wpcs-color-scheme-'.$attr['color_scheme'].' '.$attr['align'].'" border="0">';
 	$html .= '<thead>';
 	$html .= '<tr>';
 

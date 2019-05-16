@@ -58,6 +58,7 @@ class WP_Conference_Schedule_Plugin {
 				'color_scheme' => array('type' => 'string'),
 				'session_link' => array('type' => 'string'),
 				'tracks' => array('type' => 'string'),
+				'align' => array('type' => 'string'),
 			),
 			'render_callback' => array( $this, 'wpcs_scheduleBlockOutput')
 		));
