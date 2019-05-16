@@ -31,6 +31,36 @@ function wpcs_register_taxonomies() {
 			'rest_base'    => 'session_track',
 		)
 	);
+
+	// Labels for locations.
+	$locationlabels = array(
+		'name'          => __( 'Locations',         'wp-conference-schedule' ),
+		'singular_name' => __( 'Location',          'wp-conference-schedule' ),
+		'search_items'  => __( 'Search Locations',  'wp-conference-schedule' ),
+		'popular_items' => __( 'Popular Locations', 'wp-conference-schedule' ),
+		'all_items'     => __( 'All Locations',     'wp-conference-schedule' ),
+		'edit_item'     => __( 'Edit Location',     'wp-conference-schedule' ),
+		'update_item'   => __( 'Update Location',   'wp-conference-schedule' ),
+		'add_new_item'  => __( 'Add Location',      'wp-conference-schedule' ),
+		'new_item_name' => __( 'New Location',      'wp-conference-schedule' ),
+	);
+
+	// Register the Locations taxonomy.
+	register_taxonomy(
+		'wpcs_location',
+		'wpcs_session',
+		array(
+			'labels'       => $locationlabels,
+			'rewrite'      => array( 'slug' => 'track' ),
+			'query_var'    => 'location',
+			'hierarchical' => true,
+			'public'       => true,
+			'show_ui'      => true,
+			'show_in_rest' => true,
+			'rest_base'    => 'session_location',
+		)
+	);
+
 }
 
 add_action( 'init', 'wpcs_register_taxonomies' );
