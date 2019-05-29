@@ -170,31 +170,36 @@ function wpcs_preprocess_schedule_attributes( $props ) {
 		'align'        => '' // alignwide|alignfull
 	);
 
-	// Set Attribute values base on props
-	if($props['date'])
-		$attr['date'] = $props['date'];
-	
-	if($props['color_scheme'])
-		$attr['color_scheme'] = $props['color_scheme'];
-	
-	if($props['session_link'])
-		$attr['session_link'] = $props['session_link'];
+	// Check if props exist. Fixes PHP errors when shortcode doesn't have any attributes.
+	if($props):
 
-	if($props['align'] == 'wide')
-		$attr['align'] = 'alignwide';
-	elseif($props['align'] == 'full')
-		$attr['align'] = 'alignfull';
-	
-	if($props['tracks'])
-		$attr['tracks'] = $props['tracks'];
+		// Set Attribute values base on props
+		if($props['date'])
+			$attr['date'] = $props['date'];
+		
+		if($props['color_scheme'])
+			$attr['color_scheme'] = $props['color_scheme'];
+		
+		if($props['session_link'])
+			$attr['session_link'] = $props['session_link'];
 
-	foreach ( array( 'tracks', 'session_link', 'color_scheme' ) as $key_for_case_sensitive_value ) {
-		$attr[ $key_for_case_sensitive_value ] = strtolower( $attr[ $key_for_case_sensitive_value ] );
-	}
+		if($props['align'] == 'wide')
+			$attr['align'] = 'alignwide';
+		elseif($props['align'] == 'full')
+			$attr['align'] = 'alignfull';
+		
+		if($props['tracks'])
+			$attr['tracks'] = $props['tracks'];
 
-	if ( ! in_array( $attr['session_link'], array( 'permalink', 'anchor', 'none' ), true ) ) {
-		$attr['session_link'] = 'permalink';
-	}
+		foreach ( array( 'tracks', 'session_link', 'color_scheme' ) as $key_for_case_sensitive_value ) {
+			$attr[ $key_for_case_sensitive_value ] = strtolower( $attr[ $key_for_case_sensitive_value ] );
+		}
+
+		if ( ! in_array( $attr['session_link'], array( 'permalink', 'anchor', 'none' ), true ) ) {
+			$attr['session_link'] = 'permalink';
+		}
+
+	endif;
 
 	return $attr;
 }
