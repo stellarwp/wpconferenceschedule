@@ -4,7 +4,7 @@ Donate link: https://roadwarriorcreative.com/donate
 Tags: conference schedule, conference, schedule, event schedule, event, events, block, blocks, gutenberg, sessions, speakers, events, events calendar
 Requires at least: 5.0.0
 Tested up to: 5.2
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -90,6 +90,9 @@ Yes! We want to make our plugin work for you. If you need help regarding customi
 5. screenshot-5.png shows what the schedule looks like on mobile screens.
 
 == Changelog ==
+
+= 1.0.2 =
+* Prevent PHP errors when shortcode doesn't have any attributes
 
 = 1.0.1 =
 * Added end time to sessions
