@@ -4,7 +4,7 @@
 function wpcs_register_taxonomies() {
 
 	// Labels for tracks.
-	$tracklabels = array(
+	$track_labels = array(
 		'name'          => __( 'Tracks',         'wp-conference-schedule' ),
 		'singular_name' => __( 'Track',          'wp-conference-schedule' ),
 		'search_items'  => __( 'Search Tracks',  'wp-conference-schedule' ),
@@ -21,7 +21,7 @@ function wpcs_register_taxonomies() {
 		'wpcs_track',
 		'wpcs_session',
 		array(
-			'labels'       => $tracklabels,
+			'labels'       => $track_labels,
 			'rewrite'      => array( 'slug' => 'track' ),
 			'query_var'    => 'track',
 			'hierarchical' => true,
@@ -33,7 +33,7 @@ function wpcs_register_taxonomies() {
 	);
 
 	// Labels for locations.
-	$locationlabels = array(
+	$location_labels = array(
 		'name'          => __( 'Locations',         'wp-conference-schedule' ),
 		'singular_name' => __( 'Location',          'wp-conference-schedule' ),
 		'search_items'  => __( 'Search Locations',  'wp-conference-schedule' ),
@@ -50,8 +50,8 @@ function wpcs_register_taxonomies() {
 		'wpcs_location',
 		'wpcs_session',
 		array(
-			'labels'       => $locationlabels,
-			'rewrite'      => array( 'slug' => 'track' ),
+			'labels'       => $location_labels,
+			'rewrite'      => array( 'slug' => 'location' ),
 			'query_var'    => 'location',
 			'hierarchical' => true,
 			'public'       => true,
