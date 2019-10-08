@@ -311,7 +311,8 @@ function wpcs_scheduleOutput( $props ) {
 			}
 
 			// Session Content Footer Filter
-			$content .= apply_filters( 'wpcs_session_content_footer', $session->ID);
+			$wpcs_session_content_footer = apply_filters( 'wpcs_session_content_footer', $session->ID);
+			$content .= ($wpcs_session_content_footer != $session->ID) ? $wpcs_session_content_footer : '';
 
 			// End of cell-content.
 			$content .= '</div>';
