@@ -310,6 +310,9 @@ function wpcs_scheduleOutput( $props ) {
 				$content .= sprintf( ' <span class="wpcs-session-speakers">%s</span>', esc_html($speakers));
 			}
 
+			// Session Content Footer Filter
+			$content .= apply_filters( 'wpcs_session_content_footer', $session->ID);
+
 			// End of cell-content.
 			$content .= '</div>';
 
