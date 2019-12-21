@@ -299,7 +299,7 @@ function wpcs_scheduleOutput( $props ) {
 			if ( 'permalink' == $attr['session_link'] && ('session' == $session_type || 'mainstage' == $session_type) )
 				$session_title_html = sprintf( '<h3><a class="wpcs-session-title" href="%s">%s</a></h3>', esc_url( get_permalink( $session->ID ) ), $session_title );
 			elseif ( 'anchor' == $attr['session_link'] && ('session' == $session_type || 'mainstage' == $session_type) )
-				$session_title_html = sprintf( '<h3><a class="wpcs-session-title" href="%s">%s</a></h3>', esc_url( get_permalink( $session->ID ).'#'.get_post_field( 'post_name', $session->ID ) ), $session_title );
+				$session_title_html = sprintf( '<h3><a class="wpcs-session-title" href="%s">%s</a></h3>', esc_url('#'.get_post_field( 'post_name', $session->ID ) ), $session_title );
 			else
 				$session_title_html = sprintf( '<h3><span class="wpcs-session-title">%s</span></h3>', $session_title );
 
