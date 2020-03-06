@@ -226,7 +226,7 @@ function wpcs_scheduleOutput( $props ) {
 	if($attr['layout'] == 'table'){
 
 		$html = '<div class="wpcs-schedule-wrapper '.$attr['align'].'">';
-		$html .= '<table class="wpcs-schedule wpcs-color-scheme-'.$attr['color_scheme'].'" border="0">';
+		$html .= '<table class="wpcs-schedule wpcs-color-scheme-'.$attr['color_scheme'].' wpcs-layout-'.$attr['layout'].'" border="0">';
 		$html .= '<thead>';
 		$html .= '<tr>';
 
@@ -359,7 +359,203 @@ function wpcs_scheduleOutput( $props ) {
 		return $html;
 
 	}elseif($attr['layout'] == 'grid'){
-		return ' ';
+
+		/*echo '<pre>';
+			var_dump($sessions);
+		echo '</pre>';*/
+
+		$schedule_date = $attr['date'];
+		$time_format = get_option( 'time_format', 'g:i a' );
+
+		$query_args = array(
+			'post_type'      => 'wpcs_session',
+			'posts_per_page' => - 1,
+			'meta_query'     => array(
+				'relation' => 'AND',
+				array(
+					'key'     => '_wpcs_session_time',
+					'compare' => 'EXISTS',
+				),
+			),
+		);
+		if ( $schedule_date && strtotime( $schedule_date ) ) {
+			$query_args['meta_query'][] = array(
+				'key'     => '_wpcs_session_time',
+				'value'   => array(
+					strtotime( $schedule_date ),
+					strtotime( $schedule_date . ' +1 day' ),
+				),
+				'compare' => 'BETWEEN',
+				'type'    => 'NUMERIC',
+			);
+		}
+		if ( $tracks_explicitly_specified ) {
+			// If tracks were provided, restrict the lookup in WP_Query.
+			if ( ! empty( $tracks ) ) {
+				$query_args['tax_query'][] = array(
+					'taxonomy' => 'wpcs_track',
+					'field'    => 'id',
+					'terms'    => array_values( wp_list_pluck( $tracks, 'term_id' ) ),
+				);
+			}
+		}
+
+		$sessions_query = new WP_Query( $query_args );
+
+		$array_times = array();
+		foreach ( $sessions_query->posts as $session ) {
+			$time  = absint( get_post_meta( $session->ID, '_wpcs_session_time', true ) );
+			$end_time  = absint( get_post_meta( $session->ID, '_wpcs_session_end_time', true ) );
+			$terms = get_the_terms( $session->ID, 'wpcs_track' );
+
+			if(!in_array($end_time, $array_times)){
+				array_push($array_times, $end_time);
+			}
+
+			if(!in_array($time, $array_times)){
+				array_push($array_times, $time);
+			}
+			
+		}
+		asort( $array_times );
+
+
+		$html .= '<style>
+		@media screen and (min-width:700px) {
+			.schedule {
+				display: grid;
+				grid-gap: 1em;
+				grid-template-rows:
+					[tracks] auto';
+
+					foreach ($array_times as $array_time) {
+						$html .= '[time-'.$array_time.'] 1fr';
+					}
+
+					$html .= ';';
+					/*[time-0800] 1fr
+					[time-0830] 1fr
+					[time-0900] 1fr
+					[time-0930] 1fr
+					[time-1000] 1fr
+					[time-1030] 1fr
+					[time-1100] 1fr
+					[time-1130] 1fr
+					[time-1200] 1fr;*/
+
+
+				$html .= 'grid-template-columns: [times] 4em';
+				/*[track-1-start] 1fr
+					[track-1-end track-2-start] 1fr
+					[track-2-end track-3-start] 1fr
+					[track-3-end];*/
+
+					$len = count($tracks);
+					for ($i=0; $i < ($len); $i++) {
+						if($i == 0){
+							$html .= '['.$tracks[$i]->slug.'-start] 1fr';
+						}elseif($i == ($len-1)){
+							$html .= '['.$tracks[($i-1)]->slug.'-end '.$tracks[$i]->slug.'-start] 1fr';
+							$html .= '['.$tracks[$i]->slug.'-end];';
+						}else{
+							$html .= '['.$tracks[($i-1)]->slug.'-end '.$tracks[$i]->slug.'-start] 1fr';
+						}
+					}
+					
+					$html .= '
+			}
+		}
+		</style>';
+
+		$html .= '<div class="schedule wpcs-schedule" wpcs-color-scheme-'.$attr['color_scheme'].' wpcs-layout-'.$attr['layout'].'" aria-labelledby="schedule-heading">';
+
+			foreach ($tracks as $track) {
+				$html .= '<span class="track-slot" aria-hidden="true" style="grid-column: '.$track->slug.'; grid-row: tracks;">'.$track->name.'</span>';
+			}
+
+			foreach ($array_times as $array_time) {
+				
+				$html .= '<h2 class="time-slot" style="grid-row: time-'.$array_time.';">'.date( $time_format, $array_time ).'</h2>';
+				
+					
+				
+
+			}
+
+			$query_args['meta_query'][] = array(
+				'key'     => '_wpcs_session_time',
+				'value'   => array(
+					strtotime( $schedule_date ),
+					strtotime( $schedule_date . ' +1 day' ),
+				),
+				'compare' => 'BETWEEN',
+				'type'    => 'NUMERIC',
+			);
+
+			$sessions_query = new WP_Query( $query_args );
+
+			//$array_times = array();
+			foreach ( $sessions_query->posts as $session ) {
+				$session              = get_post( $session );
+				$session_url					= get_the_permalink($session->ID);
+				$session_title        = apply_filters( 'the_title', $session->post_title );
+				$session_tracks       = get_the_terms( $session->ID, 'wpcs_track' );
+				$session_track_titles = is_array( $session_tracks ) ? implode( ', ', wp_list_pluck( $session_tracks, 'name' ) ) : '';
+				$session_type         = get_post_meta( $session->ID, '_wpcs_session_type', true );
+				$speakers         		= get_post_meta( $session->ID, '_wpcs_session_speakers', true );
+				$start_time         	= get_post_meta( $session->ID, '_wpcs_session_time', true );
+				$end_time         		= get_post_meta( $session->ID, '_wpcs_session_end_time', true );
+
+				$tracks_array = array();
+				foreach ($session_tracks as $session_track) {
+					$tracks_array.array_push($tracks_array, $session_track->slug);
+				}
+				$tracks_classes = implode(" ", $tracks_array);
+
+				$tracks_array_length = count($tracks_array);
+
+				$grid_column_end = '';
+				if($tracks_array_length != 1){
+					$grid_column_end = ' / '.$tracks_array[$tracks_array_length-1];
+				}
+
+				$html .= '<div class="'.$session_type.' session-1 '.$tracks_classes.'" style="grid-column: '.$tracks_array[0].$grid_column_end.'; grid-row: time-'.$start_time.' / time-'.$end_time.';">';
+					$html .= '<h3 class="session-title"><a href="'.$session_url.'">'.$session_title.'</a></h3>';
+					$html .= '<span class="session-time">'.date( $time_format, $start_time ).' - '.date( $time_format, $end_time ).'</span>';
+					$html .= '<span class="session-track">'.implode(", ", $tracks_array).'</span>';
+					$html .= '<span class="session-presenter">'.$speakers.'</span>';
+				$html .= '</div>';
+			}
+
+			/*$html .= '<h2 class="time-slot" style="grid-row: time-0800;">8:00am</h2>';
+
+			$html .= '<div class="session session-1 track-1" style="grid-column: track-1; grid-row: time-0800 / time-0900;">';
+				$html .= '<h3 class="session-title"><a href="#">Talk Title</a></h3>';
+				$html .= '<span class="session-time">8:00 - 9:00</span>';
+				$html .= '<span class="session-track">Track: 1</span>';
+				$html .= '<span class="session-presenter">Presenter</span>';
+			$html .= '</div>';
+
+			$html .= '<div class="session session-2 track-2" style="grid-column: track-2 / track-3; grid-row: time-0800 / time-0830;">';
+				$html .= '<h3 class="session-title"><a href="#">Talk Title</a></h3>';
+				$html .= '<span class="session-time">8:00 - 8:30</span>';
+				$html .= '<span class="session-track">Track: 2</span>';
+				$html .= '<span class="session-presenter">Presenter</span>';
+			$html .= '</div>';
+
+			$html .= '<h2 class="time-slot" style="grid-row: time-0830;">8:30am</h2>';*/
+
+
+
+		
+
+
+
+
+		$html .= '</div>';
+		
+		return $html;
+
 	}
 
 }
