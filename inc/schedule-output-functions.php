@@ -167,7 +167,8 @@ function wpcs_preprocess_schedule_attributes( $props ) {
 		'tracks'       => 'all',
 		'session_link' => 'permalink', // permalink|anchor|none
 		'color_scheme' => 'light', // light/dark
-		'align'        => '' // alignwide|alignfull
+		'align'        => '', // alignwide|alignfull
+		'layout'       => 'table'
 	);
 
 	// Check if props exist. Fixes PHP errors when shortcode doesn't have any attributes.
@@ -179,6 +180,9 @@ function wpcs_preprocess_schedule_attributes( $props ) {
 		
 		if($props['color_scheme'])
 			$attr['color_scheme'] = $props['color_scheme'];
+
+		if($props['layout'])
+			$attr['layout'] = $props['layout'];
 		
 		if($props['session_link'])
 			$attr['session_link'] = $props['session_link'];
