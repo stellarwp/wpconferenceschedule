@@ -1,4 +1,4 @@
-.wpcs-schedule {
+.wpcs-layout-table{
 	width:100%;
 	border-spacing: 0px;
 	table-layout:fixed;
@@ -167,4 +167,148 @@
 			background: $color-gray-light;
 		}
 	}
+}
+
+
+
+
+
+
+.wpcs-layout-grid{
+
+	.time-slot {
+		grid-column: times;
+		background-color: white;
+	}
+
+	.track-slot {
+		display: none; /* hidden on small screens and browsers without grid support */
+		//background-color: $color-gray-lightest !important;
+	}
+
+	@supports( display:grid ) {
+		@media screen and (min-width:700px) {
+			.track-slot {
+				display: block;
+				padding: 10px 5px 5px;
+				position: sticky;
+				top: 0;
+				z-index: 1000;
+				background-color: rgba(255,255,255,.9);
+			}
+		}
+	}
+
+	/* Small-screen & fallback styles */
+	.session {
+		margin-bottom:  1em;
+		&:hover{
+			z-index: 999999;
+		}
+	}
+
+	@supports( display:grid ) {
+		@media screen and (min-width: 700px) {
+			.session {
+				margin: 0;
+			}	
+		}
+	}
+
+	.session, .mainstage{
+		padding: .5em;
+		border-radius: 2px;
+		font-size: 14px;
+		/* box-shadow:
+			rgba(255,255,255,.6) 1px 1px 0,
+			rgba(0,0,0,.1) 4px 4px 0; */
+		box-shadow: rgba(0,0,0,.1) 4px 4px 0;
+		background-color: rgba($color-gray-lightest,.9);
+		border: solid 1px white;
+	}
+
+	.mainstage{
+		background-color: rgba($color-blue-light,.9);
+	}
+
+	.session-title,
+	.session-time,
+	.session-track,
+	.session-presenter {
+		display: block;
+	}
+
+	.session-title,
+	.time-slot {
+		margin: 0;
+		font-size: 1em;
+	}
+
+	.session-title a {
+		//color: #fff;
+		text-decoration-style: dotted;
+		
+		&:hover {
+			font-style: italic;
+		}
+		
+		&:focus {
+			outline: 2px dotted rgba(255,255,255,.8);
+		}
+	}
+
+	.track-slot,
+	.time-slot {
+		font-weight: bold;
+		font-size:.75em;
+	}
+
+	/* .track-1 {
+		background-color: red;
+	}
+
+	.track-2 {
+		background-color: orange;
+	}
+
+	.track-3 {
+		background-color: yellow;
+	}
+
+	.track-4 {
+		background-color: green;
+	}
+
+	.track-5 {
+		background-color: blue;
+	} */
+
+	.track-all {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background: #ccc;
+		color: #000;
+		box-shadow: none;
+	}
+
+	.text {
+		max-width: 750px;
+		font-size: 18px;
+		margin: 0 auto 50px;
+	}
+
+	.meta {
+		color: #555;
+		font-style: italic;
+	}
+
+	.meta a {
+		color: #555;
+	}
+
+	hr {
+		margin: 40px 0;
+	}
+
 }

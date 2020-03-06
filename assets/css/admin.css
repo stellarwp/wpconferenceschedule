@@ -1,4 +1,4 @@
-.wpcs-schedule {
+.wpcs-layout-table {
   width: 100%;
   border-spacing: 0px;
   table-layout: fixed;
@@ -7,13 +7,13 @@
 }
 
 @media screen and (max-width: 700px) {
-  .wpcs-schedule {
+  .wpcs-layout-table {
     border: none;
     width: 100%;
   }
 }
 
-.wpcs-schedule thead th {
+.wpcs-layout-table thead th {
   background: #f2f2f2;
   color: #000000;
   border-bottom: none;
@@ -25,40 +25,40 @@
 }
 
 @media screen and (max-width: 700px) {
-  .wpcs-schedule thead {
+  .wpcs-layout-table thead {
     display: none;
   }
 }
 
-.wpcs-schedule tbody,
-.wpcs-schedule tr,
-.wpcs-schedule td,
-.wpcs-schedule th {
+.wpcs-layout-table tbody,
+.wpcs-layout-table tr,
+.wpcs-layout-table td,
+.wpcs-layout-table th {
   text-align: center;
   vertical-align: top;
 }
 
 @media screen and (max-width: 700px) {
-  .wpcs-schedule tbody,
-  .wpcs-schedule tr,
-  .wpcs-schedule td,
-  .wpcs-schedule th {
+  .wpcs-layout-table tbody,
+  .wpcs-layout-table tr,
+  .wpcs-layout-table td,
+  .wpcs-layout-table th {
     display: block;
   }
 }
 
-.wpcs-schedule tr {
+.wpcs-layout-table tr {
   background: #ffffff;
 }
 
 @media screen and (max-width: 700px) {
-  .wpcs-schedule tr {
+  .wpcs-layout-table tr {
     border: 1px solid #32383e;
     margin-bottom: 16px;
   }
 }
 
-.wpcs-schedule tr td {
+.wpcs-layout-table tr td {
   padding-top: 15px;
   padding-bottom: 15px;
   border: none;
@@ -67,48 +67,48 @@
 }
 
 @media screen and (max-width: 700px) {
-  .wpcs-schedule tr td {
+  .wpcs-layout-table tr td {
     border: none;
   }
 }
 
-.wpcs-schedule .wpcs-session-empty {
+.wpcs-layout-table .wpcs-session-empty {
   border-right: 1px solid #dee2e6;
 }
 
 @media screen and (max-width: 700px) {
-  .wpcs-schedule .wpcs-session-empty {
+  .wpcs-layout-table .wpcs-session-empty {
     display: none;
   }
 }
 
-.wpcs-schedule .wpcs-time {
+.wpcs-layout-table .wpcs-time {
   min-width: 105px;
   border: 1px solid #dee2e6;
   border-bottom: 0px;
 }
 
 @media screen and (max-width: 700px) {
-  .wpcs-schedule .wpcs-time {
+  .wpcs-layout-table .wpcs-time {
     font-size: 22px;
     padding: 0 16px;
   }
 }
 
-.wpcs-schedule [class*="wpcs-session-type-"] {
+.wpcs-layout-table [class*="wpcs-session-type-"] {
   border-right: 1px solid #dee2e6;
   border-top: 1px solid #dee2e6;
 }
 
 @media screen and (max-width: 700px) {
-  .wpcs-schedule .wpcs-session-type-session {
+  .wpcs-layout-table .wpcs-session-type-session {
     line-height: 1.4;
     margin-bottom: 16px;
   }
 }
 
 @media screen and (max-width: 700px) {
-  .wpcs-schedule .wpcs-session-type-session:before {
+  .wpcs-layout-table .wpcs-session-type-session:before {
     color: #909294;
     content: attr(data-track-title);
     border-bottom: 1px dashed #dee2e6;
@@ -122,93 +122,230 @@
 }
 
 @media screen and (max-width: 700px) {
-  .wpcs-schedule .wpcs-global-session .wpcs-session-type-session:before {
+  .wpcs-layout-table .wpcs-global-session .wpcs-session-type-session:before {
     display: none;
   }
 }
 
-.wpcs-schedule .wpcs-session-cell-content h3 {
+.wpcs-layout-table .wpcs-session-cell-content h3 {
   font-size: 26px;
   margin-bottom: 10px;
 }
 
 @media screen and (max-width: 700px) {
-  .wpcs-schedule .wpcs-session-title {
+  .wpcs-layout-table .wpcs-session-title {
     display: block;
     padding: 10px;
   }
 }
 
-.wpcs-schedule .wpcs-track-description,
-.wpcs-schedule .wpcs-session-speakers {
+.wpcs-layout-table .wpcs-track-description,
+.wpcs-layout-table .wpcs-session-speakers {
   display: inline-block;
 }
 
-.wpcs-schedule .wpcs-session-speakers:before {
+.wpcs-layout-table .wpcs-session-speakers:before {
   content: '- ';
 }
 
 @media screen and (max-width: 700px) {
-  .wpcs-schedule .wpcs-session-speakers:before {
+  .wpcs-layout-table .wpcs-session-speakers:before {
     font-style: italic;
   }
 }
 
 @media screen and (max-width: 700px) {
-  .wpcs-schedule .wpcs-session-speakers {
+  .wpcs-layout-table .wpcs-session-speakers {
     display: block;
     padding-left: 20px;
   }
 }
 
-.wpcs-schedule .wpcs-global-session {
+.wpcs-layout-table .wpcs-global-session {
   background: #f2f2f2;
 }
 
-.wpcs-schedule .wpcs-global-session td {
+.wpcs-layout-table .wpcs-global-session td {
   padding: 20px 0 !important;
 }
 
-.wpcs-schedule .wpcs-global-session-mainstage,
-.wpcs-schedule .wpcs-session-type-mainstage {
+.wpcs-layout-table .wpcs-global-session-mainstage,
+.wpcs-layout-table .wpcs-session-type-mainstage {
   background: #bfdcea;
 }
 
-.wpcs-schedule.wpcs-color-scheme-dark {
+.wpcs-layout-table.wpcs-color-scheme-dark {
   color: #ffffff;
 }
 
-.wpcs-schedule.wpcs-color-scheme-dark thead th {
+.wpcs-layout-table.wpcs-color-scheme-dark thead th {
   background: #212529;
   color: #ffffff;
 }
 
-.wpcs-schedule.wpcs-color-scheme-dark a {
+.wpcs-layout-table.wpcs-color-scheme-dark a {
   color: #ffffff;
 }
 
-.wpcs-schedule.wpcs-color-scheme-dark tr {
+.wpcs-layout-table.wpcs-color-scheme-dark tr {
   background-color: #212529;
 }
 
-.wpcs-schedule.wpcs-color-scheme-dark .wpcs-session-title {
+.wpcs-layout-table.wpcs-color-scheme-dark .wpcs-session-title {
   color: #ffffff;
 }
 
 @media screen and (max-width: 700px) {
-  .wpcs-schedule.wpcs-color-scheme-dark .wpcs-session-type-session:before {
+  .wpcs-layout-table.wpcs-color-scheme-dark .wpcs-session-type-session:before {
     border-bottom-color: #32383e;
     border-top-color: #32383e;
   }
 }
 
-.wpcs-schedule.wpcs-color-scheme-dark .wpcs-global-session {
+.wpcs-layout-table.wpcs-color-scheme-dark .wpcs-global-session {
   background: #2C2F33;
 }
 
-.wpcs-schedule.wpcs-color-scheme-dark .wpcs-global-session-mainstage,
-.wpcs-schedule.wpcs-color-scheme-dark .wpcs-session-type-mainstage {
+.wpcs-layout-table.wpcs-color-scheme-dark .wpcs-global-session-mainstage,
+.wpcs-layout-table.wpcs-color-scheme-dark .wpcs-session-type-mainstage {
   background: #4a4a4a;
+}
+
+.wpcs-layout-grid {
+  /* Small-screen & fallback styles */
+  /* .track-1 {
+		background-color: red;
+	}
+
+	.track-2 {
+		background-color: orange;
+	}
+
+	.track-3 {
+		background-color: yellow;
+	}
+
+	.track-4 {
+		background-color: green;
+	}
+
+	.track-5 {
+		background-color: blue;
+	} */
+}
+
+.wpcs-layout-grid .time-slot {
+  grid-column: times;
+  background-color: white;
+}
+
+.wpcs-layout-grid .track-slot {
+  display: none;
+  /* hidden on small screens and browsers without grid support */
+}
+
+@supports (display: grid) {
+  @media screen and (min-width: 700px) {
+    .wpcs-layout-grid .track-slot {
+      display: block;
+      padding: 10px 5px 5px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background-color: rgba(255, 255, 255, 0.9);
+    }
+  }
+}
+
+.wpcs-layout-grid .session {
+  margin-bottom: 1em;
+}
+
+.wpcs-layout-grid .session:hover {
+  z-index: 999999;
+}
+
+@supports (display: grid) {
+  @media screen and (min-width: 700px) {
+    .wpcs-layout-grid .session {
+      margin: 0;
+    }
+  }
+}
+
+.wpcs-layout-grid .session, .wpcs-layout-grid .mainstage {
+  padding: .5em;
+  border-radius: 2px;
+  font-size: 14px;
+  /* box-shadow:
+			rgba(255,255,255,.6) 1px 1px 0,
+			rgba(0,0,0,.1) 4px 4px 0; */
+  box-shadow: rgba(0, 0, 0, 0.1) 4px 4px 0;
+  background-color: rgba(242, 242, 242, 0.9);
+  border: solid 1px white;
+}
+
+.wpcs-layout-grid .mainstage {
+  background-color: rgba(191, 220, 234, 0.9);
+}
+
+.wpcs-layout-grid .session-title,
+.wpcs-layout-grid .session-time,
+.wpcs-layout-grid .session-track,
+.wpcs-layout-grid .session-presenter {
+  display: block;
+}
+
+.wpcs-layout-grid .session-title,
+.wpcs-layout-grid .time-slot {
+  margin: 0;
+  font-size: 1em;
+}
+
+.wpcs-layout-grid .session-title a {
+  text-decoration-style: dotted;
+}
+
+.wpcs-layout-grid .session-title a:hover {
+  font-style: italic;
+}
+
+.wpcs-layout-grid .session-title a:focus {
+  outline: 2px dotted rgba(255, 255, 255, 0.8);
+}
+
+.wpcs-layout-grid .track-slot,
+.wpcs-layout-grid .time-slot {
+  font-weight: bold;
+  font-size: .75em;
+}
+
+.wpcs-layout-grid .track-all {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #ccc;
+  color: #000;
+  box-shadow: none;
+}
+
+.wpcs-layout-grid .text {
+  max-width: 750px;
+  font-size: 18px;
+  margin: 0 auto 50px;
+}
+
+.wpcs-layout-grid .meta {
+  color: #555;
+  font-style: italic;
+}
+
+.wpcs-layout-grid .meta a {
+  color: #555;
+}
+
+.wpcs-layout-grid hr {
+  margin: 40px 0;
 }
 
 #conference_session_time {

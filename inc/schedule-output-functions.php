@@ -422,7 +422,7 @@ function wpcs_scheduleOutput( $props ) {
 
 		$html .= '<style>
 		@media screen and (min-width:700px) {
-			.schedule {
+			.wpcs-layout-grid {
 				display: grid;
 				grid-gap: 1em;
 				grid-template-rows:
@@ -467,7 +467,7 @@ function wpcs_scheduleOutput( $props ) {
 		}
 		</style>';
 
-		$html .= '<div class="schedule wpcs-schedule" wpcs-color-scheme-'.$attr['color_scheme'].' wpcs-layout-'.$attr['layout'].'" aria-labelledby="schedule-heading">';
+		$html .= '<div class="schedule wpcs-schedule wpcs-color-scheme-'.$attr['color_scheme'].' wpcs-layout-'.$attr['layout'].'" aria-labelledby="schedule-heading">';
 
 			foreach ($tracks as $track) {
 				$html .= '<span class="track-slot" aria-hidden="true" style="grid-column: '.$track->slug.'; grid-row: tracks;">'.$track->name.'</span>';
