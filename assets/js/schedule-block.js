@@ -46,6 +46,7 @@
 		attributes: {
 			date: {type: 'string', default: wpcs_dateFormatted(null)},
 			color_scheme: {type: 'string', default: 'light'},
+			layout: {type: 'string', default: 'table'},
 			session_link: {type: 'string', default: 'permalink'},
 			tracks: {type: 'string', default: null}
 		},
@@ -58,6 +59,7 @@
 
 			var date = props.attributes.date;
 			var color_scheme = props.attributes.color_scheme;
+			var layout = props.attributes.layout;
 			var session_link = props.attributes.session_link;
 			var tracks = props.attributes.tracks;
 			if(tracks != null){
@@ -119,6 +121,17 @@
 						],
 						onChange: function(value){
 							setAttributes({color_scheme: value});
+						}
+					}),
+					el(SelectControl, {
+						label: 'Layout',
+						value: layout,
+						options: [
+							{value: 'table', label: 'Table'},
+							{value: 'grid', label: 'Grid'},
+						],
+						onChange: function(value){
+							setAttributes({layout: value});
 						}
 					}),
 					el(SelectControl, {
