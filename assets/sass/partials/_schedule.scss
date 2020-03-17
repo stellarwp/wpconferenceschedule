@@ -3,6 +3,7 @@
 	border-spacing: 0px;
 	table-layout:fixed;
 	margin-bottom: 0;
+	border-bottom: 1px solid $color-gray-lighter;
 	@media screen and ( max-width: 700px ) {
 		border: none;
 		width: 100%;
@@ -16,6 +17,7 @@
 			padding-top: 10px;
 			padding-bottom: 10px;
 			border: 1px solid $color-gray-lighter;
+			border-bottom: none;
 		}
 		@media screen and ( max-width: 700px ) {
 			display: none;
@@ -40,7 +42,7 @@
 		td {
 			padding-top: 15px;
 			padding-bottom: 15px;
-			border: 1px solid $color-gray-lighter;
+			border: none;
 			white-space:pre-wrap;
   		word-break:break-word;
 			@media screen and ( max-width: 700px ) {
@@ -48,12 +50,24 @@
 			}
 		}
 	}
+	.wpcs-session-empty{
+		border-right: 1px solid $color-gray-lighter;
+		@media screen and ( max-width: 700px ) {
+			display: none;
+		}
+	}
 	.wpcs-time {
 		min-width: 105px;
+		border: 1px solid $color-gray-lighter;
+		border-bottom: 0px;
 		@media screen and ( max-width: 700px ) {
 			font-size: 22px;
 			padding: 0 16px;
 		}
+	}
+	[class*="wpcs-session-type-"]{
+		border-right: 1px solid $color-gray-lighter;
+		border-top: 1px solid $color-gray-lighter;
 	}
 	.wpcs-session-type-session {
 		@media screen and ( max-width: 700px ) {
@@ -126,7 +140,6 @@
 			th{
 				background: $color-gray-darkest;
 				color: $color-white;
-				border: 1px solid $color-gray-dark;
 			}
 		}
 		a{
@@ -136,7 +149,6 @@
 			background-color: $color-gray-darkest;
 		}
 		td {
-			border-color: $color-gray-dark;
 		}
 		.wpcs-session-title{
 			color: $color-white;

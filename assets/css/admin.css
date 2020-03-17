@@ -3,6 +3,7 @@
   border-spacing: 0px;
   table-layout: fixed;
   margin-bottom: 0;
+  border-bottom: 1px solid #dee2e6;
 }
 
 @media screen and (max-width: 700px) {
@@ -20,6 +21,7 @@
   padding-top: 10px;
   padding-bottom: 10px;
   border: 1px solid #dee2e6;
+  border-bottom: none;
 }
 
 @media screen and (max-width: 700px) {
@@ -59,7 +61,7 @@
 .wpcs-schedule tr td {
   padding-top: 15px;
   padding-bottom: 15px;
-  border: 1px solid #dee2e6;
+  border: none;
   white-space: pre-wrap;
   word-break: break-word;
 }
@@ -70,8 +72,20 @@
   }
 }
 
+.wpcs-schedule .wpcs-session-empty {
+  border-right: 1px solid #dee2e6;
+}
+
+@media screen and (max-width: 700px) {
+  .wpcs-schedule .wpcs-session-empty {
+    display: none;
+  }
+}
+
 .wpcs-schedule .wpcs-time {
   min-width: 105px;
+  border: 1px solid #dee2e6;
+  border-bottom: 0px;
 }
 
 @media screen and (max-width: 700px) {
@@ -79,6 +93,11 @@
     font-size: 22px;
     padding: 0 16px;
   }
+}
+
+.wpcs-schedule [class*="wpcs-session-type-"] {
+  border-right: 1px solid #dee2e6;
+  border-top: 1px solid #dee2e6;
 }
 
 @media screen and (max-width: 700px) {
@@ -162,7 +181,6 @@
 .wpcs-schedule.wpcs-color-scheme-dark thead th {
   background: #212529;
   color: #ffffff;
-  border: 1px solid #32383e;
 }
 
 .wpcs-schedule.wpcs-color-scheme-dark a {
@@ -171,10 +189,6 @@
 
 .wpcs-schedule.wpcs-color-scheme-dark tr {
   background-color: #212529;
-}
-
-.wpcs-schedule.wpcs-color-scheme-dark td {
-  border-color: #32383e;
 }
 
 .wpcs-schedule.wpcs-color-scheme-dark .wpcs-session-title {
