@@ -1571,6 +1571,14 @@
 		"oAP": "/inc/schedule-output-functions.php",
 		"oF": 0
 		},
+	"/inc/settings.php": {
+		"cB": 0,
+		"ft": 8192,
+		"hM": 0,
+		"oA": 0,
+		"oAP": "/inc/settings.php",
+		"oF": 0
+		},
 	"/inc/taxonomies.php": {
 		"cB": 0,
 		"ft": 8192,
