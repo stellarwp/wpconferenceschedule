@@ -18,6 +18,45 @@
  * Domain Path:       /languages
  */
 
+// Freemius
+if ( ! function_exists( 'wpcs_freemius' ) ) {
+	// Create a helper function for easy SDK access.
+	function wpcs_freemius() {
+		global $wpcs_freemius;
+
+		if ( ! isset( $wpcs_freemius ) ) {
+			// Include Freemius SDK.
+			require_once dirname(__FILE__) . '/freemius/start.php';
+
+			$wpcs_freemius = fs_dynamic_init( array(
+					'id'                  => '5738',
+					'slug'                => 'wp-conference-schedule',
+					'type'                => 'plugin',
+					'public_key'          => 'pk_8f9bb5d32e35584c2425014d6d6bd',
+					'is_premium'          => false,
+					'has_addons'          => false,
+					'has_paid_plans'      => false,
+					'menu'                => array(
+							'slug'           => 'wp-conference-schedule',
+							'account'        => false,
+							'contact'        => false,
+							'support'        => false,
+							'parent'         => array(
+									'slug' => 'options-general.php',
+					),
+				),
+			));
+		}
+
+		return $wpcs_freemius;
+	}
+
+	// Init Freemius.
+	wpcs_freemius();
+	// Signal that SDK was initiated.
+	do_action( 'wpcs_freemius_loaded' );
+}
+
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
 	die;
@@ -30,6 +69,7 @@ define( 'WPCS_DIR' , plugin_dir_path( __FILE__ ) );
 define( 'PLUGIN_FILE_URL' , __FILE__);
 
 // Includes
+//require_once( WPCS_DIR . 'inc/freemius.php' );
 require_once( WPCS_DIR . 'inc/post-types.php' );
 require_once( WPCS_DIR . 'inc/taxonomies.php' );
 require_once( WPCS_DIR . 'inc/schedule-output-functions.php' );
