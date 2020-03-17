@@ -53,6 +53,12 @@ get_header(); ?>
 					<div class="entry-content">
 						<?php the_content();?>
 					</div><!-- .entry-content -->
+					
+					<?php if(get_option('wpcs_field_schedule_page_url')){ ?>
+						<footer class="entry-footer">
+							<p><a href="<?php echo get_option('wpcs_field_schedule_page_url'); ?>">Return to Schedule</a></p>
+						</footer>
+					<?php } ?>
 
 				</article><!-- #post-${ID} -->
 
