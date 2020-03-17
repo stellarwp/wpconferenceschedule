@@ -355,6 +355,9 @@ function wpcs_scheduleOutput( $props ) {
 
 		$html .= '</tbody>';
 		$html .= '</table>';
+		if(get_option('wpcs_field_byline')){
+			$html .= '<div class="wpcs-promo"><small>Powered by <a href="https://wpconferenceschedule.com" target="_blank">WP Conference Schedule</a></small></div>';
+		}
 		$html .= '</div>';
 		return $html;
 
@@ -545,14 +548,11 @@ function wpcs_scheduleOutput( $props ) {
 
 			$html .= '<h2 class="time-slot" style="grid-row: time-0830;">8:30am</h2>';*/
 
-
-
-		
-
-
-
-
+			
 		$html .= '</div>';
+		if(get_option('wpcs_field_byline')){
+			$html .= '<div class="wpcs-promo"><small>Powered by <a href="https://wpconferenceschedule.com" target="_blank">WP Conference Schedule</a></small></div>';
+		}
 		
 		return $html;
 
