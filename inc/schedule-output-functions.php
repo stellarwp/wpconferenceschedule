@@ -363,10 +363,6 @@ function wpcs_scheduleOutput( $props ) {
 
 	}elseif($attr['layout'] == 'grid'){
 
-		/*echo '<pre>';
-			var_dump($sessions);
-		echo '</pre>';*/
-
 		$schedule_date = $attr['date'];
 		$time_format = get_option( 'time_format', 'g:i a' );
 
@@ -436,24 +432,15 @@ function wpcs_scheduleOutput( $props ) {
 					}
 
 					$html .= ';';
-					/*[time-0800] 1fr
-					[time-0830] 1fr
-					[time-0900] 1fr
-					[time-0930] 1fr
-					[time-1000] 1fr
-					[time-1030] 1fr
-					[time-1100] 1fr
-					[time-1130] 1fr
-					[time-1200] 1fr;*/
-
 
 				$html .= 'grid-template-columns: [times] 4em';
-				/*[track-1-start] 1fr
-					[track-1-end track-2-start] 1fr
-					[track-2-end track-3-start] 1fr
-					[track-3-end];*/
+
+					// Reset PHP Array Index
+					$tracks = array_values($tracks);
 
 					$len = count($tracks);
+
+					// Check the above var dump for issue
 					for ($i=0; $i < ($len); $i++) {
 						if($i == 0){
 							$html .= '['.$tracks[$i]->slug.'-start] 1fr';
@@ -464,27 +451,34 @@ function wpcs_scheduleOutput( $props ) {
 							$html .= '['.$tracks[($i-1)]->slug.'-end '.$tracks[$i]->slug.'-start] 1fr';
 						}
 					}
+
+					$html .= ';';
 					
 					$html .= '
 			}
 		}
 		</style>';
 
+		// Schedule Wrapper
 		$html .= '<div class="schedule wpcs-schedule wpcs-color-scheme-'.$attr['color_scheme'].' wpcs-layout-'.$attr['layout'].'" aria-labelledby="schedule-heading">';
 
+			// Track Titles
 			foreach ($tracks as $track) {
-				$html .= '<span class="track-slot" aria-hidden="true" style="grid-column: '.$track->slug.'; grid-row: tracks;">'.$track->name.'</span>';
+				//$html .= '<span class="wpcs-track-name track-slot" aria-hidden="true" style="grid-column: '.$track->slug.'; grid-row: tracks;">'.$track->name.'</span>';
+
+				$html .= sprintf(
+				'<span class="wpcs-col-track" style="grid-column: '.$track->slug.'; grid-row: tracks;"> <span class="wpcs-track-name">%s</span> <span class="wpcs-track-description">%s</span> </span>',
+				isset( $track->term_id ) ? esc_html( $track->name ) : '',
+				isset( $track->term_id ) ? esc_html( $track->description ) : ''
+			);
 			}
 
+			// Time Slots
 			foreach ($array_times as $array_time) {
-				
-				$html .= '<h2 class="time-slot" style="grid-row: time-'.$array_time.';">'.date( $time_format, $array_time ).'</h2>';
-				
-					
-				
-
+				$html .= '<h2 class="wpcs-time" style="grid-row: time-'.$array_time.';">'.date( $time_format, $array_time ).'</h2>';
 			}
 
+			// Sessions
 			$query_args['meta_query'][] = array(
 				'key'     => '_wpcs_session_time',
 				'value'   => array(
@@ -497,8 +491,8 @@ function wpcs_scheduleOutput( $props ) {
 
 			$sessions_query = new WP_Query( $query_args );
 
-			//$array_times = array();
 			foreach ( $sessions_query->posts as $session ) {
+				$classes = array();
 				$session              = get_post( $session );
 				$session_url					= get_the_permalink($session->ID);
 				$session_title        = apply_filters( 'the_title', $session->post_title );
@@ -509,46 +503,85 @@ function wpcs_scheduleOutput( $props ) {
 				$start_time         	= get_post_meta( $session->ID, '_wpcs_session_time', true );
 				$end_time         		= get_post_meta( $session->ID, '_wpcs_session_end_time', true );
 
+				if ( ! in_array( $session_type, array( 'session', 'custom', 'mainstage') ) ) {
+					$session_type = 'session';
+				}
+
 				$tracks_array = array();
-				foreach ($session_tracks as $session_track) {
-					$tracks_array.array_push($tracks_array, $session_track->slug);
+				if($session_tracks){
+					foreach ($session_tracks as $session_track) {
+
+						// Check if the session track is in the main tracks array.
+						if($track){
+							$remove_track = false;
+							foreach ($tracks as $track){
+								if($track->slug == $session_track->slug){
+									$remove_track = true;
+								}
+							}
+						}
+						
+						// Don't save session track if track doesn't exist.
+						if($remove_track == true){
+							$tracks_array.array_push($tracks_array, $session_track->slug);
+						}
+
+					}
 				}
 				$tracks_classes = implode(" ", $tracks_array);
 
-				$tracks_array_length = count($tracks_array);
+				// Add CSS classes to help with custom styles
+				if ( is_array( $session_tracks ) ) {
+					foreach ( $session_tracks as $session_track ) {
+						$classes[] = 'wpcs-track-' . $session_track->slug;
+					}
+				}
+				$classes[] = 'wpcs-session-type-' . $session_type;
+				$classes[] = 'wpcs-session-' . $session->post_name;
+
+				$tracks_array_length = esc_attr(count($tracks_array));
 
 				$grid_column_end = '';
 				if($tracks_array_length != 1){
 					$grid_column_end = ' / '.$tracks_array[$tracks_array_length-1];
 				}
 
-				$html .= '<div class="'.$session_type.' session-1 '.$tracks_classes.'" style="grid-column: '.$tracks_array[0].$grid_column_end.'; grid-row: time-'.$start_time.' / time-'.$end_time.';">';
-					$html .= '<h3 class="session-title"><a href="'.$session_url.'">'.$session_title.'</a></h3>';
+				$html .= '<div class="'.esc_attr( implode( ' ', $classes ) ).' '.$tracks_classes.'" style="grid-column: '.$tracks_array[0].$grid_column_end.'; grid-row: time-'.$start_time.' / time-'.$end_time.';">';
+					/*$html .= '<h3 class="session-title"><a href="'.$session_url.'">'.$session_title.'</a></h3>';
 					$html .= '<span class="session-time">'.date( $time_format, $start_time ).' - '.date( $time_format, $end_time ).'</span>';
 					$html .= '<span class="session-track">'.implode(", ", $tracks_array).'</span>';
-					$html .= '<span class="session-presenter">'.$speakers.'</span>';
+					$html .= '<span class="session-presenter">'.$speakers.'</span>';*/
+
+					$html .= '<div class="wpcs-session-cell-content">';
+						// Determine the session title
+						if ( 'permalink' == $attr['session_link'] && ('session' == $session_type || 'mainstage' == $session_type) )
+							$html .= sprintf( '<h3><a class="wpcs-session-title" href="%s">%s</a></h3>', esc_url( get_permalink( $session->ID ) ), $session_title );
+						elseif ( 'anchor' == $attr['session_link'] && ('session' == $session_type || 'mainstage' == $session_type) )
+							$html .= sprintf( '<h3><a class="wpcs-session-title" href="%s">%s</a></h3>', esc_url('#'.get_post_field( 'post_name', $session->ID ) ), $session_title );
+						else
+							$html .= sprintf( '<h3><span class="wpcs-session-title">%s</span></h3>', $session_title );
+
+						// Add time to the output string
+						$html .= '<div class="wpcs-session-time">'.date( $time_format, $start_time ).' - '.date( $time_format, $end_time ).'</div>';
+
+						// Add tracks to the output string
+						$html .= '<div class="wpcs-session-track">'.implode(", ", $tracks_array).'</div>';
+
+						// Add speakers names to the output string.
+						if ($speakers) {
+							$html .= sprintf( ' <div class="wpcs-session-speakers">%s</div>', esc_html($speakers));
+						}
+
+						// Session Content Footer Filter
+						$wpcs_session_content_footer = apply_filters( 'wpcs_session_content_footer', $session->ID);
+						$html .= ($wpcs_session_content_footer != $session->ID) ? $wpcs_session_content_footer : '';
+
+					$html .= '</div>';
+
+
 				$html .= '</div>';
 			}
 
-			/*$html .= '<h2 class="time-slot" style="grid-row: time-0800;">8:00am</h2>';
-
-			$html .= '<div class="session session-1 track-1" style="grid-column: track-1; grid-row: time-0800 / time-0900;">';
-				$html .= '<h3 class="session-title"><a href="#">Talk Title</a></h3>';
-				$html .= '<span class="session-time">8:00 - 9:00</span>';
-				$html .= '<span class="session-track">Track: 1</span>';
-				$html .= '<span class="session-presenter">Presenter</span>';
-			$html .= '</div>';
-
-			$html .= '<div class="session session-2 track-2" style="grid-column: track-2 / track-3; grid-row: time-0800 / time-0830;">';
-				$html .= '<h3 class="session-title"><a href="#">Talk Title</a></h3>';
-				$html .= '<span class="session-time">8:00 - 8:30</span>';
-				$html .= '<span class="session-track">Track: 2</span>';
-				$html .= '<span class="session-presenter">Presenter</span>';
-			$html .= '</div>';
-
-			$html .= '<h2 class="time-slot" style="grid-row: time-0830;">8:30am</h2>';*/
-
-			
 		$html .= '</div>';
 		if(get_option('wpcs_field_byline')){
 			$html .= '<div class="wpcs-promo"><small>Powered by <a href="https://wpconferenceschedule.com" target="_blank">WP Conference Schedule</a></small></div>';

@@ -169,146 +169,142 @@
 	}
 }
 
-
-
-
-
-
 .wpcs-layout-grid{
-
-	.time-slot {
-		grid-column: times;
-		background-color: white;
+	
+	.wpcs-session-empty{
 	}
 
-	.track-slot {
-		display: none; /* hidden on small screens and browsers without grid support */
-		//background-color: $color-gray-lightest !important;
+	.wpcs-time{
+		display: none;
+		@media screen and (min-width: 700px) {
+			display: block;
+			grid-column: times;
+			background-color: white;
+			margin: 0;
+			font-size: 1em;
+			font-weight: bold;
+			font-size:.75em;
+		}
 	}
 
-	@supports( display:grid ) {
-		@media screen and (min-width:700px) {
-			.track-slot {
+	.wpcs-col-track{
+		display: none;
+		@supports( display:grid ){
+			@media screen and (min-width:700px){
 				display: block;
 				padding: 10px 5px 5px;
 				position: sticky;
 				top: 0;
 				z-index: 1000;
 				background-color: rgba(255,255,255,.9);
+				font-weight: bold;
+				font-size:.75em;
 			}
 		}
 	}
 
-	/* Small-screen & fallback styles */
-	.session {
+	[class*="wpcs-session-type-"]{
 		margin-bottom:  1em;
-		&:hover{
-			z-index: 999999;
-		}
-	}
-
-	@supports( display:grid ) {
-		@media screen and (min-width: 700px) {
-			.session {
-				margin: 0;
-			}	
-		}
-	}
-
-	.session, .mainstage{
+		
 		padding: .5em;
 		border-radius: 2px;
 		font-size: 14px;
-		/* box-shadow:
-			rgba(255,255,255,.6) 1px 1px 0,
-			rgba(0,0,0,.1) 4px 4px 0; */
 		box-shadow: rgba(0,0,0,.1) 4px 4px 0;
 		background-color: rgba($color-gray-lightest,.9);
 		border: solid 1px white;
-	}
 
-	.mainstage{
-		background-color: rgba($color-blue-light,.9);
+		&:hover{
+			z-index: 999999;
+		}
+		@supports( display:grid ) {
+			@media screen and (min-width: 700px) {
+				margin: 0;
+			}
+		}
 	}
-
-	.session-title,
-	.session-time,
-	.session-track,
-	.session-presenter {
-		display: block;
+	.wpcs-session-type-session {
+		@media screen and ( max-width: 700px ) {
+		}
 	}
-
-	.session-title,
-	.time-slot {
-		margin: 0;
-		font-size: 1em;
+	.wpcs-session-type-session:before{
+		@media screen and ( max-width: 700px ) {
+			color: mix($color-gray-darkest, $color-white, 50%);
+			content: attr( data-track-title );
+			border-bottom: 1px dashed $color-gray-lighter;
+			border-top: 1px dashed $color-gray-lighter;
+			display: block;
+			font-size: 110%;
+			line-height: 1;
+			margin-bottom: 8px;
+			padding: 3px 10px;
+		}
 	}
-
-	.session-title a {
-		//color: #fff;
+	.wpcs-global-session .wpcs-session-type-session:before {
+		@media screen and ( max-width: 700px ) {
+			display: none;
+		}
+	}
+	.wpcs-session-cell-content{
+		h3{
+			margin: 0;
+			font-size: 1em;
+		}
+	}
+	.wpcs-session-title {
 		text-decoration-style: dotted;
-		
 		&:hover {
 			font-style: italic;
 		}
-		
 		&:focus {
 			outline: 2px dotted rgba(255,255,255,.8);
 		}
 	}
-
-	.track-slot,
-	.time-slot {
-		font-weight: bold;
-		font-size:.75em;
+	.wpcs-track-description, 
+	.wpcs-session-speakers {
 	}
-
-	/* .track-1 {
-		background-color: red;
+	.wpcs-session-speakers {
+		&:before{
+			content: '- ';
+			@media screen and ( max-width: 700px ) {
+				//content: "Speaker: ";
+				font-style: italic;
+			}
+		}
+		@media screen and ( max-width: 700px ) {
+			display: block;
+		}
 	}
-
-	.track-2 {
-		background-color: orange;
+	.wpcs-global-session {
+		background: $color-gray-lightest;
+		td {
+			padding: 20px 0 !important;
+		}
 	}
-
-	.track-3 {
-		background-color: yellow;
+	.wpcs-global-session-mainstage,
+	.wpcs-session-type-mainstage{
+		background: $color-blue-light;
 	}
-
-	.track-4 {
-		background-color: green;
+	&.wpcs-color-scheme-light{
 	}
-
-	.track-5 {
-		background-color: blue;
-	} */
-
-	.track-all {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		background: #ccc;
-		color: #000;
-		box-shadow: none;
+	&.wpcs-color-scheme-dark{
+		a{
+			color: $color-white;
+		}
+		[class*="wpcs-session-type-"]{
+			background-color: $color-gray-darkest;
+		}
+		.wpcs-session-cell-content{
+			color: $color-white;
+		}
+		.wpcs-session-title{
+			color: $color-white;
+		}
+		.wpcs-global-session {
+			background: $color-gray-darker;
+		}
+		.wpcs-global-session-mainstage,
+		.wpcs-session-type-mainstage{
+			background: $color-gray-light;
+		}
 	}
-
-	.text {
-		max-width: 750px;
-		font-size: 18px;
-		margin: 0 auto 50px;
-	}
-
-	.meta {
-		color: #555;
-		font-style: italic;
-	}
-
-	.meta a {
-		color: #555;
-	}
-
-	hr {
-		margin: 40px 0;
-	}
-
 }
