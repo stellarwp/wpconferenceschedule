@@ -219,7 +219,7 @@
   .wpcs-layout-grid .wpcs-time {
     display: block;
     grid-column: times;
-    background-color: white;
+    background-color: transparent;
     margin: 0;
     font-size: 1em;
     font-weight: bold;
@@ -239,7 +239,7 @@
       position: sticky;
       top: 0;
       z-index: 1000;
-      background-color: rgba(255, 255, 255, 0.9);
+      background-color: transparent;
       font-weight: bold;
       font-size: .75em;
     }
@@ -252,12 +252,8 @@
   border-radius: 2px;
   font-size: 14px;
   box-shadow: rgba(0, 0, 0, 0.1) 4px 4px 0;
-  background-color: rgba(242, 242, 242, 0.9);
+  background-color: #f2f2f2;
   border: solid 1px white;
-}
-
-.wpcs-layout-grid [class*="wpcs-session-type-"]:hover {
-  z-index: 999999;
 }
 
 @supports (display: grid) {
@@ -319,6 +315,7 @@
 }
 
 .wpcs-layout-grid.wpcs-color-scheme-dark [class*="wpcs-session-type-"] {
+  border: solid 1px black;
   background-color: #212529;
 }
 

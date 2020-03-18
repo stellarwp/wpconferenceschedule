@@ -179,7 +179,7 @@
 		@media screen and (min-width: 700px) {
 			display: block;
 			grid-column: times;
-			background-color: white;
+			background-color: transparent;
 			margin: 0;
 			font-size: 1em;
 			font-weight: bold;
@@ -196,7 +196,7 @@
 				position: sticky;
 				top: 0;
 				z-index: 1000;
-				background-color: rgba(255,255,255,.9);
+				background-color: transparent;
 				font-weight: bold;
 				font-size:.75em;
 			}
@@ -205,16 +205,13 @@
 
 	[class*="wpcs-session-type-"]{
 		margin-bottom:  1em;
-		
 		padding: .5em;
 		border-radius: 2px;
 		font-size: 14px;
 		box-shadow: rgba(0,0,0,.1) 4px 4px 0;
-		background-color: rgba($color-gray-lightest,.9);
+		background-color: rgba($color-gray-lightest,1);
 		border: solid 1px white;
-
 		&:hover{
-			z-index: 999999;
 		}
 		@supports( display:grid ) {
 			@media screen and (min-width: 700px) {
@@ -273,6 +270,7 @@
 			color: $color-white;
 		}
 		[class*="wpcs-session-type-"]{
+			border: solid 1px black;
 			background-color: $color-gray-darkest;
 		}
 		.wpcs-session-cell-content{

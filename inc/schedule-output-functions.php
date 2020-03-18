@@ -420,7 +420,10 @@ function wpcs_scheduleOutput( $props ) {
 			
 		}
 		asort( $array_times );
-
+		// Reset PHP Array Index
+		$array_times = array_values($array_times);
+		// Remove last time item
+		unset($array_times[count($array_times)-1]);
 
 		$html .= '<style>
 		@media screen and (min-width:700px) {
@@ -466,19 +469,21 @@ function wpcs_scheduleOutput( $props ) {
 		$html .= '<div class="schedule wpcs-schedule wpcs-color-scheme-'.$attr['color_scheme'].' wpcs-layout-'.$attr['layout'].'" aria-labelledby="schedule-heading">';
 
 			// Track Titles
-			foreach ($tracks as $track) {
-				//$html .= '<span class="wpcs-track-name track-slot" aria-hidden="true" style="grid-column: '.$track->slug.'; grid-row: tracks;">'.$track->name.'</span>';
-
-				$html .= sprintf(
-				'<span class="wpcs-col-track" style="grid-column: '.$track->slug.'; grid-row: tracks;"> <span class="wpcs-track-name">%s</span> <span class="wpcs-track-description">%s</span> </span>',
-				isset( $track->term_id ) ? esc_html( $track->name ) : '',
-				isset( $track->term_id ) ? esc_html( $track->description ) : ''
-			);
+			if($tracks){
+				foreach ($tracks as $track) {
+					$html .= sprintf(
+					'<span class="wpcs-col-track" style="grid-column: '.$track->slug.'; grid-row: tracks;"> <span class="wpcs-track-name">%s</span> <span class="wpcs-track-description">%s</span> </span>',
+					isset( $track->term_id ) ? esc_html( $track->name ) : '',
+					isset( $track->term_id ) ? esc_html( $track->description ) : ''
+					);
+				}
 			}
 
 			// Time Slots
-			foreach ($array_times as $array_time) {
-				$html .= '<h2 class="wpcs-time" style="grid-row: time-'.$array_time.';">'.date( $time_format, $array_time ).'</h2>';
+			if($array_times){
+				foreach ($array_times as $array_time) {
+					$html .= '<h2 class="wpcs-time" style="grid-row: time-'.$array_time.';">'.date( $time_format, $array_time ).'</h2>';
+				}
 			}
 
 			// Sessions
