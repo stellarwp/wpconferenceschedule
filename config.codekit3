@@ -47,6 +47,17 @@
 		"oF": 0,
 		"oS": 3
 		},
+	"/assets/js/schedule-block-min.js": {
+		"bF": 0,
+		"ft": 64,
+		"ma": 0,
+		"mi": 1,
+		"oA": 0,
+		"oAP": "/assets/js/schedule-block-min-min.js",
+		"oF": 0,
+		"sC": 3,
+		"tS": 0
+		},
 	"/assets/js/schedule-block.js": {
 		"bF": 0,
 		"ft": 64,

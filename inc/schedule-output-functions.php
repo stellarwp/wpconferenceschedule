@@ -369,6 +369,9 @@ function wpcs_scheduleOutput( $props ) {
 		$query_args = array(
 			'post_type'      => 'wpcs_session',
 			'posts_per_page' => - 1,
+			'meta_key' => '_wpcs_session_time',
+    	'orderby' => 'meta_value_num',
+    	'order' => 'ASC',
 			'meta_query'     => array(
 				'relation' => 'AND',
 				array(
@@ -547,10 +550,6 @@ function wpcs_scheduleOutput( $props ) {
 				}
 
 				$html .= '<div class="'.esc_attr( implode( ' ', $classes ) ).' '.$tracks_classes.'" style="grid-column: '.$tracks_array[0].$grid_column_end.'; grid-row: time-'.$start_time.' / time-'.$end_time.';">';
-					/*$html .= '<h3 class="session-title"><a href="'.$session_url.'">'.$session_title.'</a></h3>';
-					$html .= '<span class="session-time">'.date( $time_format, $start_time ).' - '.date( $time_format, $end_time ).'</span>';
-					$html .= '<span class="session-track">'.implode(", ", $tracks_array).'</span>';
-					$html .= '<span class="session-presenter">'.$speakers.'</span>';*/
 
 					$html .= '<div class="wpcs-session-cell-content">';
 						// Determine the session title

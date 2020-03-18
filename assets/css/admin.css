@@ -268,26 +268,6 @@
   }
 }
 
-@media screen and (max-width: 700px) {
-  .wpcs-layout-grid .wpcs-session-type-session:before {
-    color: #909294;
-    content: attr(data-track-title);
-    border-bottom: 1px dashed #dee2e6;
-    border-top: 1px dashed #dee2e6;
-    display: block;
-    font-size: 110%;
-    line-height: 1;
-    margin-bottom: 8px;
-    padding: 3px 10px;
-  }
-}
-
-@media screen and (max-width: 700px) {
-  .wpcs-layout-grid .wpcs-global-session .wpcs-session-type-session:before {
-    display: none;
-  }
-}
-
 .wpcs-layout-grid .wpcs-session-cell-content h3 {
   margin: 0;
   font-size: 1em;

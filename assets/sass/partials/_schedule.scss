@@ -226,24 +226,6 @@
 		@media screen and ( max-width: 700px ) {
 		}
 	}
-	.wpcs-session-type-session:before{
-		@media screen and ( max-width: 700px ) {
-			color: mix($color-gray-darkest, $color-white, 50%);
-			content: attr( data-track-title );
-			border-bottom: 1px dashed $color-gray-lighter;
-			border-top: 1px dashed $color-gray-lighter;
-			display: block;
-			font-size: 110%;
-			line-height: 1;
-			margin-bottom: 8px;
-			padding: 3px 10px;
-		}
-	}
-	.wpcs-global-session .wpcs-session-type-session:before {
-		@media screen and ( max-width: 700px ) {
-			display: none;
-		}
-	}
 	.wpcs-session-cell-content{
 		h3{
 			margin: 0;
