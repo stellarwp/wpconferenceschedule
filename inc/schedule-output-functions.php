@@ -516,6 +516,7 @@ function wpcs_scheduleOutput( $props ) {
 				}
 
 				$tracks_array = array();
+				$tracks_names_array = array();
 				if($session_tracks){
 					foreach ($session_tracks as $session_track) {
 
@@ -532,6 +533,7 @@ function wpcs_scheduleOutput( $props ) {
 						// Don't save session track if track doesn't exist.
 						if($remove_track == true){
 							$tracks_array.array_push($tracks_array, $session_track->slug);
+							$tracks_names_array.array_push($tracks_names_array, $session_track->name);
 						}
 
 					}
@@ -569,7 +571,7 @@ function wpcs_scheduleOutput( $props ) {
 						$html .= '<div class="wpcs-session-time">'.date( $time_format, $start_time ).' - '.date( $time_format, $end_time ).'</div>';
 
 						// Add tracks to the output string
-						$html .= '<div class="wpcs-session-track">'.implode(", ", $tracks_array).'</div>';
+						$html .= '<div class="wpcs-session-track">'.implode(", ", $tracks_names_array).'</div>';
 
 						// Add speakers names to the output string.
 						if ($speakers) {

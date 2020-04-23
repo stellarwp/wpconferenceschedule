@@ -335,3 +335,7 @@
 .wpcs-layout-grid.wpcs-color-scheme-dark .wpcs-session-type-mainstage {
   background: #4a4a4a;
 }
+
+.wpcs-promo {
+  text-align: right;
+}

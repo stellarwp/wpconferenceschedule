@@ -39,9 +39,17 @@ get_header(); ?>
 							if($session_date && $session_end_time)
 								echo '<h2> '.$session_date.' from '.date($time_format, $session_time).' to '.date($time_format, $session_end_time).'</h2>';
 
-							echo get_the_term_list( $post->ID, 'wpcs_track', '<strong>Track:</strong> ', ', ', '<br />');
-
-							echo get_the_term_list( $post->ID, 'wpcs_location', '<strong>Location:</strong> ', ', ', '<br />');
+							//get_the_term_list( $post->ID, 'wpcs_track', '<strong>Track:</strong> ', ', ', '<br />');
+							$tracks = get_the_term_list( $post->ID, 'wpcs_track', '', ', ', '');
+							if($tracks){
+								echo '<strong>Track: </strong>'.strip_tags($tracks).'<br />';
+							}
+							
+							//get_the_term_list( $post->ID, 'wpcs_location', '<strong>Location:</strong> ', ', ', '<br />');
+							$locations = get_the_term_list( $post->ID, 'wpcs_location', '<strong>Location:</strong> ', ', ', '<br />');
+							if($locations){
+								echo '<strong>Track: </strong>'.strip_tags($locations).'<br />';
+							}
 
 							if($session_speakers)
 								echo '<strong>Speaker:</strong> '.$session_speakers.'<br />';
@@ -55,7 +63,7 @@ get_header(); ?>
 					</div><!-- .entry-content -->
 					
 					<?php if(get_option('wpcs_field_schedule_page_url')){ ?>
-						<footer class="entry-footer">
+						<footer class="entry-footer">	
 							<p><a href="<?php echo get_option('wpcs_field_schedule_page_url'); ?>">Return to Schedule</a></p>
 						</footer>
 					<?php } ?>
