@@ -7,7 +7,7 @@
 		"uuidString": "01EBD127-047B-404D-8A87-BF86DA01A2A9"
 		}
 	],
-"creatorBuild": "31934",
+"creatorBuild": "32186",
 "files": {
 	"/.gitignore": {
 		"cB": 0,
@@ -73,66 +73,66 @@
 		"aP": 0,
 		"bl": 0,
 		"dP": 10,
-		"dS": 0,
+		"ec": 1,
 		"ft": 4,
 		"ma": 0,
 		"oA": 0,
 		"oAP": "/assets/css/admin.css",
 		"oF": 2,
 		"oS": 1,
-		"uL": 1
+		"sct": 1
 		},
 	"/assets/sass/partials/_schedule.scss": {
 		"aP": 0,
 		"bl": 0,
 		"dP": 10,
-		"dS": 0,
+		"ec": 1,
 		"ft": 4,
 		"ma": 0,
 		"oA": 1,
 		"oAP": "/assets/sass/partials/_schedule.css",
 		"oF": 0,
 		"oS": 0,
-		"uL": 1
+		"sct": 1
 		},
 	"/assets/sass/partials/_template.scss": {
 		"aP": 0,
 		"bl": 0,
 		"dP": 10,
-		"dS": 0,
+		"ec": 1,
 		"ft": 4,
 		"ma": 0,
 		"oA": 1,
 		"oAP": "/assets/sass/partials/_template.css",
 		"oF": 0,
 		"oS": 0,
-		"uL": 1
+		"sct": 1
 		},
 	"/assets/sass/partials/_variables.scss": {
 		"aP": 0,
 		"bl": 0,
 		"dP": 10,
-		"dS": 0,
+		"ec": 1,
 		"ft": 4,
 		"ma": 0,
 		"oA": 1,
 		"oAP": "/assets/sass/partials/_variables.css",
 		"oF": 0,
 		"oS": 0,
-		"uL": 1
+		"sct": 1
 		},
 	"/assets/sass/style.scss": {
 		"aP": 0,
 		"bl": 0,
 		"dP": 10,
-		"dS": 0,
+		"ec": 1,
 		"ft": 4,
 		"ma": 0,
 		"oA": 0,
 		"oAP": "/assets/css/style.css",
 		"oF": 2,
 		"oS": 1,
-		"uL": 1
+		"sct": 1
 		},
 	"/freemius/assets/css/admin/account.css": {
 		"aP": 1,
@@ -358,110 +358,6 @@
 		"oAP": "/freemius/config.php",
 		"oF": 0
 		},
-	"/freemius/includes/class-freemius-abstract.php": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/freemius/includes/class-freemius-abstract.php",
-		"oF": 0
-		},
-	"/freemius/includes/class-freemius.php": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/freemius/includes/class-freemius.php",
-		"oF": 0
-		},
-	"/freemius/includes/class-fs-admin-notices.php": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/freemius/includes/class-fs-admin-notices.php",
-		"oF": 0
-		},
-	"/freemius/includes/class-fs-api.php": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/freemius/includes/class-fs-api.php",
-		"oF": 0
-		},
-	"/freemius/includes/class-fs-logger.php": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/freemius/includes/class-fs-logger.php",
-		"oF": 0
-		},
-	"/freemius/includes/class-fs-options.php": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/freemius/includes/class-fs-options.php",
-		"oF": 0
-		},
-	"/freemius/includes/class-fs-plugin-updater.php": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/freemius/includes/class-fs-plugin-updater.php",
-		"oF": 0
-		},
-	"/freemius/includes/class-fs-security.php": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/freemius/includes/class-fs-security.php",
-		"oF": 0
-		},
-	"/freemius/includes/class-fs-storage.php": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/freemius/includes/class-fs-storage.php",
-		"oF": 0
-		},
-	"/freemius/includes/class-fs-user-lock.php": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/freemius/includes/class-fs-user-lock.php",
-		"oF": 0
-		},
-	"/freemius/includes/customizer/class-fs-customizer-support-section.php": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/freemius/includes/customizer/class-fs-customizer-support-section.php",
-		"oF": 0
-		},
-	"/freemius/includes/customizer/class-fs-customizer-upsell-control.php": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/freemius/includes/customizer/class-fs-customizer-upsell-control.php",
-		"oF": 0
-		},
-	"/freemius/includes/customizer/index.php": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/freemius/includes/customizer/index.php",
-		"oF": 0
-		},
 	"/freemius/includes/debug/class-fs-debug-bar-panel.php": {
 		"cB": 0,
 		"ft": 8192,
@@ -484,374 +380,6 @@
 		"hM": 0,
 		"oA": 0,
 		"oAP": "/freemius/includes/debug/index.php",
-		"oF": 0
-		},
-	"/freemius/includes/entities/class-fs-affiliate-terms.php": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/freemius/includes/entities/class-fs-affiliate-terms.php",
-		"oF": 0
-		},
-	"/freemius/includes/entities/class-fs-affiliate.php": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/freemius/includes/entities/class-fs-affiliate.php",
-		"oF": 0
-		},
-	"/freemius/includes/entities/class-fs-billing.php": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/freemius/includes/entities/class-fs-billing.php",
-		"oF": 0
-		},
-	"/freemius/includes/entities/class-fs-entity.php": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/freemius/includes/entities/class-fs-entity.php",
-		"oF": 0
-		},
-	"/freemius/includes/entities/class-fs-payment.php": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/freemius/includes/entities/class-fs-payment.php",
-		"oF": 0
-		},
-	"/freemius/includes/entities/class-fs-plugin-info.php": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/freemius/includes/entities/class-fs-plugin-info.php",
-		"oF": 0
-		},
-	"/freemius/includes/entities/class-fs-plugin-license.php": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/freemius/includes/entities/class-fs-plugin-license.php",
-		"oF": 0
-		},
-	"/freemius/includes/entities/class-fs-plugin-plan.php": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/freemius/includes/entities/class-fs-plugin-plan.php",
-		"oF": 0
-		},
-	"/freemius/includes/entities/class-fs-plugin-tag.php": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/freemius/includes/entities/class-fs-plugin-tag.php",
-		"oF": 0
-		},
-	"/freemius/includes/entities/class-fs-plugin.php": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/freemius/includes/entities/class-fs-plugin.php",
-		"oF": 0
-		},
-	"/freemius/includes/entities/class-fs-pricing.php": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/freemius/includes/entities/class-fs-pricing.php",
-		"oF": 0
-		},
-	"/freemius/includes/entities/class-fs-scope-entity.php": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/freemius/includes/entities/class-fs-scope-entity.php",
-		"oF": 0
-		},
-	"/freemius/includes/entities/class-fs-site.php": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/freemius/includes/entities/class-fs-site.php",
-		"oF": 0
-		},
-	"/freemius/includes/entities/class-fs-subscription.php": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/freemius/includes/entities/class-fs-subscription.php",
-		"oF": 0
-		},
-	"/freemius/includes/entities/class-fs-user.php": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/freemius/includes/entities/class-fs-user.php",
-		"oF": 0
-		},
-	"/freemius/includes/entities/index.php": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/freemius/includes/entities/index.php",
-		"oF": 0
-		},
-	"/freemius/includes/fs-core-functions.php": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/freemius/includes/fs-core-functions.php",
-		"oF": 0
-		},
-	"/freemius/includes/fs-essential-functions.php": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/freemius/includes/fs-essential-functions.php",
-		"oF": 0
-		},
-	"/freemius/includes/fs-plugin-info-dialog.php": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/freemius/includes/fs-plugin-info-dialog.php",
-		"oF": 0
-		},
-	"/freemius/includes/i18n.php": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/freemius/includes/i18n.php",
-		"oF": 0
-		},
-	"/freemius/includes/index.php": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/freemius/includes/index.php",
-		"oF": 0
-		},
-	"/freemius/includes/l10n.php": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/freemius/includes/l10n.php",
-		"oF": 0
-		},
-	"/freemius/includes/managers/class-fs-admin-menu-manager.php": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/freemius/includes/managers/class-fs-admin-menu-manager.php",
-		"oF": 0
-		},
-	"/freemius/includes/managers/class-fs-admin-notice-manager.php": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/freemius/includes/managers/class-fs-admin-notice-manager.php",
-		"oF": 0
-		},
-	"/freemius/includes/managers/class-fs-cache-manager.php": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/freemius/includes/managers/class-fs-cache-manager.php",
-		"oF": 0
-		},
-	"/freemius/includes/managers/class-fs-gdpr-manager.php": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/freemius/includes/managers/class-fs-gdpr-manager.php",
-		"oF": 0
-		},
-	"/freemius/includes/managers/class-fs-key-value-storage.php": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/freemius/includes/managers/class-fs-key-value-storage.php",
-		"oF": 0
-		},
-	"/freemius/includes/managers/class-fs-license-manager.php": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/freemius/includes/managers/class-fs-license-manager.php",
-		"oF": 0
-		},
-	"/freemius/includes/managers/class-fs-option-manager.php": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/freemius/includes/managers/class-fs-option-manager.php",
-		"oF": 0
-		},
-	"/freemius/includes/managers/class-fs-plan-manager.php": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/freemius/includes/managers/class-fs-plan-manager.php",
-		"oF": 0
-		},
-	"/freemius/includes/managers/class-fs-plugin-manager.php": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/freemius/includes/managers/class-fs-plugin-manager.php",
-		"oF": 0
-		},
-	"/freemius/includes/managers/index.php": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/freemius/includes/managers/index.php",
-		"oF": 0
-		},
-	"/freemius/includes/sdk/Exceptions/ArgumentNotExistException.php": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/freemius/includes/sdk/Exceptions/ArgumentNotExistException.php",
-		"oF": 0
-		},
-	"/freemius/includes/sdk/Exceptions/EmptyArgumentException.php": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/freemius/includes/sdk/Exceptions/EmptyArgumentException.php",
-		"oF": 0
-		},
-	"/freemius/includes/sdk/Exceptions/Exception.php": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/freemius/includes/sdk/Exceptions/Exception.php",
-		"oF": 0
-		},
-	"/freemius/includes/sdk/Exceptions/index.php": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/freemius/includes/sdk/Exceptions/index.php",
-		"oF": 0
-		},
-	"/freemius/includes/sdk/Exceptions/InvalidArgumentException.php": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/freemius/includes/sdk/Exceptions/InvalidArgumentException.php",
-		"oF": 0
-		},
-	"/freemius/includes/sdk/Exceptions/OAuthException.php": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/freemius/includes/sdk/Exceptions/OAuthException.php",
-		"oF": 0
-		},
-	"/freemius/includes/sdk/FreemiusBase.php": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/freemius/includes/sdk/FreemiusBase.php",
-		"oF": 0
-		},
-	"/freemius/includes/sdk/FreemiusWordPress.php": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/freemius/includes/sdk/FreemiusWordPress.php",
-		"oF": 0
-		},
-	"/freemius/includes/sdk/index.php": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/freemius/includes/sdk/index.php",
-		"oF": 0
-		},
-	"/freemius/includes/sdk/LICENSE.txt": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/freemius/includes/sdk/LICENSE.txt",
-		"oF": 0
-		},
-	"/freemius/includes/supplements/fs-essential-functions-1.1.7.1.php": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/freemius/includes/supplements/fs-essential-functions-1.1.7.1.php",
-		"oF": 0
-		},
-	"/freemius/includes/supplements/fs-essential-functions-2.2.1.php": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/freemius/includes/supplements/fs-essential-functions-2.2.1.php",
-		"oF": 0
-		},
-	"/freemius/includes/supplements/index.php": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/freemius/includes/supplements/index.php",
-		"oF": 0
-		},
-	"/freemius/index.php": {
-		"cB": 0,
-		"ft": 8192,
-		"hM": 0,
-		"oA": 0,
-		"oAP": "/freemius/index.php",
 		"oF": 0
 		},
 	"/freemius/languages/freemius-cs_CZ.mo": {
@@ -2183,6 +1711,10 @@
 			"active": 0,
 			"optionString": ""
 			},
+		"default-case-last": {
+			"active": 0,
+			"optionString": ""
+			},
 		"default-param-last": {
 			"active": 0,
 			"optionString": ""
@@ -2238,6 +1770,10 @@
 		"global-require": {
 			"active": 0,
 			"optionString": ""
+			},
+		"grouped-accessor-pairs": {
+			"active": 0,
+			"optionString": "'anyOrder'"
 			},
 		"guard-for-in": {
 			"active": 0,
@@ -2415,6 +1951,10 @@
 			"active": 1,
 			"optionString": "{'checkLoops': true}"
 			},
+		"no-constructor-return": {
+			"active": 0,
+			"optionString": ""
+			},
 		"no-continue": {
 			"active": 0,
 			"optionString": ""
@@ -2440,6 +1980,10 @@
 			"optionString": ""
 			},
 		"no-dupe-class-members": {
+			"active": 1,
+			"optionString": ""
+			},
+		"no-dupe-else-if": {
 			"active": 1,
 			"optionString": ""
 			},
@@ -2583,6 +2127,10 @@
 			"active": 0,
 			"optionString": ""
 			},
+		"no-loss-of-precision": {
+			"active": 0,
+			"optionString": ""
+			},
 		"no-magic-numbers": {
 			"active": 0,
 			"optionString": "{'ignore': [], 'ignoreArrayIndexes': true, 'enforceConst': false, 'detectObjects': false}"
@@ -2699,6 +2247,10 @@
 			"active": 1,
 			"optionString": ""
 			},
+		"no-restricted-exports": {
+			"active": 0,
+			"optionString": "{'restrictedNamedExports': []}"
+			},
 		"no-restricted-globals": {
 			"active": 0,
 			"optionString": "'event', 'fdescribe'"
@@ -2741,6 +2293,10 @@
 			},
 		"no-sequences": {
 			"active": 0,
+			"optionString": ""
+			},
+		"no-setter-return": {
+			"active": 1,
 			"optionString": ""
 			},
 		"no-shadow": {
@@ -2838,6 +2394,10 @@
 		"no-use-before-define": {
 			"active": 0,
 			"optionString": "{'functions': true, 'classes': true, 'variables': true}"
+			},
+		"no-useless-backreference": {
+			"active": 0,
+			"optionString": ""
 			},
 		"no-useless-call": {
 			"active": 0,
@@ -2946,6 +2506,10 @@
 		"prefer-destructuring": {
 			"active": 0,
 			"optionString": "{'array': true, 'object': true}, {'enforceForRenamedProperties': false}"
+			},
+		"prefer-exponentiation-operator": {
+			"active": 0,
+			"optionString": ""
 			},
 		"prefer-named-capture-group": {
 			"active": 0,
@@ -3643,13 +3207,13 @@
 		"autoOutputPathReplace1": "sass",
 		"autoOutputPathReplace2": "css",
 		"autoOutputPathStyle": 0,
+		"compilerType": 1,
 		"createSourceMap": 0,
-		"debugStyle": 0,
 		"decimalPrecision": 10,
+		"emitCharset": 1,
 		"outputStyle": 0,
 		"shouldRunAutoprefixer": 0,
-		"shouldRunBless": 0,
-		"useLibsass": 1
+		"shouldRunBless": 0
 		},
 	"languageDefaultsSLIM": {
 		"autoOutputAction": 0,
