@@ -4,7 +4,7 @@ Donate link: https://roadwarriorcreative.com/donate
 Tags: conference schedule, conference, schedule, event schedule, event, events, block, blocks, gutenberg, sessions, speakers, events, events calendar
 Requires at least: 5.0.0
 Tested up to: 5.6
-Stable tag: 1.0.8
+Stable tag: 1.0.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -90,6 +90,10 @@ Yes! We want to make our plugin work for you. If you need help regarding customi
 5. screenshot-5.png shows what the schedule looks like on mobile screens.
 
 == Changelog ==
+
+= 1.0.9 =
+* Added a custom ID to schedules with the Grid layout and used that for the generated CSS to allow multiple Grid layout schedules on the same page
+* Fixed an error in the Block Editor preview showing Invalid parameter(s): attributes. Block Editor previews now show properly
 
 = 1.0.8 =
 * Freemius Updated
