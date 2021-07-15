@@ -97,6 +97,7 @@ class WP_Conference_Schedule_Plugin {
 			'attributes' => array(
 				'date' => array('type' => 'string'),
 				'color_scheme' => array('type' => 'string'),
+				'layout' => array('type' => 'string'),
 				'session_link' => array('type' => 'string'),
 				'tracks' => array('type' => 'string'),
 				'align' => array('type' => 'string'),
@@ -143,9 +144,9 @@ class WP_Conference_Schedule_Plugin {
 		// Enqueues scripts and styles for session admin page
 		if ( 'wpcs_session' == $post_type ) {
 			wp_enqueue_script( 'jquery-ui-datepicker' );
-    	wp_register_style( 'jquery-ui', plugins_url( '/assets/css/jquery-ui.css', __FILE__ ) );
+			wp_register_style( 'jquery-ui', plugins_url( '/assets/css/jquery-ui.css', __FILE__ ) );
 
-    	wp_enqueue_style( 'jquery-ui' ); 
+			wp_enqueue_style( 'jquery-ui' ); 
 		}
 
 	}
@@ -422,12 +423,12 @@ class WP_Conference_Schedule_Plugin {
 	 * Enqueue blocks
 	 */
 	function wpcs_loadBlockFiles() {
-	  wp_enqueue_script(
-	    'schedule-block',
-	    plugin_dir_url(__FILE__) . 'assets/js/schedule-block.js',
-	    array('wp-blocks', 'wp-i18n', 'wp-editor'),
-	    true
-	  );
+		wp_enqueue_script(
+			'schedule-block',
+			plugin_dir_url(__FILE__) . 'assets/js/schedule-block.js',
+			array('wp-blocks', 'wp-i18n', 'wp-editor'),
+			true
+		);
 	}
 
 	/**
