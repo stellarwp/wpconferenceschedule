@@ -370,8 +370,8 @@ function wpcs_scheduleOutput( $props ) {
 			'post_type'      => 'wpcs_session',
 			'posts_per_page' => - 1,
 			'meta_key' => '_wpcs_session_time',
-    	'orderby' => 'meta_value_num',
-    	'order' => 'ASC',
+			'orderby' => 'meta_value_num',
+			'order' => 'ASC',
 			'meta_query'     => array(
 				'relation' => 'AND',
 				array(
@@ -427,7 +427,7 @@ function wpcs_scheduleOutput( $props ) {
 
 		$html .= '<style>
 		@media screen and (min-width:700px) {
-			.wpcs-layout-grid {
+			#wpcs_'.$array_times[0].'.wpcs-layout-grid {
 				display: grid;
 				grid-gap: 1em;
 				grid-template-rows:
@@ -466,7 +466,7 @@ function wpcs_scheduleOutput( $props ) {
 		</style>';
 
 		// Schedule Wrapper
-		$html .= '<div class="schedule wpcs-schedule wpcs-color-scheme-'.$attr['color_scheme'].' wpcs-layout-'.$attr['layout'].'" aria-labelledby="schedule-heading">';
+		$html .= '<div id="wpcs_'.$array_times[0].'" class="schedule wpcs-schedule wpcs-color-scheme-'.$attr['color_scheme'].' wpcs-layout-'.$attr['layout'].'" aria-labelledby="schedule-heading">';
 
 			// Track Titles
 			if($tracks){
