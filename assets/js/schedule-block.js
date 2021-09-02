@@ -8,7 +8,7 @@
 	var withState = wp.compose.withState;
 	var el = wp.element.createElement;
 	var ServerSideRender = wp.components.ServerSideRender;
-	var DatePicker = wp.components.DatePicker;
+	var DatePicker = wp.components.DateTimePicker;
 	var __ = wp.i18n.__;
 	//var RichText = wp.editor.RichText;
 	//var AlignmentToolbar = wp.editor.AlignmentToolbar;
@@ -30,7 +30,7 @@
 
 	const trackTermsArray = [];
 	wp.apiFetch({path: "/wp/v2/session_track"}).then(posts => {
-		$.each( posts, function( key, val ) {
+		posts.forEach(function(val, key){
 			trackTermsArray.push({id:val.id,name:val.name,slug:val.slug});
 		});
 	});
