@@ -175,24 +175,24 @@ function wpcs_preprocess_schedule_attributes( $props ) {
 	if($props):
 
 		// Set Attribute values base on props
-		if($props['date'])
+		if(isset($props['date']))
 			$attr['date'] = $props['date'];
 		
-		if($props['color_scheme'])
+		if(isset($props['color_scheme']))
 			$attr['color_scheme'] = $props['color_scheme'];
 
-		if($props['layout'])
+		if(isset($props['layout']))
 			$attr['layout'] = $props['layout'];
 		
-		if($props['session_link'])
+		if(isset($props['session_link']))
 			$attr['session_link'] = $props['session_link'];
 
-		if($props['align'] == 'wide')
+		if(isset($props['align']) && $props['align'] == 'wide')
 			$attr['align'] = 'alignwide';
-		elseif($props['align'] == 'full')
+		elseif(isset($props['align']) && $props['align'] == 'full')
 			$attr['align'] = 'alignfull';
 		
-		if($props['tracks'])
+		if(isset($props['tracks']))
 			$attr['tracks'] = $props['tracks'];
 
 		foreach ( array( 'tracks', 'session_link', 'color_scheme' ) as $key_for_case_sensitive_value ) {
