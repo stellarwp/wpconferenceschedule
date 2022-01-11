@@ -48,7 +48,7 @@ get_header(); ?>
 							//get_the_term_list( $post->ID, 'wpcs_location', '<strong>Location:</strong> ', ', ', '<br />');
 							$locations = get_the_term_list( $post->ID, 'wpcs_location', '<strong>Location:</strong> ', ', ', '<br />');
 							if($locations){
-								echo '<strong>Track: </strong>'.strip_tags($locations).'<br />';
+								echo $locations;
 							}
 
 							if($session_speakers)
