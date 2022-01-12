@@ -74,6 +74,7 @@ require_once( WPCS_DIR . 'inc/post-types.php' );
 require_once( WPCS_DIR . 'inc/taxonomies.php' );
 require_once( WPCS_DIR . 'inc/schedule-output-functions.php' );
 require_once( WPCS_DIR . 'inc/settings.php' );
+require_once( WPCS_DIR . '/cmb2/init.php');
 
 class WP_Conference_Schedule_Plugin {
 
@@ -90,6 +91,7 @@ class WP_Conference_Schedule_Plugin {
 		add_action( 'save_post', array( $this, 'wpcs_save_post_session' ), 10, 2 );
 		add_action( 'manage_posts_custom_column', array( $this, 'wpcs_manage_post_types_columns_output' ), 10, 2 );
 		add_action( 'add_meta_boxes', array( $this, 'wpcs_add_meta_boxes' ) );
+		add_action( 'cmb2_admin_init', array($this, 'wpcs_session_metabox' ) );
 		add_action('enqueue_block_editor_assets', array( $this, 'wpcs_loadBlockFiles' ) );
 		
 		register_block_type('wpcs/schedule-block', array(
@@ -193,6 +195,95 @@ class WP_Conference_Schedule_Plugin {
 	 */
 	function wpcs_shortcode_schedule( $attr, $content ) {
 		return wpcs_scheduleOutput( $attr );
+	}
+
+	public function wpcs_session_metabox() {
+
+		$cmb = new_cmb2_box( array(
+			'id'            => 'wpcs_session_metabox',
+			'title'         => __( 'Speaker Information', 'wpcsp' ),
+			'object_types'  => array( 'wpcs_session', ), // Post type
+			'context'       => 'normal',
+			'priority'      => 'high',
+			'show_names'    => true, // Show field names on the left
+			// 'cmb_styles' => false, // false to disable the CMB stylesheet
+			// 'closed'     => true, // Keep the metabox closed by default
+		) );
+
+		$cmb->add_field( array(
+			'name' => 'Date',
+			'id'   => '_wpcs_session_date',
+			'type' => 'text_date',
+			// 'timezone_meta_key' => 'wiki_test_timezone',
+			// 'date_format' => 'l jS \of F Y',
+		) );
+
+		$cmb->add_field( array(
+			'name' => 'Start Time',
+			'id' => '_wpcs_session_time',
+			'type' => 'text_time'
+			// Override default time-picker attributes:
+			// 'attributes' => array(
+			//     'data-timepicker' => json_encode( array(
+			//         'timeOnlyTitle' => __( 'Choose your Time', 'cmb2' ),
+			//         'timeFormat' => 'HH:mm',
+			//         'stepMinute' => 1, // 1 minute increments instead of the default 5
+			//     ) ),
+			// ),
+			// 'time_format' => 'h:i:s A',
+		) );
+
+		$cmb->add_field( array(
+			'name' => 'End Time',
+			'id' => '_wpcs_session_end_time',
+			'type' => 'text_time'
+			// Override default time-picker attributes:
+			// 'attributes' => array(
+			//     'data-timepicker' => json_encode( array(
+			//         'timeOnlyTitle' => __( 'Choose your Time', 'cmb2' ),
+			//         'timeFormat' => 'HH:mm',
+			//         'stepMinute' => 1, // 1 minute increments instead of the default 5
+			//     ) ),
+			// ),
+			// 'time_format' => 'h:i:s A',
+		) );
+
+		$cmb->add_field( array(
+			'name'             => 'Type',
+			//'desc'             => 'Select an option',
+			'id'               => '_wpcs_session_type',
+			'type'             => 'select',
+			'show_option_none' => false,
+			'default'          => 'session',
+			'options'          => array(
+				'session' => __( 'Regular Session', 'wpcs' ),
+				'mainstage'   => __( 'Mainstage', 'wpcs' ),
+				'custom'     => __( 'Break, Lunch, etc.', 'wpcs' ),
+			),
+		) );
+	
+		// Speaker Name(s)
+		$cmb->add_field( array(
+			'name'       => __( 'Speaker Name(s)', 'wpcsp' ),
+			//'desc'       => __( 'field description (optional)', 'wpcsp' ),
+			'id'         => '_wpcs_session_speakers',
+			'type'       => 'text',
+		) );
+
+		$cmb->add_field( array(
+			'name'    => 'Ingredients',
+			'id'      => $prefix . 'ingredients',
+			'desc'    => 'Select ingredients. Drag to reorder.',
+			'type'    => 'pw_multiselect',
+			'options' => array(
+				'flour'  => 'Flour',
+				'salt'   => 'Salt',
+				'eggs'   => 'Eggs',
+				'milk'   => 'Milk',
+				'butter' => 'Butter',
+			),
+		) );
+		
 	}
 
 	/**
