@@ -90,7 +90,7 @@ class WP_Conference_Schedule_Plugin {
 		add_action( 'wp_enqueue_scripts', array( $this, 'wpcs_enqueue_scripts' ) );
 		add_action( 'save_post', array( $this, 'wpcs_save_post_session' ), 10, 2 );
 		add_action( 'manage_posts_custom_column', array( $this, 'wpcs_manage_post_types_columns_output' ), 10, 2 );
-		add_action( 'add_meta_boxes', array( $this, 'wpcs_add_meta_boxes' ) );
+		//add_action( 'add_meta_boxes', array( $this, 'wpcs_add_meta_boxes' ) );
 		add_action( 'cmb2_admin_init', array($this, 'wpcs_session_metabox' ) );
 		add_action('enqueue_block_editor_assets', array( $this, 'wpcs_loadBlockFiles' ) );
 		
@@ -262,27 +262,18 @@ class WP_Conference_Schedule_Plugin {
 			),
 		) );
 	
-		// Speaker Name(s)
-		$cmb->add_field( array(
-			'name'       => __( 'Speaker Name(s)', 'wpcsp' ),
-			//'desc'       => __( 'field description (optional)', 'wpcsp' ),
-			'id'         => '_wpcs_session_speakers',
-			'type'       => 'text',
-		) );
-
-		$cmb->add_field( array(
-			'name'    => 'Ingredients',
-			'id'      => $prefix . 'ingredients',
-			'desc'    => 'Select ingredients. Drag to reorder.',
-			'type'    => 'pw_multiselect',
-			'options' => array(
-				'flour'  => 'Flour',
-				'salt'   => 'Salt',
-				'eggs'   => 'Eggs',
-				'milk'   => 'Milk',
-				'butter' => 'Butter',
-			),
-		) );
+		// filter speaker meta field
+		if(has_filter('edac_filter_session_speaker_meta_field')) {
+			$cmb = apply_filters('edac_filter_session_speaker_meta_field', $cmb);
+		}else{
+			// Speaker Name(s)
+			$cmb->add_field( array(
+				'name'       => __( 'Speaker Name(s)', 'wpcsp' ),
+				//'desc'       => __( 'field description (optional)', 'wpcsp' ),
+				'id'         => '_wpcs_session_speakers',
+				'type'       => 'text',
+			) );
+		}
 		
 	}
 
