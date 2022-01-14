@@ -263,8 +263,8 @@ class WP_Conference_Schedule_Plugin {
 		) );
 	
 		// filter speaker meta field
-		if(has_filter('edac_filter_session_speaker_meta_field')) {
-			$cmb = apply_filters('edac_filter_session_speaker_meta_field', $cmb);
+		if(has_filter('wpcs_filter_session_speaker_meta_field')) {
+			$cmb = apply_filters('wpcs_filter_session_speaker_meta_field', $cmb);
 		}else{
 			// Speaker Name(s)
 			$cmb->add_field( array(
