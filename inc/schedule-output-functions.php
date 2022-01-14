@@ -364,6 +364,7 @@ function wpcs_scheduleOutput( $props ) {
 
 	}elseif($attr['layout'] == 'grid'){
 
+		$html = '';
 		$schedule_date = $attr['date'];
 		$time_format = get_option( 'time_format', 'g:i a' );
 
@@ -508,7 +509,9 @@ function wpcs_scheduleOutput( $props ) {
 				$session_tracks       = get_the_terms( $session->ID, 'wpcs_track' );
 				$session_track_titles = is_array( $session_tracks ) ? implode( ', ', wp_list_pluck( $session_tracks, 'name' ) ) : '';
 				$session_type         = get_post_meta( $session->ID, '_wpcs_session_type', true );
-				$speakers         	  = get_post_meta( $session->ID, '_wpcs_session_speakers', true );
+				//$speakers         	  = get_post_meta( $session->ID, '_wpcs_session_speakers', true );
+				$speakers         	  = apply_filters( 'wpcs_filter_session_speakers',  get_post_meta( $session->ID, '_wpcs_session_speakers', true ), $session->ID);
+				
 				$start_time           = get_post_meta( $session->ID, '_wpcs_session_time', true );
 				$end_time         	  = get_post_meta( $session->ID, '_wpcs_session_end_time', true );
 				$minutes			  = ($end_time - $start_time) / 60;
