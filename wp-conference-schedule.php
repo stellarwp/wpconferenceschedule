@@ -90,8 +90,8 @@ class WP_Conference_Schedule_Plugin {
 		add_action( 'wp_enqueue_scripts', array( $this, 'wpcs_enqueue_scripts' ) );
 		add_action( 'save_post', array( $this, 'wpcs_save_post_session' ), 10, 2 );
 		add_action( 'manage_posts_custom_column', array( $this, 'wpcs_manage_post_types_columns_output' ), 10, 2 );
-		//add_action( 'add_meta_boxes', array( $this, 'wpcs_add_meta_boxes' ) );
-		add_action( 'cmb2_admin_init', array($this, 'wpcs_session_metabox' ) );
+		add_action( 'add_meta_boxes', array( $this, 'wpcs_add_meta_boxes' ) );
+		//add_action( 'cmb2_admin_init', array($this, 'wpcs_session_metabox' ) );
 		add_action('enqueue_block_editor_assets', array( $this, 'wpcs_loadBlockFiles' ) );
 		
 		register_block_type('wpcs/schedule-block', array(

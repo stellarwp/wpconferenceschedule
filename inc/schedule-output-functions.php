@@ -503,14 +503,15 @@ function wpcs_scheduleOutput( $props ) {
 			foreach ( $sessions_query->posts as $session ) {
 				$classes = array();
 				$session              = get_post( $session );
-				$session_url					= get_the_permalink($session->ID);
+				$session_url		  = get_the_permalink($session->ID);
 				$session_title        = apply_filters( 'the_title', $session->post_title );
 				$session_tracks       = get_the_terms( $session->ID, 'wpcs_track' );
 				$session_track_titles = is_array( $session_tracks ) ? implode( ', ', wp_list_pluck( $session_tracks, 'name' ) ) : '';
 				$session_type         = get_post_meta( $session->ID, '_wpcs_session_type', true );
-				$speakers         		= get_post_meta( $session->ID, '_wpcs_session_speakers', true );
-				$start_time         	= get_post_meta( $session->ID, '_wpcs_session_time', true );
-				$end_time         		= get_post_meta( $session->ID, '_wpcs_session_end_time', true );
+				$speakers         	  = get_post_meta( $session->ID, '_wpcs_session_speakers', true );
+				$start_time           = get_post_meta( $session->ID, '_wpcs_session_time', true );
+				$end_time         	  = get_post_meta( $session->ID, '_wpcs_session_end_time', true );
+				$minutes			  = ($end_time - $start_time) / 60;
 
 				if ( ! in_array( $session_type, array( 'session', 'custom', 'mainstage') ) ) {
 					$session_type = 'session';
@@ -569,7 +570,12 @@ function wpcs_scheduleOutput( $props ) {
 							$html .= sprintf( '<h3><span class="wpcs-session-title">%s</span></h3>', $session_title );
 
 						// Add time to the output string
-						$html .= '<div class="wpcs-session-time">'.date( $time_format, $start_time ).' - '.date( $time_format, $end_time ).'</div>';
+						$html .= '<div class="wpcs-session-time">';
+							$html .= date( $time_format, $start_time ).' - '.date( $time_format, $end_time );
+							if($minutes){
+								$html .= ' ('.$minutes.' min)';
+							}
+						$html .= '</div>';
 
 						// Add tracks to the output string
 						$html .= '<div class="wpcs-session-track">'.implode(", ", $tracks_names_array).'</div>';
