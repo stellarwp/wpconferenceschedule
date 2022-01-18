@@ -585,7 +585,7 @@ function wpcs_scheduleOutput( $props ) {
 
 						// Add speakers names to the output string.
 						if ($speakers) {
-							$html .= sprintf( ' <div class="wpcs-session-speakers">%s</div>', esc_html($speakers));
+							$html .= sprintf( ' <div class="wpcs-session-speakers">%s</div>', wp_specialchars_decode($speakers));
 						}
 
 						// Session Content Footer Filter
