@@ -90,8 +90,8 @@ class WP_Conference_Schedule_Plugin {
 		add_action( 'wp_enqueue_scripts', array( $this, 'wpcs_enqueue_scripts' ) );
 		add_action( 'save_post', array( $this, 'wpcs_save_post_session' ), 10, 2 );
 		add_action( 'manage_posts_custom_column', array( $this, 'wpcs_manage_post_types_columns_output' ), 10, 2 );
+		add_action( 'cmb2_admin_init', array($this, 'wpcs_session_metabox' ) );
 		add_action( 'add_meta_boxes', array( $this, 'wpcs_add_meta_boxes' ) );
-		//add_action( 'cmb2_admin_init', array($this, 'wpcs_session_metabox' ) );
 		add_action('enqueue_block_editor_assets', array( $this, 'wpcs_loadBlockFiles' ) );
 		
 		register_block_type('wpcs/schedule-block', array(
@@ -197,11 +197,28 @@ class WP_Conference_Schedule_Plugin {
 		return wpcs_scheduleOutput( $attr );
 	}
 
+	public function wpcs_update_session_date_meta(){
+		$post_id = null;
+		if(isset($_REQUEST['post']) || isset($_REQUEST['post_ID'])){
+			$post_id = empty($_REQUEST['post_ID']) ? $_REQUEST['post'] : $_REQUEST['post_ID'];  
+		}
+		$session_date = get_post_meta($post_id, '_wpcs_session_date',true);
+		$session_time = get_post_meta($post_id, '_wpcs_session_time',true);
+
+		/* var_dump($session_date);
+		var_dump($session_time);
+		var_dump($post_id); */
+
+		if($post_id && !$session_date && $session_time){
+			update_post_meta($post_id, '_wpcs_session_date', $session_time);
+		}
+	}
+
 	public function wpcs_session_metabox() {
 
 		$cmb = new_cmb2_box( array(
 			'id'            => 'wpcs_session_metabox',
-			'title'         => __( 'Speaker Information', 'wpcsp' ),
+			'title'         => __( 'Session Information', 'wpcsp' ),
 			'object_types'  => array( 'wpcs_session', ), // Post type
 			'context'       => 'normal',
 			'priority'      => 'high',
@@ -209,6 +226,8 @@ class WP_Conference_Schedule_Plugin {
 			// 'cmb_styles' => false, // false to disable the CMB stylesheet
 			// 'closed'     => true, // Keep the metabox closed by default
 		) );
+		
+		/* $this->wpcs_update_session_date_meta();
 
 		$cmb->add_field( array(
 			'name' => 'Date',
@@ -260,7 +279,7 @@ class WP_Conference_Schedule_Plugin {
 				'mainstage'   => __( 'Mainstage', 'wpcs' ),
 				'custom'     => __( 'Break, Lunch, etc.', 'wpcs' ),
 			),
-		) );
+		) ); */
 	
 		// filter speaker meta field
 		if(has_filter('wpcs_filter_session_speaker_meta_field')) {
@@ -363,10 +382,10 @@ class WP_Conference_Schedule_Plugin {
 			</select>
 		</p>
 
-		<p>
+		<!-- <p>
 			<label for="wpcs-session-speakers"><?php _e( 'Speaker Name(s):', 'wp-conference-schedule' ); ?></label>
 			<input type="text" class="widefat" id="wpcs-session-speakers" name="wpcs-session-speakers" value="<?php echo $session_speakers; ?>" />
-		</p>
+		</p> -->
 
 		<?php
 	}
