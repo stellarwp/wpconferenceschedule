@@ -68,6 +68,15 @@ define( 'WPCS_DIR' , plugin_dir_path( __FILE__ ) );
 // Plugin File URL
 define( 'PLUGIN_FILE_URL' , __FILE__);
 
+// Accessibility New Window Warning Plugin Active
+if ( ! defined( 'WPCSP_ACTIVE' ) ) {
+	if(is_plugin_active('wp-conference-schedule-pro/wp-conference-schedule-pro.php')){
+		define( 'WPCSP_ACTIVE', true );
+	}else{
+		define( 'WPCSP_ACTIVE', false );
+	}
+}
+
 // Includes
 //require_once( WPCS_DIR . 'inc/freemius.php' );
 require_once( WPCS_DIR . 'inc/post-types.php' );

@@ -217,6 +217,38 @@ function wpcs_preprocess_schedule_attributes( $props ) {
  */
 function wpcs_scheduleOutput( $props ) {
 
+	//WPCSP_ACTIVE
+	$output = '';
+	
+	$dates = explode(',',$props['date']);
+	if($dates){
+		if(count($dates) > 1){
+			$output .= '<div class="wpcsp-tabs tabs">';
+
+			$output .= '<div class="wpcsp-tabs-list" role="tablist" aria-label="Conference Schedule Tabs">';
+				$tab_count = 1;
+				foreach ($dates as $date) {
+					$tabindex = ($tab_count == 1) ? 0 : -1;
+					$selected = ($tab_count == 1) ? 'true' : 'false';
+					$output .= '<button class="wpcsp-tabs-list-button" role="tab" aria-selected="'.$selected.'" aria-controls="wpcsp-panel-'.$tab_count.'" id="tab-'.$tab_count.'" tabindex="'.$tabindex.'">'.date('l, F j',strtotime($date )).'</button>';
+					$tab_count++;
+				}
+			$output .= '</div>';
+		}
+
+		$panel_count = 1;
+		foreach ($dates as $date) {
+			$props['date'] = $date;
+
+			if(count($dates) > 1){
+				$props['date'] = $date;
+				$hidden = ($panel_count == 1) ? '' : 'hidden';
+
+				$output .= '<div class="wpcsp-tabs-panel" id="wpcsp-panel-'.$panel_count.'" role="tabpanel" tabindex="0" aria-labelledby="tab-'.$panel_count.'" '.$hidden.'>';
+				$panel_count++;
+			}
+
+
 	$attr                        = wpcs_preprocess_schedule_attributes( $props );
 	$tracks                      = wpcs_get_schedule_tracks( $attr['tracks'] );
 	$tracks_explicitly_specified = 'all' !== $attr['tracks'];
@@ -364,7 +396,7 @@ function wpcs_scheduleOutput( $props ) {
 			$html .= '<div class="wpcs-promo"><small>Powered by <a href="https://wpconferenceschedule.com" target="_blank">WP Conference Schedule</a></small></div>';
 		}
 		$html .= '</div>';
-		return $html;
+		$output .= $html;
 
 	}elseif($attr['layout'] == 'grid'){
 
@@ -612,8 +644,16 @@ function wpcs_scheduleOutput( $props ) {
 			$html .= '<div class="wpcs-promo"><small>Powered by <a href="https://wpconferenceschedule.com" target="_blank">WP Conference Schedule</a></small></div>';
 		}
 		
-		return $html;
+		$output .= $html;
 
 	}
+
+	$output .= '</div>';
+	}
+	}
+
+	if(count($dates) > 1) $output .= '</div"><!-- tabs -->';
+
+	return $output;
 
 }
