@@ -217,20 +217,29 @@ function wpcs_preprocess_schedule_attributes( $props ) {
  */
 function wpcs_scheduleOutput( $props ) {
 
-	//WPCSP_ACTIVE
 	$output = '';
 	
 	$dates = explode(',',$props['date']);
 	if($dates){
+		$current_tab = (isset($_GET['wpcs-tab']) && !empty($_GET['wpcs-tab'])) ? intval($_GET['wpcs-tab']) : null;
+
 		if(count($dates) > 1){
+
 			$output .= '<div class="wpcsp-tabs tabs">';
 
 			$output .= '<div class="wpcsp-tabs-list" role="tablist" aria-label="Conference Schedule Tabs">';
 				$tab_count = 1;
 				foreach ($dates as $date) {
-					$tabindex = ($tab_count == 1) ? 0 : -1;
-					$selected = ($tab_count == 1) ? 'true' : 'false';
-					$output .= '<button class="wpcsp-tabs-list-button" role="tab" aria-selected="'.$selected.'" aria-controls="wpcsp-panel-'.$tab_count.'" id="tab-'.$tab_count.'" tabindex="'.$tabindex.'">'.date('l, F j',strtotime($date )).'</button>';
+					
+					if($current_tab){
+						$tabindex = ($tab_count == $current_tab) ? 0 : -1;
+						$selected = ($tab_count == $current_tab) ? 'true' : 'false';
+					}else{
+						$tabindex = ($tab_count == 1) ? 0 : -1;
+						$selected = ($tab_count == 1) ? 'true' : 'false';
+					}
+
+					$output .= '<button class="wpcsp-tabs-list-button" role="tab" aria-selected="'.$selected.'" aria-controls="wpcsp-panel-'.$tab_count.'" id="tab-'.$tab_count.'" data-id="'.$tab_count.'" tabindex="'.$tabindex.'">'.date('l, F j',strtotime($date )).'</button>';
 					$tab_count++;
 				}
 			$output .= '</div>';
@@ -242,7 +251,12 @@ function wpcs_scheduleOutput( $props ) {
 
 			if(count($dates) > 1){
 				$props['date'] = $date;
-				$hidden = ($panel_count == 1) ? '' : 'hidden';
+
+				if($current_tab){
+					$hidden = ($panel_count == $current_tab) ? '' : 'hidden';
+				}else{
+					$hidden = ($panel_count == 1) ? '' : 'hidden';
+				}
 
 				$output .= '<div class="wpcsp-tabs-panel" id="wpcsp-panel-'.$panel_count.'" role="tabpanel" tabindex="0" aria-labelledby="tab-'.$panel_count.'" '.$hidden.'>';
 				$panel_count++;
