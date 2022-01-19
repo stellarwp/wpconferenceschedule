@@ -301,6 +301,10 @@ function wpcs_scheduleOutput( $props ) {
 				$content = '';
 				$content .= '<div class="wpcs-session-cell-content">';
 
+				// Session Content Header Filter
+				$wpcs_session_content_header = apply_filters( 'wpcs_session_content_header', $session->ID);
+				$content .= ($wpcs_session_content_header != $session->ID) ? $wpcs_session_content_header : '';
+
 				// Determine the session title
 				if ( 'permalink' == $attr['session_link'] && ('session' == $session_type || 'mainstage' == $session_type) )
 					$session_title_html = sprintf( '<h3><a class="wpcs-session-title" href="%s">%s</a></h3>', esc_url( get_permalink( $session->ID ) ), $session_title );
@@ -564,6 +568,11 @@ function wpcs_scheduleOutput( $props ) {
 				$html .= '<div class="'.esc_attr( implode( ' ', $classes ) ).' '.$tracks_classes.'" style="grid-column: '.$tracks_array[0].$grid_column_end.'; grid-row: time-'.$start_time.' / time-'.$end_time.';">';
 
 					$html .= '<div class="wpcs-session-cell-content">';
+
+						// Session Content Header Filter
+						$wpcs_session_content_header = apply_filters( 'wpcs_session_content_header', $session->ID);
+						$html .= ($wpcs_session_content_header != $session->ID) ? $wpcs_session_content_header : '';
+
 						// Determine the session title
 						if ( 'permalink' == $attr['session_link'] && ('session' == $session_type || 'mainstage' == $session_type) )
 							$html .= sprintf( '<h3><a class="wpcs-session-title" href="%s">%s</a></h3>', esc_url( get_permalink( $session->ID ) ), $session_title );

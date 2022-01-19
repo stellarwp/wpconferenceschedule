@@ -223,20 +223,8 @@
 .wpcs-promo {
   text-align: right; }
 
-.single-wpcs_session .wpsc-single-session-title {
-  font-size: 2em;
-  margin-bottom: 25px; }
+#conference_session_time {
+  width: 80px; }
 
-.single-wpcs_session .wpsc-single-session-time {
-  font-size: 1.5em;
-  margin-bottom: 25px; }
-
-.single-wpcs_session .wpsc-single-session-taxonomies {
-  list-style-type: none;
-  margin-left: 0;
-  padding: 0; }
-  .single-wpcs_session .wpsc-single-session-taxonomies-taxonomy {
-    display: inline;
-    margin-right: 20px; }
-    .single-wpcs_session .wpsc-single-session-taxonomies-taxonomy i {
-      margin-right: 4px; }
+#wpcs-session-date {
+  margin-bottom: 15px; }

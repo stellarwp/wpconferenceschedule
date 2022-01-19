@@ -179,6 +179,13 @@ class WP_Conference_Schedule_Plugin {
 
 	function wpcs_enqueue_scripts() {
 		wp_enqueue_style( 'wpcs_styles', plugins_url( '/assets/css/style.css', __FILE__ ), array(), 2 );
+
+		wp_enqueue_style(
+			'font-awesome',
+			'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css',
+			array(),
+			'1.0.0'
+		);
 	}
 
 	/**
