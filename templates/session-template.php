@@ -66,13 +66,15 @@ get_header(); ?>
 
 						</div><!-- .meta-info -->
 
-						<?php echo $session_speakers; ?>
+						<?php if(!WPCSP_ACTIVE) echo $session_speakers; ?>
 
 					</header>
 			
 					<div class="entry-content">
 						<?php the_content();?>
 					</div><!-- .entry-content -->
+
+					<?php if(WPCSP_ACTIVE) echo $session_speakers; ?>
 					
 					<?php if(get_option('wpcs_field_schedule_page_url')){ ?>
 						<footer class="entry-footer">	
