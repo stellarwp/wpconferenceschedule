@@ -631,7 +631,7 @@ function wpcs_scheduleOutput( $props ) {
 						$html .= '<div class="wpcs-session-time">';
 							$html .= date( $time_format, $start_time ).' - '.date( $time_format, $end_time );
 							if($minutes){
-								$html .= ' ('.$minutes.' min)';
+								$html .= '<span class="wpcs-session-time-duration"> ('.$minutes.' min)</span>';
 							}
 						$html .= '</div>';
 
