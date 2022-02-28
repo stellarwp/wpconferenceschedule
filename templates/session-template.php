@@ -13,68 +13,54 @@ get_header(); ?>
 
 			<?php
 			/* Start the Loop */
-			while ( have_posts() ) : the_post(); 
-				$time_format      = get_option( 'time_format', 'g:i a' );
-				$post             = get_post();
-				$session_time     = absint( get_post_meta( $post->ID, '_wpcs_session_time', true ) );
-				$session_end_time = absint( get_post_meta( $post->ID, '_wpcs_session_end_time', true ) );
-				$session_date     = ( $session_time ) ? date( 'F j, Y', $session_time ) : date( 'F j, Y' );
-				$session_type     = get_post_meta( $post->ID, '_wpcs_session_type', true );
-				$session_speakers_text = get_post_meta( $post->ID, '_wpcs_session_speakers',  true );
-				$session_speakers_html = ($session_speakers_text ) ? '<div class="wpsc-single-session-speakers"><strong>Speaker:</strong> '.$session_speakers_text .'</div>' : null;
-				$session_speakers = apply_filters( 'wpcs_filter_single_session_speakers', $session_speakers_html, $post->ID);
-				?>
+			while ( have_posts() ) : the_post(); ?>
 
-				<article id="post-<?php the_ID(); ?>" <?php post_class('wpsc-single-session'); ?>>
+				<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
 					<header class="entry-header">
 
-						<?php the_title( '<h1 class="entry-title wpsc-single-session-title">', '</h1>' ); ?>
+						<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
 
-						<?php
-						// Check if end time is available. This is for pre version 1.0.1 as the end time wasn't available.
-						if($session_date && !$session_end_time)
-							echo '<h2 class="wpsc-single-session-time"> '.$session_date.' at '.date($time_format, $session_time).'</h2>';
+						<div class="entry-meta">
+							<?php 
 
-						if($session_date && $session_end_time)
-							echo '<h2 class="wpsc-single-session-time"> '.$session_date.' from '.date($time_format, $session_time).' to '.date($time_format, $session_end_time).'</h2>';
-						?>
-						
-						<div class="entry-meta wpsc-single-session-meta">
-							<ul class="wpsc-single-session-taxonomies">
-								<?php 
-								$terms = get_the_terms(get_the_ID(), 'wpcs_track');
-								if ( !is_wp_error($terms)){
-									$term_names = wp_list_pluck($terms, 'name'); 
-									$terms = implode(", ", $term_names);
-									if($terms)
-										echo '<li class="wpsc-single-session-taxonomies-taxonomy wpsc-single-session-tracks"><i class="fas fa-columns"></i>'.$terms.'</li>';
-								}
+							$time_format      = get_option( 'time_format', 'g:i a' );
+							$post             = get_post();
+							$session_time     = absint( get_post_meta( $post->ID, '_wpcs_session_time', true ) );
+							$session_end_time = absint( get_post_meta( $post->ID, '_wpcs_session_end_time', true ) );
+							$session_date     = ( $session_time ) ? date( 'F j, Y', $session_time ) : date( 'F j, Y' );
+							$session_type     = get_post_meta( $post->ID, '_wpcs_session_type', true );
+							$session_speakers = get_post_meta( $post->ID, '_wpcs_session_speakers',  true );
 
-								$terms = get_the_terms(get_the_ID(), 'wpcs_location');
-								if ( !is_wp_error($terms)){
-									$term_names = wp_list_pluck($terms, 'name'); 
-									$terms = implode(", ", $term_names);
-									if($terms)
-										echo '<li class="wpsc-single-session-taxonomies-taxonomy  wpsc-single-session-location"><i class="fas fa-map-marker-alt"></i>'.$terms.'</li>';
-								}
+							// Check if end time is available. This is for pre version 1.0.1 as the end time wasn't available.
+							if($session_date && !$session_end_time)
+								echo '<h2> '.$session_date.' at '.date($time_format, $session_time).'</h2>';
 
-								do_action('wpsc_single_taxonomies');
-								
-								?>
-							</ul>
+							if($session_date && $session_end_time)
+								echo '<h2> '.$session_date.' from '.date($time_format, $session_time).' to '.date($time_format, $session_end_time).'</h2>';
 
+							//get_the_term_list( $post->ID, 'wpcs_track', '<strong>Track:</strong> ', ', ', '<br />');
+							$tracks = get_the_term_list( $post->ID, 'wpcs_track', '', ', ', '');
+							if($tracks){
+								echo '<strong>Track: </strong>'.strip_tags($tracks).'<br />';
+							}
+							
+							//get_the_term_list( $post->ID, 'wpcs_location', '<strong>Location:</strong> ', ', ', '<br />');
+							$locations = get_the_term_list( $post->ID, 'wpcs_location', '<strong>Location:</strong> ', ', ', '<br />');
+							if($locations){
+								echo $locations;
+							}
+
+							if($session_speakers)
+								echo '<strong>Speaker:</strong> '.$session_speakers.'<br />';
+							?>
 						</div><!-- .meta-info -->
-
-						<?php if(!WPCSP_ACTIVE) echo $session_speakers; ?>
-
+						
 					</header>
 			
 					<div class="entry-content">
 						<?php the_content();?>
 					</div><!-- .entry-content -->
-
-					<?php if(WPCSP_ACTIVE) echo $session_speakers; ?>
 					
 					<?php if(get_option('wpcs_field_schedule_page_url')){ ?>
 						<footer class="entry-footer">	
