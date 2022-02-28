@@ -47,6 +47,7 @@
 			date: {type: 'string', default: wpcs_dateFormatted(null)},
 			color_scheme: {type: 'string', default: 'light'},
 			layout: {type: 'string', default: 'table'},
+			row_height: {type: 'string', default: 'match'},
 			session_link: {type: 'string', default: 'permalink'},
 			tracks: {type: 'string', default: null}
 		},
@@ -60,6 +61,7 @@
 			var date = props.attributes.date;
 			var color_scheme = props.attributes.color_scheme;
 			var layout = props.attributes.layout;
+			var row_height = props.attributes.row_height;
 			var session_link = props.attributes.session_link;
 			var tracks = props.attributes.tracks;
 			if(tracks != null){
@@ -132,6 +134,17 @@
 						],
 						onChange: function(value){
 							setAttributes({layout: value});
+						}
+					}),
+					el(SelectControl, {
+						label: 'Row height',
+						value: row_height,
+						options: [
+							{value: 'match', label: 'Match'},
+							{value: 'auto', label: 'Auto'},
+						],
+						onChange: function(value){
+							setAttributes({row_height: value});
 						}
 					}),
 					el(SelectControl, {

@@ -168,7 +168,8 @@ function wpcs_preprocess_schedule_attributes( $props ) {
 		'session_link' => 'permalink', // permalink|anchor|none
 		'color_scheme' => 'light', // light/dark
 		'align'        => '', // alignwide|alignfull
-		'layout'       => 'table'
+		'layout'       => 'table',
+		'row_height'   => 'match',
 	);
 
 	// Check if props exist. Fixes PHP errors when shortcode doesn't have any attributes.
@@ -183,6 +184,9 @@ function wpcs_preprocess_schedule_attributes( $props ) {
 
 		if(isset($props['layout']))
 			$attr['layout'] = $props['layout'];
+
+		if(isset($props['row_height']))
+			$attr['row_height'] = $props['row_height'];
 		
 		if(isset($props['session_link']))
 			$attr['session_link'] = $props['session_link'];
@@ -477,6 +481,12 @@ function wpcs_scheduleOutput( $props ) {
 		// Remove last time item
 		unset($array_times[count($array_times)-1]);
 
+		if($attr['row_height'] == 'match'){
+			$row_height =	'1fr';
+		}elseif($attr['row_height'] == 'auto'){
+			$row_height =	'auto';
+		}
+
 		$html .= '<style>
 		@media screen and (min-width:700px) {
 			#wpcs_'.$array_times[0].'.wpcs-layout-grid {
@@ -486,7 +496,7 @@ function wpcs_scheduleOutput( $props ) {
 					[tracks] auto';
 
 					foreach ($array_times as $array_time) {
-						$html .= '[time-'.$array_time.'] 1fr';
+						$html .= '[time-'.$array_time.'] '.$row_height;
 					}
 
 					$html .= ';';
@@ -518,7 +528,7 @@ function wpcs_scheduleOutput( $props ) {
 		</style>';
 
 		// Schedule Wrapper
-		$html .= '<div id="wpcs_'.$array_times[0].'" class="schedule wpcs-schedule wpcs-color-scheme-'.$attr['color_scheme'].' wpcs-layout-'.$attr['layout'].'" aria-labelledby="schedule-heading">';
+		$html .= '<div id="wpcs_'.$array_times[0].'" class="schedule wpcs-schedule wpcs-color-scheme-'.$attr['color_scheme'].' wpcs-layout-'.$attr['layout'].' wpcs-row-height-'.$attr['row_height'].'" aria-labelledby="schedule-heading">';
 
 			// Track Titles
 			if($tracks){
