@@ -68,12 +68,22 @@ define( 'WPCS_DIR' , plugin_dir_path( __FILE__ ) );
 // Plugin File URL
 define( 'PLUGIN_FILE_URL' , __FILE__);
 
+// Accessibility New Window Warning Plugin Active
+if ( ! defined( 'WPCSP_ACTIVE' ) ) {
+	if(is_plugin_active('wp-conference-schedule-pro/wp-conference-schedule-pro.php')){
+		define( 'WPCSP_ACTIVE', true );
+	}else{
+		define( 'WPCSP_ACTIVE', false );
+	}
+}
+
 // Includes
 //require_once( WPCS_DIR . 'inc/freemius.php' );
 require_once( WPCS_DIR . 'inc/post-types.php' );
 require_once( WPCS_DIR . 'inc/taxonomies.php' );
 require_once( WPCS_DIR . 'inc/schedule-output-functions.php' );
 require_once( WPCS_DIR . 'inc/settings.php' );
+require_once( WPCS_DIR . '/cmb2/init.php');
 
 class WP_Conference_Schedule_Plugin {
 
@@ -89,6 +99,7 @@ class WP_Conference_Schedule_Plugin {
 		add_action( 'wp_enqueue_scripts', array( $this, 'wpcs_enqueue_scripts' ) );
 		add_action( 'save_post', array( $this, 'wpcs_save_post_session' ), 10, 2 );
 		add_action( 'manage_posts_custom_column', array( $this, 'wpcs_manage_post_types_columns_output' ), 10, 2 );
+		add_action( 'cmb2_admin_init', array($this, 'wpcs_session_metabox' ) );
 		add_action( 'add_meta_boxes', array( $this, 'wpcs_add_meta_boxes' ) );
 		add_action('enqueue_block_editor_assets', array( $this, 'wpcs_loadBlockFiles' ) );
 		
@@ -98,6 +109,7 @@ class WP_Conference_Schedule_Plugin {
 				'date' => array('type' => 'string'),
 				'color_scheme' => array('type' => 'string'),
 				'layout' => array('type' => 'string'),
+				'row_height' => array('type' => 'string'),
 				'session_link' => array('type' => 'string'),
 				'tracks' => array('type' => 'string'),
 				'align' => array('type' => 'string'),
@@ -177,6 +189,13 @@ class WP_Conference_Schedule_Plugin {
 
 	function wpcs_enqueue_scripts() {
 		wp_enqueue_style( 'wpcs_styles', plugins_url( '/assets/css/style.css', __FILE__ ), array(), 2 );
+
+		wp_enqueue_style(
+			'font-awesome',
+			'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css',
+			array(),
+			'1.0.0'
+		);
 	}
 
 	/**
@@ -193,6 +212,105 @@ class WP_Conference_Schedule_Plugin {
 	 */
 	function wpcs_shortcode_schedule( $attr, $content ) {
 		return wpcs_scheduleOutput( $attr );
+	}
+
+	public function wpcs_update_session_date_meta(){
+		$post_id = null;
+		if(isset($_REQUEST['post']) || isset($_REQUEST['post_ID'])){
+			$post_id = empty($_REQUEST['post_ID']) ? $_REQUEST['post'] : $_REQUEST['post_ID'];  
+		}
+		$session_date = get_post_meta($post_id, '_wpcs_session_date',true);
+		$session_time = get_post_meta($post_id, '_wpcs_session_time',true);
+
+		/* var_dump($session_date);
+		var_dump($session_time);
+		var_dump($post_id); */
+
+		if($post_id && !$session_date && $session_time){
+			update_post_meta($post_id, '_wpcs_session_date', $session_time);
+		}
+	}
+
+	public function wpcs_session_metabox() {
+
+		$cmb = new_cmb2_box( array(
+			'id'            => 'wpcs_session_metabox',
+			'title'         => __( 'Session Information', 'wpcsp' ),
+			'object_types'  => array( 'wpcs_session', ), // Post type
+			'context'       => 'normal',
+			'priority'      => 'high',
+			'show_names'    => true, // Show field names on the left
+			// 'cmb_styles' => false, // false to disable the CMB stylesheet
+			// 'closed'     => true, // Keep the metabox closed by default
+		) );
+		
+		/* $this->wpcs_update_session_date_meta();
+
+		$cmb->add_field( array(
+			'name' => 'Date',
+			'id'   => '_wpcs_session_date',
+			'type' => 'text_date',
+			// 'timezone_meta_key' => 'wiki_test_timezone',
+			// 'date_format' => 'l jS \of F Y',
+		) );
+
+		$cmb->add_field( array(
+			'name' => 'Start Time',
+			'id' => '_wpcs_session_time',
+			'type' => 'text_time'
+			// Override default time-picker attributes:
+			// 'attributes' => array(
+			//     'data-timepicker' => json_encode( array(
+			//         'timeOnlyTitle' => __( 'Choose your Time', 'cmb2' ),
+			//         'timeFormat' => 'HH:mm',
+			//         'stepMinute' => 1, // 1 minute increments instead of the default 5
+			//     ) ),
+			// ),
+			// 'time_format' => 'h:i:s A',
+		) );
+
+		$cmb->add_field( array(
+			'name' => 'End Time',
+			'id' => '_wpcs_session_end_time',
+			'type' => 'text_time'
+			// Override default time-picker attributes:
+			// 'attributes' => array(
+			//     'data-timepicker' => json_encode( array(
+			//         'timeOnlyTitle' => __( 'Choose your Time', 'cmb2' ),
+			//         'timeFormat' => 'HH:mm',
+			//         'stepMinute' => 1, // 1 minute increments instead of the default 5
+			//     ) ),
+			// ),
+			// 'time_format' => 'h:i:s A',
+		) );
+
+		$cmb->add_field( array(
+			'name'             => 'Type',
+			//'desc'             => 'Select an option',
+			'id'               => '_wpcs_session_type',
+			'type'             => 'select',
+			'show_option_none' => false,
+			'default'          => 'session',
+			'options'          => array(
+				'session' => __( 'Regular Session', 'wpcs' ),
+				'mainstage'   => __( 'Mainstage', 'wpcs' ),
+				'custom'     => __( 'Break, Lunch, etc.', 'wpcs' ),
+			),
+		) ); */
+	
+		// filter speaker meta field
+		if(has_filter('wpcs_filter_session_speaker_meta_field')) {
+			$cmb = apply_filters('wpcs_filter_session_speaker_meta_field', $cmb);
+		}else{
+			// Speaker Name(s)
+			$cmb->add_field( array(
+				'name'       => __( 'Speaker Name(s)', 'wpcsp' ),
+				//'desc'       => __( 'field description (optional)', 'wpcsp' ),
+				'id'         => '_wpcs_session_speakers',
+				'type'       => 'text',
+			) );
+		}
+		
 	}
 
 	/**
@@ -281,10 +399,10 @@ class WP_Conference_Schedule_Plugin {
 			</select>
 		</p>
 
-		<p>
+		<!-- <p>
 			<label for="wpcs-session-speakers"><?php _e( 'Speaker Name(s):', 'wp-conference-schedule' ); ?></label>
 			<input type="text" class="widefat" id="wpcs-session-speakers" name="wpcs-session-speakers" value="<?php echo $session_speakers; ?>" />
-		</p>
+		</p> -->
 
 		<?php
 	}
