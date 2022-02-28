@@ -23,9 +23,7 @@
 
 			notice.fadeOut( 'fast', function() {
 				var data = {
-					action   : 'fs_dismiss_notice_action_' + ajaxActionSuffix,
-                    // As such we don't need to use `wp_json_encode` method but using it to follow wp.org guideline.
-                    _wpnonce : <?php echo wp_json_encode( wp_create_nonce( 'fs_dismiss_notice_action' ) ); ?>,
+					action    : 'fs_dismiss_notice_action_' + ajaxActionSuffix,
 					message_id: id
 				};
 
