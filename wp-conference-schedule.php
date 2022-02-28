@@ -109,6 +109,7 @@ class WP_Conference_Schedule_Plugin {
 				'date' => array('type' => 'string'),
 				'color_scheme' => array('type' => 'string'),
 				'layout' => array('type' => 'string'),
+				'row_height' => array('type' => 'string'),
 				'session_link' => array('type' => 'string'),
 				'tracks' => array('type' => 'string'),
 				'align' => array('type' => 'string'),
