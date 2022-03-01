@@ -52,7 +52,7 @@ get_header(); ?>
 								}
 
 								$terms = get_the_terms(get_the_ID(), 'wpcs_location');
-								if ( !is_wp_error($terms)){
+								if ( !is_wp_error($terms) && !empty($terms)){
 									$term_names = wp_list_pluck($terms, 'name'); 
 									$terms = implode(", ", $term_names);
 									if($terms)
@@ -70,46 +70,45 @@ get_header(); ?>
 
 					</header>
 					<?php
-						if(is_plugin_active('wp-conference-schedule-pro/wp-conference-schedule-pro.php')){
-							$sponser_list = get_post_meta($post->ID,'sponser_list',true);
-							if(!empty($sponser_list)){
-					?>
-					<div class="sponsor_wrap">
-						<h2>Presented by:</h2>
-						<div class="sponsor_row">
-							<?php
-								$sponser_url = "";
-								$target = "";
-								foreach($sponser_list as $sponser_li){ 
-									$sponsor_img = get_the_post_thumbnail_url($sponser_li);
-									if(!empty($sponsor_img)){
-										$sponsor_url = get_option('wpcs_field_sponsor_url');
-										$wpcsp_website_url = get_post_meta($sponser_li,'wpcsp_website_url');
-			
-										if($sponsor_url == "SponsorSite"){
-											if(!empty($wpcsp_website_url[0])){
-												$sponser_url = $wpcsp_website_url[0];
-												$target = "_blank";
-											}else{
-												$sponser_url = "#";
-												$target = "";
+					if(WPCSP_ACTIVE){
+						$sponsor_list = get_post_meta($post->ID,'wpcsp_session_sponsors',true);
+						if(!empty($sponsor_list)){
+							?>
+							<div class="wpcsp-sponsor-single">
+								<h2>Presented by</h2>
+								<div class="wpcsp-sponsor-single-row">
+									<?php
+										$sponser_url = "";
+										$target = "";
+										foreach($sponsor_list as $sponser_li){ 
+											$sponsor_img = get_the_post_thumbnail_url($sponser_li);
+											if(!empty($sponsor_img)){
+												$sponsor_url = get_option('wpcsp_field_sponsor_page_url');
+												$wpcsp_website_url = get_post_meta($sponser_li,'wpcsp_website_url',true);
+					
+												if($sponsor_url == "sponsor_site"){
+													if(!empty($wpcsp_website_url)){
+														$sponser_url = $wpcsp_website_url;
+														$target = "_blank";
+													}else{
+														$sponser_url = "#";
+														$target = "";
+													}
+												}else{
+
+													$sponser_url =  get_the_permalink($sponser_li);
+												}
+												?>
+												<div class="wpcsp-sponsor-single-image">
+													<a href="<?php echo $sponser_url;?>" target="<?php echo $target; ?>"><img src="<?php echo get_the_post_thumbnail_url($sponser_li);?>" alt=""></a>
+												</div>
+											<?php
 											}
-										}else{
-
-											$sponser_url =  get_the_permalink($sponser_li);
 										}
-
-							?>
-									<div class="sponsor_img">
-										<a href="<?php echo $sponser_url;?>" target="<?php echo $target; ?>"><img src="<?php echo get_the_post_thumbnail_url($sponser_li);?>" alt=""></a>
-									</div>
-								<?php
-									}
-								}
-							?>
-						</div>
-					</div>
-					<?php } ?>
+									?>
+								</div>
+							</div>
+						<?php } ?>
 					<?php } ?>
 					<div class="entry-content">
 						<?php the_content();?>
