@@ -170,6 +170,7 @@ function wpcs_preprocess_schedule_attributes( $props ) {
 		'align'        => '', // alignwide|alignfull
 		'layout'       => 'table',
 		'row_height'   => 'match',
+		'content'	   => 'none' // none|excerpt|full
 	);
 
 	// Check if props exist. Fixes PHP errors when shortcode doesn't have any attributes.
@@ -187,6 +188,9 @@ function wpcs_preprocess_schedule_attributes( $props ) {
 
 		if(isset($props['row_height']))
 			$attr['row_height'] = $props['row_height'];
+
+		if(isset($props['content']))
+			$attr['content'] = $props['content'];
 		
 		if(isset($props['session_link']))
 			$attr['session_link'] = $props['session_link'];
@@ -648,6 +652,14 @@ function wpcs_scheduleOutput( $props ) {
 
 						// Add tracks to the output string
 						$html .= '<div class="wpcs-session-track">'.implode(", ", $tracks_names_array).'</div>';
+						
+						if(WPCSP_ACTIVE && $attr['content'] == 'full'){
+							$content = get_post_field('post_content', $session->ID);
+							if($content) $html .= $content;
+						}elseif(WPCSP_ACTIVE && $attr['content'] == 'excerpt'){
+							$excerpt = get_the_excerpt($session->ID);
+							if($excerpt) $html .= '<p>'.$excerpt.'</p>';
+						}
 
 						// Add speakers names to the output string.
 						if ($speakers) {
