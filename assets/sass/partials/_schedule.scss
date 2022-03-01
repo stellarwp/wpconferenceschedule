@@ -300,24 +300,5 @@
 .wpcs-promo{
 	text-align: right;
 }
-.sponsor_row{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  column-gap: 30px;
-  align-content: center;
-  	.sponsor_img {
-		width: 30%;
-		text-align: center;
-		border: 2px solid #ccc;
-		border-radius: 10px;
-		height: auto;
-		padding: 25px 0px;
-		img {
-  			height: 50px;
-		}
-	}
-
-}
 
 
