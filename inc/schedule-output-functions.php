@@ -369,7 +369,26 @@ function wpcs_scheduleOutput( $props ) {
 				if ($speakers) {
 					$content .= sprintf( ' <span class="wpcs-session-speakers">%s</span>', esc_html($speakers));
 				}
+				if(is_plugin_active('wp-conference-schedule-pro/wp-conference-schedule-pro.php')){
+					$sponser_list          = get_post_meta( $session->ID, 'sponser_list', true );
+					if ($sponser_list) {
+						if($speakers){
+							$break = '</br> ';
+						}else{
+							$break = '';
+						}
+						$content .= $break.'Presented by: <span class="wpcs-session-sponsor">';
+						$chain22 = '';
+						foreach($sponser_list as $sponser_li){	
+							$chain22 .= get_the_title($sponser_li).',';
+						}
+						$content .= chop($chain22,",");
+	  				?>
 
+	  				<?php
+						$content .='</span>';
+					}
+				}
 				// Session Content Footer Filter
 				$wpcs_session_content_footer = apply_filters( 'wpcs_session_content_footer', $session->ID);
 				$content .= ($wpcs_session_content_footer != $session->ID) ? $wpcs_session_content_footer : '';
