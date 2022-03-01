@@ -20,17 +20,6 @@ function wpcs_settings_init() {
 		'wpcs'
 	);
 
-	if(is_plugin_active('wp-conference-schedule-pro/wp-conference-schedule-pro.php')){
-		add_settings_section(
-			'wpcs_section_settings',
-			__( 'General Settings', 'wpcs' ),
-			'wpcs_field_sponsor_url_cb',
-			'wpcs'
-		);	
-	}
-	
-
-
 	// register byline setting for "wpcs" page
 	register_setting("wpcs", "wpcs_field_byline");
  
@@ -42,11 +31,6 @@ function wpcs_settings_init() {
  
 	// register schedule page URL field in the "wpcs_section_info" section, inside the "wpcs" page
 	add_settings_field("wpcs_field_schedule_page_url", "Schedule Page URL", "wpcs_field_schedule_page_url_cb", "wpcs", "wpcs_section_settings");
-
-	// register setting for sponsors 
-	register_setting("wpcs", "wpcs_field_sponsor_url");
-
-	add_settings_field("wpcs_field_sponsor_url", "Schedule Page URL", "wpcs_field_sponsor_url_cb", "wpcs", "wpcs_sponosor_url_settings");
 
 }
  
@@ -89,26 +73,6 @@ function wpcs_field_schedule_page_url_cb(){
 	<p class="description">The URL of the page that your conference schedule is embedded on.</p>
 	<?php
 }
-
- function wpcs_field_sponsor_url_cb($args){
- 	$sponsor_url = get_option('wpcs_field_sponsor_url');
- ?>
- 	<table class="form-table" role="presentation">
-   <tbody>
-      <tr>
-         <th scope="row">Sponsor Url Settings In Single Page</th>
-         <td>
-            <select name="wpcs_field_sponsor_url" id="sponsors_url">
-				<option value="SponsorPage" <?php if($sponsor_url == "SponsorPage"){ echo "selected";} ?>>Redirect to Sponsor Page</option>
-				<option value="SponsorSite" <?php if($sponsor_url == "SponsorSite"){ echo "selected";} ?>>Redirect to Sponsor Site </option>
-			</select>
-         </td>
-      </tr>
-     
-   </tbody>
-</table>
- <?php
- }
  
 /**
  * top level menu
