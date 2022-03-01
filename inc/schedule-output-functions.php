@@ -369,6 +369,14 @@ function wpcs_scheduleOutput( $props ) {
 
 				$content .= $session_title_html;
 
+				if(WPCSP_ACTIVE && $attr['content'] == 'full'){
+					$session_content = get_post_field('post_content', $session->ID);
+					if($session_content) $content .= $session_content;
+				}elseif(WPCSP_ACTIVE && $attr['content'] == 'excerpt'){
+					$session_excerpt = get_the_excerpt($session->ID);
+					if($session_excerpt) $content .= '<p>'.$session_excerpt.'</p>';
+				}
+
 				// Add speakers names to the output string.
 				if ($speakers) {
 					$content .= sprintf( ' <span class="wpcs-session-speakers">%s</span>', esc_html($speakers));
