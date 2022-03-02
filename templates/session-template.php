@@ -75,7 +75,7 @@ get_header(); ?>
 						if(!empty($sponsor_list)){
 							?>
 							<div class="wpcsp-sponsor-single">
-								<h2>Presented by  </h2>
+								<h2>Presented by</h2>
 								<div class="wpcsp-sponsor-single-row">
 									<?php
 										$sponser_url = "";

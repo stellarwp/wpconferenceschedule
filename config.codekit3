@@ -75,6 +75,18 @@
       "sC" : 3,
       "tS" : 0
     },
+    "\/assets\/sass\/admin.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/assets\/sass\/admin-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
     "\/assets\/sass\/admin.scss" : {
       "aP" : 0,
       "bl" : 0,
@@ -83,8 +95,8 @@
       "ft" : 4,
       "ma" : 0,
       "oA" : 0,
-      "oAP" : "\/assets\/css\/admin.css",
-      "oF" : 2,
+      "oAP" : "\/assets\/sass\/admin.css",
+      "oF" : 0,
       "oS" : 0,
       "pg" : 0,
       "sct" : 1
@@ -139,8 +151,8 @@
       "ft" : 4,
       "ma" : 0,
       "oA" : 0,
-      "oAP" : "\/assets\/css\/style.css",
-      "oF" : 2,
+      "oAP" : "\/assets\/sass\/style.css",
+      "oF" : 0,
       "oS" : 0,
       "pg" : 0,
       "sct" : 1

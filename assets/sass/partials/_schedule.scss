@@ -226,11 +226,11 @@
 	.wpcs-session-cell-content{
 		h3{
 			margin: 0;
-			font-size: 1em;
+			font-size: 1.5em;
 		}
 	}
 	.wpcs-session-title {
-		text-decoration-style: dotted;
+		text-decoration: none !important;
 		&:hover {
 			font-style: italic;
 		}
@@ -238,12 +238,17 @@
 			outline: 2px dotted rgba(255,255,255,.8);
 		}
 	}
+
+	.wpcs-session-time{
+		color: #696969;
+	}
+
 	.wpcs-track-description, 
 	.wpcs-session-speakers {
 	}
 	.wpcs-session-speakers {
 		&:before{
-			content: '- ';
+			//content: '- ';
 			@media screen and ( max-width: 700px ) {
 				//content: "Speaker: ";
 				font-style: italic;
@@ -285,6 +290,9 @@
 		.wpcs-global-session-mainstage,
 		.wpcs-session-type-mainstage{
 			background: $color-gray-light;
+		}
+		.wpcs-session-time{
+			color: mix($color-black, $color-white, 30%);
 		}
 	}
 }
