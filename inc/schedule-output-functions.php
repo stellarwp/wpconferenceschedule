@@ -610,8 +610,11 @@ function wpcs_scheduleOutput( $props ) {
 						
 						// Don't save session track if track doesn't exist.
 						if($remove_track == true){
-							$tracks_array.array_push($tracks_array, $session_track->slug);
-							$tracks_names_array.array_push($tracks_names_array, $session_track->name);
+							var_dump($session_track->slug);
+							//$tracks_array.array_push($tracks_array, $session_track->slug);
+							$tracks_array[] = $session_track->slug;
+							//$tracks_names_array.array_push($tracks_names_array, $session_track->name);
+							$tracks_names_array[] = $session_track->name;
 						}
 
 					}
