@@ -3,8 +3,8 @@ Contributors: roadwarriorwp, alh0319, stevejonesdev
 Donate link: https://roadwarriorcreative.com/donate
 Tags: conference schedule, conference, schedule, event schedule, event, events, block, blocks, gutenberg, sessions, speakers, events, events calendar
 Requires at least: 5.0.0
-Tested up to: 5.8.3
-Stable tag: 1.0.10
+Tested up to: 5.9.1
+Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -90,6 +90,13 @@ Yes! We want to make our plugin work for you. If you need help regarding customi
 5. screenshot-5.png shows what the schedule looks like on mobile screens.
 
 == Changelog ==
+
+= 1.1.0 =
+* Grid Height Parameter
+* Pro Plugin Support
+* Meta Field Updates
+* Minor bug fixes
+* Freemius Updated
 
 = 1.0.10 =
 * Freemius Updated, minor bug fixes
