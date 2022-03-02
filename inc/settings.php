@@ -43,7 +43,8 @@ add_action( 'admin_init', 'wpcs_settings_init' );
  * custom option and settings:
  * callback functions
  */
- 
+
+
 // section callbacks can accept an $args parameter, which is an array.
 // $args have the following keys defined: title, id, callback.
 // the values are defined at the add_settings_section() function.

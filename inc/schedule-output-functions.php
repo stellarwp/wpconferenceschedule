@@ -168,7 +168,9 @@ function wpcs_preprocess_schedule_attributes( $props ) {
 		'session_link' => 'permalink', // permalink|anchor|none
 		'color_scheme' => 'light', // light/dark
 		'align'        => '', // alignwide|alignfull
-		'layout'       => 'table'
+		'layout'       => 'table',
+		'row_height'   => 'match',
+		'content'	   => 'none' // none|excerpt|full
 	);
 
 	// Check if props exist. Fixes PHP errors when shortcode doesn't have any attributes.
@@ -183,6 +185,12 @@ function wpcs_preprocess_schedule_attributes( $props ) {
 
 		if(isset($props['layout']))
 			$attr['layout'] = $props['layout'];
+
+		if(isset($props['row_height']))
+			$attr['row_height'] = $props['row_height'];
+
+		if(isset($props['content']))
+			$attr['content'] = $props['content'];
 		
 		if(isset($props['session_link']))
 			$attr['session_link'] = $props['session_link'];
@@ -311,6 +319,14 @@ function wpcs_scheduleOutput( $props ) {
 
 				$content .= $session_title_html;
 
+				if(WPCSP_ACTIVE && $attr['content'] == 'full'){
+					$session_content = get_post_field('post_content', $session->ID);
+					if($session_content) $content .= $session_content;
+				}elseif(WPCSP_ACTIVE && $attr['content'] == 'excerpt'){
+					$session_excerpt = get_the_excerpt($session->ID);
+					if($session_excerpt) $content .= '<p>'.$session_excerpt.'</p>';
+				}
+
 				// Add speakers names to the output string.
 				if ($speakers) {
 					$content .= sprintf( ' <span class="wpcs-session-speakers">%s</span>', esc_html($speakers));
@@ -328,7 +344,8 @@ function wpcs_scheduleOutput( $props ) {
 				// If the next element in the table is the same as the current one, use colspan
 				if ( $key != key( array_slice( $columns, -1, 1, true ) ) ) {
 					// while ( $pair = each( $columns_clone ) ) {
-					foreach($columns_clone as $pair) {
+					//foreach($columns_clone as $pair) {
+					foreach($columns_clone as $pair['key'] => $pair['value']) {
 						if ( $pair['key'] == $key ) {
 							continue;
 						}
@@ -573,6 +590,14 @@ function wpcs_scheduleOutput( $props ) {
 
 						// Add tracks to the output string
 						$html .= '<div class="wpcs-session-track">'.implode(", ", $tracks_names_array).'</div>';
+						
+						if(WPCSP_ACTIVE && $attr['content'] == 'full'){
+							$content = get_post_field('post_content', $session->ID);
+							if($content) $html .= $content;
+						}elseif(WPCSP_ACTIVE && $attr['content'] == 'excerpt'){
+							$excerpt = get_the_excerpt($session->ID);
+							if($excerpt) $html .= '<p>'.$excerpt.'</p>';
+						}
 
 						// Add speakers names to the output string.
 						if ($speakers) {
