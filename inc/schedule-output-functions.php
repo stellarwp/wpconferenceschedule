@@ -229,9 +229,10 @@ function wpcs_scheduleOutput( $props ) {
 	
 	$dates = explode(',',$props['date']);
 	if($dates){
+		
 		$current_tab = (isset($_GET['wpcs-tab']) && !empty($_GET['wpcs-tab'])) ? intval($_GET['wpcs-tab']) : null;
 
-		if(count($dates) > 1){
+		if(WPCSP_ACTIVE && count($dates) > 1){
 
 			$output .= '<div class="wpcsp-tabs tabs">';
 
@@ -610,7 +611,6 @@ function wpcs_scheduleOutput( $props ) {
 						
 						// Don't save session track if track doesn't exist.
 						if($remove_track == true){
-							var_dump($session_track->slug);
 							//$tracks_array.array_push($tracks_array, $session_track->slug);
 							$tracks_array[] = $session_track->slug;
 							//$tracks_names_array.array_push($tracks_names_array, $session_track->name);
