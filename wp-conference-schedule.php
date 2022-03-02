@@ -78,7 +78,6 @@ if ( ! defined( 'WPCSP_ACTIVE' ) ) {
 }
 
 // Includes
-//require_once( WPCS_DIR . 'inc/freemius.php' );
 require_once( WPCS_DIR . 'inc/post-types.php' );
 require_once( WPCS_DIR . 'inc/taxonomies.php' );
 require_once( WPCS_DIR . 'inc/schedule-output-functions.php' );
