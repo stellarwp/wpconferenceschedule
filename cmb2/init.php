@@ -1,49 +1,4 @@
 <?php
-/**
- * The initation loader for CMB2, and the main plugin file.
- *
- * @category     WordPress_Plugin
- * @package      CMB2
- * @author       CMB2 team
- * @license      GPL-2.0+
- * @link         https://cmb2.io
- *
- * Plugin Name:  CMB2
- * Plugin URI:   https://github.com/CMB2/CMB2
- * Description:  CMB2 will create metaboxes and forms with custom fields that will blow your mind.
- * Author:       CMB2 team
- * Author URI:   https://cmb2.io
- * Contributors: Justin Sternberg (@jtsternberg / dsgnwrks.pro)
- *               WebDevStudios (@webdevstudios / webdevstudios.com)
- *               Human Made (@humanmadeltd / hmn.md)
- *               Jared Atchison (@jaredatch / jaredatchison.com)
- *               Bill Erickson (@billerickson / billerickson.net)
- *               Andrew Norcross (@norcross / andrewnorcross.com)
- *
- * Version:      2.9.0
- *
- * Text Domain:  cmb2
- * Domain Path:  languages
- *
- *
- * Released under the GPL license
- * http://www.opensource.org/licenses/gpl-license.php
- *
- * This is an add-on for WordPress
- * https://wordpress.org/
- *
- * **********************************************************************
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * **********************************************************************
- */
 
 /**
  * *********************************************************************
