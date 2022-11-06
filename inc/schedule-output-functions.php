@@ -16,6 +16,7 @@ defined( 'WPINC' ) || die();
  *
  * @return array Associative array of terms with term_id as the key.
  */
+
 function wpcs_get_schedule_tracks( $selected_tracks ) {
 	$tracks = array();
 	if ( 'all' === $selected_tracks ) {
@@ -224,7 +225,7 @@ function wpcs_preprocess_schedule_attributes( $props ) {
  * @return array Array of attributes, after preprocessing.
  */
 function wpcs_scheduleOutput( $props ) {
-
+	
 	$output = '';
 	
 	$dates = explode(',',$props['date']);
@@ -287,9 +288,11 @@ function wpcs_scheduleOutput( $props ) {
 
 		// Table headings.
 		$html .= '<th class="wpcs-col-time">' . esc_html__( 'Time', 'wp-conference-schedule' ) . '</th>';
+		
 		foreach ( $columns as $term_id ) {
 			$track = get_term( $term_id, 'wpcs_track' );
-			$html .= sprintf(
+			
+				$html .= sprintf(
 				'<th class="wpcs-col-track"> <span class="wpcs-track-name">%s</span> <span class="wpcs-track-description">%s</span> </th>',
 				isset( $track->term_id ) ? esc_html( $track->name ) : '',
 				isset( $track->term_id ) ? esc_html( $track->description ) : ''

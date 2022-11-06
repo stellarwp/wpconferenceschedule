@@ -15,14 +15,14 @@ function wpcs_register_taxonomies() {
 		'add_new_item'  => __( 'Add Track',      'wp-conference-schedule' ),
 		'new_item_name' => __( 'New Track',      'wp-conference-schedule' ),
 	);
-
+	
 	// Register the Tracks taxonomy.
 	register_taxonomy(
 		'wpcs_track',
 		'wpcs_session',
 		array(
 			'labels'       => $track_labels,
-			'rewrite'      => array( 'slug' => 'track' ),
+			'rewrite'      => [ 'slug' => 'track' ],
 			'query_var'    => 'track',
 			'hierarchical' => true,
 			'public'       => true,
@@ -31,6 +31,8 @@ function wpcs_register_taxonomies() {
 			'rest_base'    => 'session_track',
 		)
 	);
+
+	
 
 	// Labels for locations.
 	$location_labels = array(
