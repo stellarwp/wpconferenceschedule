@@ -5,7 +5,7 @@ function wpcs_add_track_fields() { ?>
 
 	<div class="form-field">
 		<label for="track_color">Track Color</label>
-		<input type="text" name="track_color" id="track_color">
+		<input type="text" name="track_color" id="track_color" class="track-color-picker">
 		
 	</div>
 	
@@ -20,7 +20,7 @@ function wpcs_edit_track_fields( $term, $taxonomy ) {
 
 	<tr class="form-field">
 		<th scope="row"><label for="track_color">Track Color</label></th>
-			<td><input type="text" name="track_color" id="track_color" size="40" value="<?php echo esc_attr($value); ?>"></td>
+			<td><input type="text" name="track_color" id="track_color" class="track-color-picker" size="40" value="<?php echo esc_attr($value); ?>"></td>
 	</tr>
 	
 	<?php } 

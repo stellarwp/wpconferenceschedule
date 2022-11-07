@@ -153,6 +153,9 @@ class WP_Conference_Schedule_Plugin {
 	function wpcs_admin_enqueue_scripts() {
 		global $post_type;
 
+		// Enqueues scripts for adding color picker to track admin page
+		wp_enqueue_style( 'wp-color-picker' );
+		wp_enqueue_script( 'my-script-handle', plugins_url( '/assets/js/track-color-picker.js', __FILE__ ), array( 'wp-color-picker' ), false, true );
 		// Enqueues scripts and styles for session admin page
 		if ( 'wpcs_session' == $post_type ) {
 			wp_enqueue_script( 'jquery-ui-datepicker' );
