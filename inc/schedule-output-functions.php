@@ -293,7 +293,8 @@ function wpcs_scheduleOutput( $props ) {
 			$track = get_term( $term_id, 'wpcs_track' );
 			
 				$html .= sprintf(
-				'<th class="wpcs-col-track"> <span class="wpcs-track-name">%s</span> <span class="wpcs-track-description">%s</span> </th>',
+				'<th class="wpcs-col-track" style="background-color:%s;"> <span class="wpcs-track-name">%s</span> <span class="wpcs-track-description">%s</span> </th>',
+				$trackColor = get_term_meta($term_id, 'track_color', true),
 				isset( $track->term_id ) ? esc_html( $track->name ) : '',
 				isset( $track->term_id ) ? esc_html( $track->description ) : ''
 			);
