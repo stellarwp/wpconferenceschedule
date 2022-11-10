@@ -553,7 +553,9 @@ function wpcs_scheduleOutput( $props ) {
 			if($tracks){
 				foreach ($tracks as $track) {
 					$html .= sprintf(
-					'<span class="wpcs-col-track" style="grid-column: '.$track->slug.'; grid-row: tracks;"> <span class="wpcs-track-name">%s</span> <span class="wpcs-track-description">%s</span> </span>',
+					'<span class="wpcs-col-track" style="background-color:%s;color:%s;grid-column: '.$track->slug.'; grid-row: tracks;"> <span class="wpcs-track-name">%s</span> <span class="wpcs-track-description">%s</span> </span>',
+					$trackBackgroundColor = get_term_meta($track->term_id, 'track_background_color', true),
+					$trackTextColor = get_term_meta($track->term_id, 'track_text_color', true),
 					isset( $track->term_id ) ? esc_html( $track->name ) : '',
 					isset( $track->term_id ) ? esc_html( $track->description ) : ''
 					);
