@@ -5,11 +5,11 @@ function wpcs_add_track_fields() { ?>
 
 	<div class="form-field">
 		<label for="track_background_color">Track Background Color</label>
-		<input type="text" name="track_background_color" id="track_background_color" class="track-color-picker">
+		<input type="text" name="track_background_color" id="track_background_color" class="track-color-picker" data-alpha-enabled="true">
 	</div>
 	<div class="form-field">
 		<label for="track_text_color">Track Text Color</label>
-		<input type="text" name="track_text_color" id="track_text_color" class="track-color-picker">
+		<input type="text" name="track_text_color" id="track_text_color" class="track-color-picker" data-alpha-enabled="true">
 	</div>
 	
 	<?php } 
@@ -24,11 +24,11 @@ function wpcs_edit_track_fields( $term, $taxonomy ) {
 
 	<tr class="form-field">
 		<th scope="row"><label for="track_background_color">Track Background Color</label></th>
-			<td><input type="text" name="track_background_color" id="track_background_color" class="track-color-picker" size="40" value="<?php echo esc_attr($backgroundValue); ?>"></td>
+			<td><input type="text" name="track_background_color" id="track_background_color" class="track-color-picker" size="40" value="<?php echo esc_attr($backgroundValue); ?>" data-alpha-enabled="true"></td>
 	</tr>
 	<tr class="form-field">
-		<th scope="row"><label for="track_text_color">Track Background Color</label></th>
-			<td><input type="text" name="track_text_color" id="track_text_color" class="track-color-picker" size="40" value="<?php echo esc_attr($textValue); ?>"></td>
+		<th scope="row"><label for="track_text_color">Track Text Color</label></th>
+			<td><input type="text" name="track_text_color" id="track_text_color" class="track-color-picker" size="40" value="<?php echo esc_attr($textValue); ?>" data-alpha-enabled="true"></td>
 	</tr>
 	
 	<?php } 
