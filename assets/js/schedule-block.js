@@ -7,7 +7,7 @@
 	var CheckboxControl = wp.components.CheckboxControl;
 	var withState = wp.compose.withState;
 	var el = wp.element.createElement;
-	var ServerSideRender = wp.components.ServerSideRender;
+	const ServerSideRender = wp.serverSideRender;
 	var DatePicker = wp.components.DateTimePicker;
 	var __ = wp.i18n.__;
 	//var RichText = wp.editor.RichText;
@@ -98,6 +98,8 @@
 					}),
 				);
   		}
+
+			console.log(InspectorControls, ServerSideRender, SelectControl, DatePicker);
 
 			return [
 				el(ServerSideRender, {
