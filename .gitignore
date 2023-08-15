@@ -4,3 +4,37 @@
 *.DS_Store
 *[Tt]humbs.db
 *.Trashes
+
+# Tests - local config files
+codeception.yml
+tests/*.suite.yml
+.env*.local
+*.tric
+*.tric.yml
+
+# Tests - local output files
+tests/_output
+
+# General Purpose Ingored Files
+.DS_Store
+.idea
+node_modules
+compiler.jar
+*.ps1
+*.code-workspace
+
+wpml-config.xml
+.env.testing
+
+# get from translate.wordpress.org as needed
+lang/*.po
+lang/*.mo
+
+# Resources Ignoring
+src/resources/**/app
+src/resources/css
+src/resources/js/**/*.min.js
+files/
+
+# Misc
+bin/strauss.phar
