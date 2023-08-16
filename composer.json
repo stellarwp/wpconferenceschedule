@@ -1,0 +1,32 @@
+{
+  "name": "stellarwp/wpconferenceschedule",
+  "description": "Conference Schedule",
+  "type": "wordpress-plugin",
+  "keywords": [
+    "wordpress",
+    "conference",
+    "events"
+  ],
+  "homepage": "https://wpconferenceschedule.com/",
+  "license": "GPL-2.0",
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "require-dev": {
+    "the-events-calendar/coding-standards": "dev-master",
+    "the-events-calendar/tec-testing-facilities": "dev-master"
+  },
+  "config": {
+    "preferred-install": "dist",
+    "platform": {
+      "php": "7.4.33"
+    },
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
+  },
+  "autoload": {
+    "psr-4": {
+      "Conference\\Schedule\\" : "src/Conference"
+    }
+  }
+}

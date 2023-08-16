@@ -18,13 +18,46 @@
  * Domain Path:       /languages
  */
 
-// If this file is called directly, abort.
-if ( ! defined( 'WPINC' ) ) {
-	die;
-}
-
 // Plugin directory
 define( 'WPCS_DIR' , plugin_dir_path( __FILE__ ) );
+define( 'CONFERENCE_SCHEDULE_FILE' , plugin_dir_path( __FILE__ ) );
+
+// Load the required php min version functions.
+require_once dirname( CONFERENCE_SCHEDULE_FILE ) . '/src/functions/php-min-version.php';
+
+/**
+ * Verifies if we need to warn the user about min PHP version and bail to avoid fatal errors.
+ */
+if ( tribe_is_not_min_php_version() ) {
+	tribe_not_php_version_textdomain( 'conference-schedule', CONFERENCE_SCHEDULE_FILE );
+
+	/**
+	 * Include the plugin name into the correct place.
+	 *
+	 * @since  1.0.1
+	 *
+	 * @param  array $names current list of names.
+	 *
+	 * @return array List of names after adding Event Automator.
+	 */
+	function tec_automator_not_php_version_plugin_name( $names ) {
+		$names['conference-schedule'] = esc_html__( 'Conference Schedule', 'conference-schedule' );
+		return $names;
+	}
+
+	add_filter( 'tribe_not_php_version_names', 'tec_automator_not_php_version_plugin_name' );
+
+	if ( ! has_filter( 'admin_notices', 'tribe_not_php_version_notice' ) ) {
+		add_action( 'admin_notices', 'tribe_not_php_version_notice' );
+	}
+
+	return false;
+}
+
+// Include the file that defines the functions handling the plugin load operations.
+require_once __DIR__ . '/src/functions/load.php';
+
+add_action( 'plugins_loaded', 'conference_schedule_load', 0 );
 
 // Plugin File URL
 define( 'PLUGIN_FILE_URL' , __FILE__);
