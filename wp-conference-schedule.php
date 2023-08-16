@@ -96,21 +96,19 @@ class WP_Conference_Schedule_Plugin {
 		add_action( 'add_meta_boxes', array( $this, 'wpcs_add_meta_boxes' ) );
 		add_action('enqueue_block_editor_assets', array( $this, 'wpcs_loadBlockFiles' ) );
 		
-		register_block_type('wpcs/schedule-block',
-			array(
-				'editor_script' => 'schedule-block',
-				'attributes' => array(
-					'date' => array('type' => 'string'),
-					'color_scheme' => array('type' => 'string'),
-					'layout' => array('type' => 'string'),
-					'row_height' => array('type' => 'string'),
-					'session_link' => array('type' => 'string'),
-					'tracks' => array('type' => 'string'),
-					'align' => array('type' => 'string'),
-				),
-				'render_callback' => array( $this, 'wpcs_scheduleBlockOutput')
-			)
-		);
+		register_block_type('wpcs/schedule-block', [
+			'editor_script' => 'schedule-block',
+			'attributes' => [
+				'date' => ['type' => 'string'],
+				'color_scheme' => ['type' => 'string'],
+				'layout' => ['type' => 'string'],
+				'row_height' => ['type' => 'string'],
+				'session_link' => ['type' => 'string'],
+				'tracks' => ['type' => 'string'],
+				'align' => ['type' => 'string'],
+			],
+			'render_callback' => [$this, 'wpcs_scheduleBlockOutput'],
+		]);
 
 		add_filter( 'manage_wpcs_session_posts_columns', array( $this, 'wpcs_manage_post_types_columns' ) );
 		add_filter( 'manage_edit-wpcs_session_sortable_columns', array( $this, 'wpcs_manage_sortable_columns' ) );
@@ -539,7 +537,7 @@ class WP_Conference_Schedule_Plugin {
 		wp_enqueue_script(
 			'schedule-block',
 			plugin_dir_url(__FILE__) . 'assets/js/schedule-block.js',
-			array('wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor'),
+			array('wp-blocks', 'wp-i18n', 'wp-editor'),
 			true
 		);
 	}

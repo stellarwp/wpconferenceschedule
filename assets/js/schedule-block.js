@@ -99,8 +99,6 @@
 				);
   		}
 
-			console.log(InspectorControls, ServerSideRender, SelectControl, DatePicker);
-
 			return [
 				el(ServerSideRender, {
 						block: "wpcs/schedule-block",
