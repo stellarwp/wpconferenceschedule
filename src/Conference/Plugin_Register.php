@@ -4,10 +4,10 @@
  *
  * @since   TBD
  *
- * @package Conference\Schedule
+ * @package TEC\Conference
  */
 
-namespace Conference\Schedule;
+namespace TEC\Conference;
 
 use Tribe__Abstract_Plugin_Register as Abstract_Plugin_Register;
 
@@ -16,7 +16,7 @@ use Tribe__Abstract_Plugin_Register as Abstract_Plugin_Register;
  *
  * @since   TBD
  *
- * @package Conference\Schedule
+ * @package TEC\Conference
  *
  * @see     Tribe__Abstract_Plugin_Register For the plugin dependency manifest registration.
  */
@@ -90,7 +90,7 @@ class Plugin_Register extends Abstract_Plugin_Register {
 	 *
 	 * @var string The main class of the plugin.
 	 */
-	protected $main_class = '\Conference\Schedule\Plugin';
+	protected $main_class = '\TEC\Conference\Plugin';
 
 	/**
 	 * An array of dependencies for the plugin.
@@ -100,10 +100,6 @@ class Plugin_Register extends Abstract_Plugin_Register {
 	 * @var array<string,mixed>
 	 */
 	protected $dependencies = [
-		/*
-		 * READ THIS: Because Event Automator requires EITHER ET or TEC, we have to handle them
-		 *            in a weird way. So, ET and TEC version numbers are defined as separate class properties.
-		 */
 		'parent-dependencies' => [],
 	];
 }

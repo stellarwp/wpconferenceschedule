@@ -26,7 +26,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Conference\\Schedule\\" : "src/Conference"
+      "TEC\\Conference\\" : "src/Conference"
     }
   }
 }

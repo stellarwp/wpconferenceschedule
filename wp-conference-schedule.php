@@ -18,9 +18,7 @@
  * Domain Path:       /languages
  */
 
-// Plugin directory
-define( 'WPCS_DIR' , plugin_dir_path( __FILE__ ) );
-define( 'CONFERENCE_SCHEDULE_FILE' , plugin_dir_path( __FILE__ ) );
+define( 'CONFERENCE_SCHEDULE_FILE', __FILE__ );
 
 // Load the required php min version functions.
 require_once dirname( CONFERENCE_SCHEDULE_FILE ) . '/src/functions/php-min-version.php';
@@ -59,17 +57,22 @@ require_once __DIR__ . '/src/functions/load.php';
 
 add_action( 'plugins_loaded', 'conference_schedule_load', 0 );
 
+
+//@TODO START OF ORIGINAL PLUGIN CODE - WILL MOVE AND REPLACE IN FUTURE PRS
+// Plugin directory
+define( 'WPCS_DIR' , plugin_dir_path( __FILE__ ) );
+
 // Plugin File URL
 define( 'PLUGIN_FILE_URL' , __FILE__);
 
 // Pro Plugin Active
-if ( ! defined( 'WPCSP_ACTIVE' ) ) {
+/*if ( ! defined( 'WPCSP_ACTIVE' ) ) {
 	if(is_plugin_active('wp-conference-schedule-pro/wp-conference-schedule-pro.php')){
 		define( 'WPCSP_ACTIVE', true );
 	}else{
 		define( 'WPCSP_ACTIVE', false );
 	}
-}
+}*/
 
 // Includes
 require_once( WPCS_DIR . 'inc/post-types.php' );
