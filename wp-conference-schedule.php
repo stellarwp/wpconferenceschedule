@@ -38,12 +38,12 @@ if ( tribe_is_not_min_php_version() ) {
 	 *
 	 * @return array List of names after adding Event Automator.
 	 */
-	function tec_automator_not_php_version_plugin_name( $names ) {
+	function tec_conference_schedule_not_php_version_plugin_name( $names ) {
 		$names['conference-schedule'] = esc_html__( 'Conference Schedule', 'conference-schedule' );
 		return $names;
 	}
 
-	add_filter( 'tribe_not_php_version_names', 'tec_automator_not_php_version_plugin_name' );
+	add_filter( 'tribe_not_php_version_names', 'tec_conference_schedule_not_php_version_plugin_name' );
 
 	if ( ! has_filter( 'admin_notices', 'tribe_not_php_version_notice' ) ) {
 		add_action( 'admin_notices', 'tribe_not_php_version_notice' );

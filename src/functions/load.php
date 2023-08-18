@@ -8,7 +8,6 @@
  */
 
 use TEC\Conference\Plugin;
-use Tribe__Main as Common;
 
 /**
  * Shows a message to indicate the plugin cannot be loaded due to missing requirements.
@@ -40,12 +39,12 @@ function conference_schedule_load_text_domain() {
 	$plugin_base_dir = dirname( plugin_basename( CONFERENCE_SCHEDULE_FILE ) );
 	$plugin_rel_path = $plugin_base_dir . DIRECTORY_SEPARATOR . 'lang';
 
-	if ( ! class_exists( 'Common' ) ) {
+	if ( ! class_exists( 'Tribe__Main', false ) ) {
 		// If we don't have Common classes load the old fashioned way.
 		load_plugin_textdomain( $domain, false, $plugin_rel_path );
 	} else {
 		// This will load `wp-content/languages/plugins` files first.
-		Common::instance()->load_text_domain( $domain, $plugin_rel_path );
+		Tribe__Main::instance()->load_text_domain( $domain, $plugin_rel_path );
 	}
 }
 

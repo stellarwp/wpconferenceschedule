@@ -168,7 +168,7 @@ class Plugin {
 	 * @return \Tribe__Autoloader The singleton common Autoloader instance.
 	 */
 	public function get_autoloader_instance() {
-		if ( ! class_exists( 'Tribe__Autoloader' ) ) {
+		if ( ! class_exists( 'Tribe__Autoloader', false ) ) {
 			require_once $GLOBALS['tribe-common-info']['dir'] . '/Autoloader.php';
 
 			Tribe__Autoloader::instance()->register_prefixes( [
@@ -272,7 +272,7 @@ class Plugin {
 	}
 
 	/**
-	 * Register the Tribe Autoloader in Events Automator.
+	 * Register the Tribe Autoloader for Conference Schedule Pro.
 	 *
 	 * @since TBD
 	 */
@@ -308,7 +308,7 @@ class Plugin {
 	}
 
 	/**
-	 * Registers the plugin and dependency manifest among those managed by Event Automator.
+	 * Registers the plugin and dependency manifest among those managed by Conference Schedule Pro.
 	 *
 	 * @since TBD
 	 */
