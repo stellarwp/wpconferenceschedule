@@ -18,45 +18,6 @@
  * Domain Path:       /languages
  */
 
-// Freemius
-if ( ! function_exists( 'wpcs_freemius' ) ) {
-	// Create a helper function for easy SDK access.
-	function wpcs_freemius() {
-		global $wpcs_freemius;
-
-		if ( ! isset( $wpcs_freemius ) ) {
-			// Include Freemius SDK.
-			require_once dirname(__FILE__) . '/freemius/start.php';
-
-			$wpcs_freemius = fs_dynamic_init( array(
-					'id'                  => '5738',
-					'slug'                => 'wp-conference-schedule',
-					'type'                => 'plugin',
-					'public_key'          => 'pk_8f9bb5d32e35584c2425014d6d6bd',
-					'is_premium'          => false,
-					'has_addons'          => false,
-					'has_paid_plans'      => false,
-					'menu'                => array(
-							'slug'           => 'wp-conference-schedule',
-							'account'        => false,
-							'contact'        => false,
-							'support'        => false,
-							'parent'         => array(
-									'slug' => 'options-general.php',
-					),
-				),
-			));
-		}
-
-		return $wpcs_freemius;
-	}
-
-	// Init Freemius.
-	wpcs_freemius();
-	// Signal that SDK was initiated.
-	do_action( 'wpcs_freemius_loaded' );
-}
-
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
 	die;
@@ -102,19 +63,19 @@ class WP_Conference_Schedule_Plugin {
 		add_action( 'add_meta_boxes', array( $this, 'wpcs_add_meta_boxes' ) );
 		add_action('enqueue_block_editor_assets', array( $this, 'wpcs_loadBlockFiles' ) );
 		
-		register_block_type('wpcs/schedule-block', array(
+		register_block_type('wpcs/schedule-block', [
 			'editor_script' => 'schedule-block',
-			'attributes' => array(
-				'date' => array('type' => 'string'),
-				'color_scheme' => array('type' => 'string'),
-				'layout' => array('type' => 'string'),
-				'row_height' => array('type' => 'string'),
-				'session_link' => array('type' => 'string'),
-				'tracks' => array('type' => 'string'),
-				'align' => array('type' => 'string'),
-			),
-			'render_callback' => array( $this, 'wpcs_scheduleBlockOutput')
-		));
+			'attributes' => [
+				'date' => ['type' => 'string'],
+				'color_scheme' => ['type' => 'string'],
+				'layout' => ['type' => 'string'],
+				'row_height' => ['type' => 'string'],
+				'session_link' => ['type' => 'string'],
+				'tracks' => ['type' => 'string'],
+				'align' => ['type' => 'string'],
+			],
+			'render_callback' => [$this, 'wpcs_scheduleBlockOutput'],
+		]);
 
 		add_filter( 'manage_wpcs_session_posts_columns', array( $this, 'wpcs_manage_post_types_columns' ) );
 		add_filter( 'manage_edit-wpcs_session_sortable_columns', array( $this, 'wpcs_manage_sortable_columns' ) );

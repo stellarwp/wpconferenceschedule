@@ -224,12 +224,12 @@ function wpcs_preprocess_schedule_attributes( $props ) {
  * @return array Array of attributes, after preprocessing.
  */
 function wpcs_scheduleOutput( $props ) {
-
 	$output = '';
-	
-	$dates = explode(',',$props['date']);
-	if($dates){
-		
+
+	$dates_arr = isset( $props['date'] ) ? $props['date'] : '';
+	$dates = explode( ',', $dates_arr );
+
+	if ( $dates ) {
 		$current_tab = (isset($_GET['wpcs-tab']) && !empty($_GET['wpcs-tab'])) ? intval($_GET['wpcs-tab']) : null;
 
 		if(WPCSP_ACTIVE && count($dates) > 1){

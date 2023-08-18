@@ -84,8 +84,7 @@ function wpcs_options_page() {
 		'WP Conference Schedule',
 		'manage_options',
 		'wp-conference-schedule',
-		'wpcs_options_page_html',
-		'dashicons-schedule'
+		'wpcs_options_page_html'
 	);
 }
  
