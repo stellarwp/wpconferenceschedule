@@ -61,6 +61,10 @@ function conference_schedule_load() {
 	// Load the plugin, autoloading happens here.
 	$plugin = new Plugin();
 	$plugin->boot();
+
+	//register_activation_hook( CONFERENCE_SCHEDULE_FILE, [ $plugin, 'activate' ] );
+
+	//register_deactivation_hook( CONFERENCE_SCHEDULE_FILE, [ $plugin, 'deactivate' ] );
 }
 
 
