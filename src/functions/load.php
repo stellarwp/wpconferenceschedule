@@ -62,6 +62,7 @@ function conference_schedule_load() {
 	$plugin = new Plugin();
 	$plugin->boot();
 
+	//@todo added as a placeholder to be finished when adding capabilities for the cpts.
 	//register_activation_hook( CONFERENCE_SCHEDULE_FILE, [ $plugin, 'activate' ] );
 
 	//register_deactivation_hook( CONFERENCE_SCHEDULE_FILE, [ $plugin, 'deactivate' ] );

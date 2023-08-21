@@ -357,6 +357,7 @@ class Plugin {
 	 * @since TBD
 	 */
 	public static function activate() {
+		//@todo added as a placeholder to be finished when adding capabilities for the cpts.
 		//self::instance()->plugins_loaded();
 
 		// call your CPT registration function here (it should also be hooked into 'init')
@@ -372,6 +373,7 @@ class Plugin {
 	 * @param bool $network_deactivating
 	 */
 	public static function deactivate( $network_deactivating ) {
+		//@todo added as a placeholder to be finished when adding capabilities for the cpts.
 		flush_rewrite_rules();
 	}
 }
