@@ -27,7 +27,7 @@ class Menu {
 	 *
 	 * @var string
 	 */
-	protected $menu_slug = Plugin::SLUG;
+	protected $menu_slug = 'edit.php?post_type=' . Plugin::SESSION_POSTTYPE;
 
 	/**
 	 * Adds Conference Schedule menu item in the WordPress Admin Nav.
@@ -39,7 +39,7 @@ class Menu {
 			'Conference Schedule',
 			'Conference Schedule',
 			'read',
-			$this->menu_slug,
+			'edit.php?post_type=' . Plugin::SESSION_POSTTYPE,
 			'',
 			'dashicons-schedule',
 			21
@@ -52,7 +52,7 @@ class Menu {
 	 * @since TBD
 	 */
 	public function organize_post_types() {
-		// Sessions
+		// Sessions.
 		add_submenu_page(
 			$this->menu_slug,
 			'Sessions',
@@ -67,8 +67,32 @@ class Menu {
 			'read',
 			'post-new.php?post_type=' . Plugin::SESSION_POSTTYPE
 		);
+		// Submenu for Tracks Taxonomy.
+		add_submenu_page(
+			$this->menu_slug,
+			'Tracks',
+			'Tracks',
+			'read',
+			'edit-tags.php?taxonomy=' . Plugin::TRACK_TAXONOMY . '&post_type=' . Plugin::SESSION_POSTTYPE
+		);
+		// Submenu for Locations Taxonomy.
+		add_submenu_page(
+			$this->menu_slug,
+			'Locations',
+			'Locations',
+			'read',
+			'edit-tags.php?taxonomy=' . Plugin::LOCATION_TAXONOMY . '&post_type=' . Plugin::SESSION_POSTTYPE
+		);
+		// Submenu for Tags Taxonomy.
+		add_submenu_page(
+			$this->menu_slug,
+			'Tags',
+			'Tags',
+			'read',
+			'edit-tags.php?taxonomy=' . Plugin::TAGS_TAXONOMY . '&post_type=' . Plugin::SESSION_POSTTYPE
+		);
 
-		// Speakers
+		// Speakers.
 		add_submenu_page(
 			$this->menu_slug,
 			'Speakers',
@@ -83,8 +107,17 @@ class Menu {
 			'read',
 			'post-new.php?post_type=' . Plugin::SPEAKER_POSTTYPE
 		);
+		// Submenu for Groups Taxonomy.
+		add_submenu_page(
+			$this->menu_slug,
+			'Groups',
+			'Groups',
+			'read',
+			'edit-tags.php?taxonomy=' . Plugin::GROUP_TAXONOMY . '&post_type=' . Plugin::SPEAKER_POSTTYPE
+		);
 
-		// Sponsors
+
+		// Sponsors.
 		add_submenu_page(
 			$this->menu_slug,
 			'Sponsors',
@@ -99,5 +132,14 @@ class Menu {
 			'read',
 			'post-new.php?post_type=' . Plugin::SPONSOR_POSTTYPE
 		);
+		// Submenu for Sponsor Levels Taxonomy.
+		add_submenu_page(
+			$this->menu_slug,
+			'Sponsor Levels',
+			'Sponsor Levels',
+			'read',
+			'edit-tags.php?taxonomy=' . Plugin::SPONSOR_LEVEL_TAXONOMY . '&post_type=' . Plugin::SPONSOR_POSTTYPE
+		);
+
 	}
 }
