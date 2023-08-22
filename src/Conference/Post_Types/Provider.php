@@ -99,13 +99,13 @@ class Provider extends Service_Provider {
 	 */
 	public function add_filters() {
 		// Sessions.
-		add_action( 'enter_title_here', [ $this, 'change_sessions_title_text' ], 10, 2 );
+		add_filter( 'enter_title_here', [ $this, 'change_sessions_title_text' ], 10, 2 );
 
 		// Speakers.
-		add_action( 'enter_title_here', [ $this, 'change_speakers_title_text' ], 10, 2 );
+		add_filter( 'enter_title_here', [ $this, 'change_speakers_title_text' ], 10, 2 );
 
 		// Sponsors.
-		add_action( 'enter_title_here', [ $this, 'change_sponsors_title_text' ], 10, 2 );
+		add_filter( 'enter_title_here', [ $this, 'change_sponsors_title_text' ], 10, 2 );
 	}
 
 	/**

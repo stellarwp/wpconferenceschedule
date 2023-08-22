@@ -44,8 +44,7 @@ class Sponsors {
 			'parent_item_colon'  => _x( 'Parent Sponsor:', 'Sponsor post type label', 'wp-conference-schedule' ),
 		];
 
-		// Register sponsor post type.
-		register_post_type( Plugin::SPONSOR_POSTTYPE, [
+		$args = [
 			'labels'          => $sponsorlabels,
 			'rewrite'         => [ 'slug' => 'sponsors', 'with_front' => false ],
 			'supports'        => [ 'title', 'editor', 'revisions', 'thumbnail' ],
@@ -59,7 +58,20 @@ class Sponsors {
 			'show_in_menu'    => false,
 			'show_in_rest'    => true,
 			'rest_base'       => 'sponsors',
-		] );
+		];
+
+		/**
+		 * Filters the arguments for registering the 'sponsors' post type.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $args The arguments for registering the post type.
+		 *
+		 * @return array The filtered arguments.
+		 */
+		apply_filters( 'tec_conference_schedule_sponsors_post_type_args', $args );
+
+		register_post_type( Plugin::SPONSOR_POSTTYPE, $args );
 	}
 
 	/**
