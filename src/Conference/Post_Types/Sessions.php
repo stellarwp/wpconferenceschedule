@@ -44,12 +44,11 @@ class Sessions {
 			'parent_item_colon'  => _x( 'Parent Session:', 'Session post type label', 'wp-conference-schedule' ),
 		];
 
-		// Register session post type.
-		register_post_type( Plugin::SESSION_POSTTYPE, [
+		// Arguments for the post type.
+		$args = [
 			'labels'          => $sessionlabels,
 			'rewrite'         => [ 'slug' => 'sessions', 'with_front' => false ],
 			'supports'        => [ 'title', 'editor', 'author', 'revisions', 'thumbnail', 'custom-fields' ],
-			'menu_position'   => 21,
 			'public'          => true,
 			'show_ui'         => true,
 			'can_export'      => true,
@@ -59,7 +58,20 @@ class Sessions {
 			'show_in_menu'    => false,
 			'show_in_rest'    => true,
 			'rest_base'       => 'sessions',
-		] );
+		];
+
+		/**
+		 * Filters the arguments for registering the 'sessions' post type.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $args The arguments for registering the post type.
+		 *
+		 * @return array The filtered arguments.
+		 */
+		apply_filters( 'tec_conference_schedule_sessions_post_type_args', $args );
+
+		register_post_type( Plugin::SESSION_POSTTYPE, $args );
 	}
 
 	/**
@@ -85,7 +97,7 @@ class Sessions {
 	 *
 	 * @since TBD
 	 */
-	function cpt_at_glance() {
+	public function cpt_at_glance() {
 		$args     = [
 			'public'   => true,
 			'_builtin' => false

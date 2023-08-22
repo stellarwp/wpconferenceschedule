@@ -44,8 +44,7 @@ class Speakers {
 			'parent_item_colon'  => _x( 'Parent Speaker:', 'Speaker post type label', 'wp-conference-schedule' ),
 		];
 
-		// Register speaker post type.
-		register_post_type( Plugin::SPEAKER_POSTTYPE, [
+		$args = [
 			'labels'             => $speakerlabels,
 			'rewrite'            => [ 'slug' => 'speakers', 'with_front' => false ],
 			'supports'           => [ 'title', 'editor', 'revisions', 'thumbnail', 'page-attributes', 'excerpt' ],
@@ -61,7 +60,20 @@ class Speakers {
 			'show_in_rest'       => true,
 			'rest_base'          => 'speakers',
 			'has_archive'        => false,
-		] );
+		];
+
+		/**
+		 * Filters the arguments for registering the 'speakers' post type.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $args The arguments for registering the post type.
+		 *
+		 * @return array The filtered arguments.
+		 */
+		apply_filters( 'tec_conference_schedule_speakers_post_type_args', $args );
+
+		register_post_type( Plugin::SPEAKER_POSTTYPE, $args );
 	}
 
 	/**

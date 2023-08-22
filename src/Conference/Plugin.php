@@ -362,7 +362,7 @@ class Plugin {
 
 		// call your CPT registration function here (it should also be hooked into 'init')
 		//wpcs_register_post_types();
-		flush_rewrite_rules();
+		//flush_rewrite_rules();
 	}
 
 	/**
