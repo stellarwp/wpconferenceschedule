@@ -38,7 +38,6 @@ class Provider extends Service_Provider {
 		$this->container->singleton( Groups::class, Groups::class );
 
 		$this->add_actions();
-		$this->add_filters();
 	}
 
 	/**
@@ -97,30 +96,5 @@ class Provider extends Service_Provider {
 	 */
 	public function register_groups_taxonomy() {
 		$this->container->make( Groups::class )->register_taxonomy();
-	}
-
-
-	/**
-	 * Adds required actions for post types.
-	 *
-	 * @since TBD
-	 */
-	public function add_filters() {
-		// Sessions.
-		//add_action( 'enter_title_here', [ $this, 'change_sessions_title_text' ], 10, 2 );
-	}
-
-	/**
-	 * Changes the title placeholder text for the 'Sessions' post type.
-	 *
-	 * @since TBD
-	 *
-	 * @param string  $title The current placeholder text.
-	 * @param WP_Post $post  The current post object.
-	 *
-	 * @return string The modified placeholder text.
-	 */
-	public function change_sessions_title_text( $title, $post ) {
-		return $this->container->make( Sessions::class )->change_title_text( $title, $post );
 	}
 }
