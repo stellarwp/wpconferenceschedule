@@ -38,14 +38,15 @@ class Provider extends Service_Provider {
 		$this->container->singleton( Groups::class, Groups::class );
 
 		$this->add_actions();
+		$this->add_filters();
 	}
 
 	/**
-	 * Adds required actions for post types.
+	 * Adds required actions for taxonomies.
 	 *
 	 * @since TBD
 	 */
-	public function add_actions() {
+	protected function add_actions() {
 		add_action( 'init', [ $this, 'register_tracks_taxonomy' ] );
 		add_action( 'init', [ $this, 'register_locations_taxonomy' ] );
 		add_action( 'init', [ $this, 'register_tags_taxonomy' ] );
@@ -96,5 +97,14 @@ class Provider extends Service_Provider {
 	 */
 	public function register_groups_taxonomy() {
 		$this->container->make( Groups::class )->register_taxonomy();
+	}
+
+	/**
+	 * Adds required filters for taxonomies.
+	 *
+	 * @since TBD
+	 */
+	protected function add_filters() {
+
 	}
 }
