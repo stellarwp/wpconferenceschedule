@@ -43,8 +43,7 @@ class Tracks {
 			'new_item_name' => _x( 'New Track', 'Tracks taxonomy label', 'wp-conference-schedule' ),
 		];
 
-		// Register the Tracks taxonomy.
-		register_taxonomy( Plugin::TRACK_TAXONOMY, Plugin::SESSION_POSTTYPE, [
+		$args = [
 			'labels'            => $track_labels,
 			'rewrite'           => [ 'slug' => 'track' ],
 			'query_var'         => 'track',
@@ -54,6 +53,20 @@ class Tracks {
 			'show_in_rest'      => true,
 			'show_admin_column' => true,
 			'rest_base'         => 'session_track',
-			] );
+		];
+
+		/**
+		 * Filters the arguments for registering the 'wpcs_track' taxonomy.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $args The arguments for registering the taxonomy.
+		 *
+		 * @return array The filtered arguments.
+		 */
+		$args = apply_filters( 'tec_conference_schedule_wpcs_track_taxonomy_args', $args );
+
+		// Register the Tracks taxonomy.
+		register_taxonomy( Plugin::TRACK_TAXONOMY, Plugin::SESSION_POSTTYPE, $args );
 	}
 }

@@ -43,8 +43,7 @@ class Sponsor_Levels {
 			'new_item_name' => _x( 'New Sponsor Level', 'Sponsor Levels taxonomy label', 'wp-conference-schedule' ),
 		];
 
-		// Register the Sponsor Levels taxonomy.
-		register_taxonomy( Plugin::SPONSOR_LEVEL_TAXONOMY, Plugin::SPONSOR_POSTTYPE, [
+		$args = [
 			'labels'            => $sponsor_level_labels,
 			'rewrite'           => [ 'slug' => 'sponsor-level' ],
 			'query_var'         => 'sponsor-level',
@@ -54,6 +53,20 @@ class Sponsor_Levels {
 			'show_in_rest'      => true,
 			'show_admin_column' => true,
 			'rest_base'         => 'session_sponsor_level',
-		] );
+		];
+
+		/**
+		 * Filters the arguments for registering the 'wpcsp_sponsor_level' taxonomy.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $args The arguments for registering the taxonomy.
+		 *
+		 * @return array The filtered arguments.
+		 */
+		$args = apply_filters( 'tec_conference_schedule_wpcsp_sponsor_level_taxonomy_args', $args );
+
+		// Register the Sponsor Levels taxonomy.
+		register_taxonomy( Plugin::SPONSOR_LEVEL_TAXONOMY, Plugin::SPONSOR_POSTTYPE, $args );
 	}
 }

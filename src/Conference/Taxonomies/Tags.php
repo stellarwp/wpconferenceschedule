@@ -43,8 +43,7 @@ class Tags {
 			'new_item_name' => _x( 'New Tag', 'Tags taxonomy label', 'wp-conference-schedule' ),
 		];
 
-		// Register the Tags taxonomy.
-		register_taxonomy( Plugin::TAGS_TAXONOMY, Plugin::SESSION_POSTTYPE, [
+		$args = [
 			'labels'            => $tag_labels,
 			'rewrite'           => [ 'slug' => 'session_tag' ],
 			'query_var'         => 'session_tag',
@@ -54,6 +53,20 @@ class Tags {
 			'show_in_rest'      => true,
 			'show_admin_column' => true,
 			'rest_base'         => 'session_tag',
-		] );
+		];
+
+		/**
+		 * Filters the arguments for registering the 'wpcs_session_tag' taxonomy.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $args The arguments for registering the taxonomy.
+		 *
+		 * @return array The filtered arguments.
+		 */
+		$args = apply_filters( 'tec_conference_schedule_wpcs_session_tag_taxonomy_args', $args );
+
+		// Register the Tags taxonomy.
+		register_taxonomy( Plugin::TAGS_TAXONOMY, Plugin::SESSION_POSTTYPE, $args );
 	}
 }

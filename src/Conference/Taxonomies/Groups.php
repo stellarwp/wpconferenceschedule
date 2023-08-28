@@ -43,8 +43,7 @@ class Groups {
 			'new_item_name' => _x( 'New Group', 'Groups taxonomy label', 'wp-conference-schedule' ),
 		];
 
-		// Register the Groups taxonomy.
-		register_taxonomy( Plugin::GROUP_TAXONOMY, Plugin::SPEAKER_POSTTYPE, [
+		$args = [
 			'labels'            => $group_labels,
 			'rewrite'           => [ 'slug' => 'session_group' ],
 			'query_var'         => 'session_group',
@@ -54,6 +53,20 @@ class Groups {
 			'show_in_rest'      => true,
 			'show_admin_column' => true,
 			'rest_base'         => 'session_group',
-		] );
+		];
+
+		/**
+		 * Filters the arguments for registering the 'wpcsp_group' taxonomy.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $args The arguments for registering the taxonomy.
+		 *
+		 * @return array The filtered arguments.
+		 */
+		$args = apply_filters( 'tec_conference_schedule_wpcsp_group_taxonomy_args', $args );
+
+		// Register the Groups taxonomy.
+		register_taxonomy( Plugin::GROUP_TAXONOMY, Plugin::SPEAKER_POSTTYPE, $args );
 	}
 }

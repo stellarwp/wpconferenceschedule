@@ -43,8 +43,7 @@ class Locations {
 			'new_item_name' => _x( 'New Location', 'Locations taxonomy label', 'wp-conference-schedule' ),
 		];
 
-		// Register the Locations taxonomy.
-		register_taxonomy( Plugin::LOCATION_TAXONOMY, Plugin::SESSION_POSTTYPE, [
+		$args = [
 			'labels'            => $location_labels,
 			'rewrite'           => [ 'slug' => 'location' ],
 			'query_var'         => 'location',
@@ -54,6 +53,20 @@ class Locations {
 			'show_in_rest'      => true,
 			'show_admin_column' => true,
 			'rest_base'         => 'session_location',
-		] );
+		];
+
+		/**
+		 * Filters the arguments for registering the 'wpcs_location' taxonomy.
+		 *
+		 * @since TBD
+		 *
+		 * @param array $args The arguments for registering the taxonomy.
+		 *
+		 * @return array The filtered arguments.
+		 */
+		$args = apply_filters( 'tec_conference_schedule_wpcs_location_taxonomy_args', $args );
+
+		// Register the Locations taxonomy.
+		register_taxonomy( Plugin::LOCATION_TAXONOMY, Plugin::SESSION_POSTTYPE, $args );
 	}
 }

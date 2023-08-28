@@ -30,6 +30,26 @@ class Menu {
 	protected $menu_slug = 'edit.php?post_type=' . Plugin::SESSION_POSTTYPE;
 
 	/**
+	 * Get the menu slug for the Conference Schedule menu items.
+	 *
+	 * @since TBD
+	 *
+	 * @return string  The menu slug.
+	 */
+	public function get_menu_slug(): string {
+		/**
+		 * Filters the menu slug for the Conference Schedule menu items.
+		 *
+		 * @since TBD
+		 *
+		 * @param string $menu_slug The default menu slug.
+		 *
+		 * @return string $menu_slug The menu slug.
+		 */
+		return apply_filters( 'tec_conference_schedule_menu_slug', $this->menu_slug );
+	}
+
+	/**
 	 * Adds Conference Schedule menu item in the WordPress Admin Nav.
 	 *
 	 * @since TBD
@@ -39,7 +59,7 @@ class Menu {
 			'Conference Schedule',
 			'Conference Schedule',
 			'read',
-			'edit.php?post_type=' . Plugin::SESSION_POSTTYPE,
+			$this->get_menu_slug(),
 			'',
 			'dashicons-schedule',
 			21
@@ -54,14 +74,14 @@ class Menu {
 	public function organize_post_types() {
 		// Sessions.
 		add_submenu_page(
-			$this->menu_slug,
+			$this->get_menu_slug(),
 			'Sessions',
 			'Sessions',
 			'read',
 			'edit.php?post_type=' . Plugin::SESSION_POSTTYPE
 		);
 		add_submenu_page(
-			$this->menu_slug,
+			$this->get_menu_slug(),
 			'Add New Session',
 			'Add New Session',
 			'read',
@@ -69,7 +89,7 @@ class Menu {
 		);
 		// Submenu for Tracks Taxonomy.
 		add_submenu_page(
-			$this->menu_slug,
+			$this->get_menu_slug(),
 			'Tracks',
 			'Tracks',
 			'read',
@@ -77,7 +97,7 @@ class Menu {
 		);
 		// Submenu for Locations Taxonomy.
 		add_submenu_page(
-			$this->menu_slug,
+			$this->get_menu_slug(),
 			'Locations',
 			'Locations',
 			'read',
@@ -85,7 +105,7 @@ class Menu {
 		);
 		// Submenu for Tags Taxonomy.
 		add_submenu_page(
-			$this->menu_slug,
+			$this->get_menu_slug(),
 			'Tags',
 			'Tags',
 			'read',
@@ -94,14 +114,14 @@ class Menu {
 
 		// Speakers.
 		add_submenu_page(
-			$this->menu_slug,
+			$this->get_menu_slug(),
 			'Speakers',
 			'Speakers',
 			'read',
 			'edit.php?post_type=' . Plugin::SPEAKER_POSTTYPE
 		);
 		add_submenu_page(
-			$this->menu_slug,
+			$this->get_menu_slug(),
 			'Add New Speaker',
 			'Add New Speaker',
 			'read',
@@ -109,7 +129,7 @@ class Menu {
 		);
 		// Submenu for Groups Taxonomy.
 		add_submenu_page(
-			$this->menu_slug,
+			$this->get_menu_slug(),
 			'Groups',
 			'Groups',
 			'read',
@@ -119,14 +139,14 @@ class Menu {
 
 		// Sponsors.
 		add_submenu_page(
-			$this->menu_slug,
+			$this->get_menu_slug(),
 			'Sponsors',
 			'Sponsors',
 			'read',
 			'edit.php?post_type=' . Plugin::SPONSOR_POSTTYPE
 		);
 		add_submenu_page(
-			$this->menu_slug,
+			$this->get_menu_slug(),
 			'Add New Sponsor',
 			'Add New Sponsor',
 			'read',
@@ -134,12 +154,11 @@ class Menu {
 		);
 		// Submenu for Sponsor Levels Taxonomy.
 		add_submenu_page(
-			$this->menu_slug,
+			$this->get_menu_slug(),
 			'Sponsor Levels',
 			'Sponsor Levels',
 			'read',
 			'edit-tags.php?taxonomy=' . Plugin::SPONSOR_LEVEL_TAXONOMY . '&post_type=' . Plugin::SPONSOR_POSTTYPE
 		);
-
 	}
 }
