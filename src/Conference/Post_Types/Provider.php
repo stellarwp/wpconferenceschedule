@@ -44,7 +44,7 @@ class Provider extends Service_Provider {
 	 *
 	 * @since TBD
 	 */
-	public function add_actions() {
+	protected function add_actions() {
 		// Sessions.
 		add_action( 'init', [ $this, 'register_sessions_post_type' ] );
 		add_action( 'dashboard_glance_items', [ $this, 'sessions_cpt_at_glance' ] );
@@ -97,7 +97,7 @@ class Provider extends Service_Provider {
 	 *
 	 * @since TBD
 	 */
-	public function add_filters() {
+	protected function add_filters() {
 		// Sessions.
 		add_filter( 'enter_title_here', [ $this, 'change_sessions_title_text' ], 10, 2 );
 
