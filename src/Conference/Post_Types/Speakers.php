@@ -18,12 +18,10 @@ use TEC\Conference\Plugin;
  *
  * @package TEC\Conference\Post_Types
  */
-class Speakers {
+class Speakers extends Abstract_Post_Types {
 
 	/**
-	 * Registers the 'wpcs_speaker' post type.
-	 *
-	 * @since TBD
+	 * @inheritDoc
 	 */
 	public function register_post_type() {
 
@@ -73,24 +71,13 @@ class Speakers {
 		 */
 		apply_filters( 'tec_conference_schedule_speakers_post_type_args', $args );
 
-		register_post_type( Plugin::SPEAKER_POSTTYPE, $args );
+		$this->post_type_object = register_post_type( Plugin::SPEAKER_POSTTYPE, $args );
 	}
 
 	/**
-	 * Changes the title placeholder text for the 'Sessions' post type.
-	 *
-	 * @since TBD
-	 *
-	 * @param string  $title The current placeholder text.
-	 * @param WP_Post $post  The current post object.
-	 *
-	 * @return string The modified placeholder text.
+	 * @inheritDoc
 	 */
-	public function change_title_text( $title, $post ) {
-		if ( $post->post_type === Plugin::SPEAKER_POSTTYPE ) {
-			$title = _x( 'Enter Speaker Full Name Here', 'Speaker title placeholder', 'wp-conference-schedule' );
-		}
-
-		return $title;
+	public function get_title_text(): string {
+		return _x( 'Enter Speaker Full Name Here', 'Speaker title placeholder', 'wp-conference-schedule' );
 	}
 }
