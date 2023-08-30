@@ -43,6 +43,8 @@ class Provider extends Service_Provider {
 	public function add_actions() {
 		add_action( 'admin_menu', [ $this, 'add_conference_schedule_menu' ] );
 		add_action( 'admin_menu', [ $this, 'organize_post_types' ] );
+		add_action( 'admin_init', [ $this, 'options_init' ] );
+		add_action( 'admin_menu', [ $this, 'options_page' ] );
 	}
 
 	/**
@@ -61,5 +63,23 @@ class Provider extends Service_Provider {
 	 */
 	public function organize_post_types() {
 		$this->container->make( Menu::class )->organize_post_types();
+	}
+
+	/**
+	 * Initializes settings and fields.
+	 *
+	 * @since TBD
+	 */
+	public function options_init() {
+		$this->container->make( Settings::class )->init();
+	}
+
+	/**
+	 * Registers options page for settings.
+	 *
+	 * @since TBD
+	 */
+	public function options_page() {
+		$this->container->make( Settings::class )->options_page();
 	}
 }
