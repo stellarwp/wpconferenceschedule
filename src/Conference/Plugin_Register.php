@@ -29,7 +29,7 @@ class Plugin_Register extends Abstract_Plugin_Register {
 	 *
 	 * @var string
 	 */
-	public const VERSION  = '1.0.0';
+	public const VERSION  = Plugin::VERSION;
 
 	/**
 	 * Configures the base_dir property which is the path to the plugin bootstrap file.
