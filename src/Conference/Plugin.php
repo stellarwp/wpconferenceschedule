@@ -12,6 +12,7 @@ namespace TEC\Conference;
 use TEC\Conference\Contracts\Container;
 use TEC\Conference\Post_Types\Provider as Post_Types_Provider;
 use TEC\Conference\Admin\Provider as Admin_Provider;
+use TEC\Conference\Taxonomies\Provider as Taxonomies_Provider;
 
 /**
  * Class Plugin
@@ -74,6 +75,51 @@ class Plugin {
 	 * @var string
 	 */
 	const SPONSOR_POSTTYPE = 'wpcsp_sponsor';
+
+	/**
+	 * The Track Taxonomy.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	const TRACK_TAXONOMY = 'wpcs_track';
+
+	/**
+	 * The Location Taxonomy.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	const LOCATION_TAXONOMY = 'wpcs_location';
+
+	/**
+	 * The Tags Taxonomy.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	const TAGS_TAXONOMY = 'wpcs_session_tag';
+
+	/**
+	 * The Sponsor Level Taxonomy.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	const SPONSOR_LEVEL_TAXONOMY = 'wpcsp_sponsor_level';
+
+	/**
+	 * The Group Taxonomy.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	const GROUP_TAXONOMY = 'wpcsp_group';
 
 	/**
 	 * @var bool Prevent autoload initialization
@@ -181,6 +227,7 @@ class Plugin {
 		$this->container->singleton( 'conference-schedule.plugin', $this );
 
 		$this->container->register( Post_Types_Provider::class );
+		$this->container->register( Taxonomies_Provider::class );
 		$this->container->register( Admin_Provider::class );
 	}
 
