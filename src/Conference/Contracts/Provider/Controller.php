@@ -17,7 +17,7 @@ use TEC\Conference\Vendor\StellarWP\ContainerContract;
  *
  * @since TBD
  *
- * @package TEC\Common\Provider;
+ * @package TEC\Conference\Provider;
  *
  * @property ContainerInterface $container
  */
