@@ -33,6 +33,7 @@ class Provider extends Service_Provider {
 		$this->container->singleton( 'tec.conference.admin.provider', $this );
 
 		$this->add_actions();
+		$this->add_filters();
 	}
 
 	/**
@@ -40,9 +41,12 @@ class Provider extends Service_Provider {
 	 *
 	 * @since TBD
 	 */
-	public function add_actions() {
+	protected function add_actions() {
 		add_action( 'admin_menu', [ $this, 'add_conference_schedule_menu' ] );
 		add_action( 'admin_menu', [ $this, 'organize_post_types' ] );
+		add_action( 'pre_get_posts', [ $this, 'admin_sessions_pre_get_posts' ] );
+		add_action( 'manage_posts_custom_column', [ $this, 'manage_post_types_columns_output' ], 10, 2 );
+
 		add_action( 'admin_init', [ $this, 'options_init' ] );
 		add_action( 'admin_menu', [ $this, 'options_page' ] );
 	}
@@ -66,6 +70,29 @@ class Provider extends Service_Provider {
 	}
 
 	/**
+	 * Runs during pre_get_posts in admin.
+	 *
+	 * @since TBD
+	 *
+	 * @param WP_Query $query The WP_Query object.
+	 */
+	public function admin_sessions_pre_get_posts( $query ) {
+		$this->container->make( Columns::class )->admin_sessions_pre_get_posts( $query );
+	}
+
+	/**
+	 * Output for custom columns in the admin screen.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $column The name of the current column.
+	 * @param int $post_id The ID of the current post.
+	 */
+	public function manage_post_types_columns_output( string $column, int $post_id ) {
+		$this->container->make( Columns::class )->manage_post_types_columns_output( $column, $post_id );
+	}
+
+	/**
 	 * Initializes settings and fields.
 	 *
 	 * @since TBD
@@ -81,5 +108,55 @@ class Provider extends Service_Provider {
 	 */
 	public function options_page() {
 		$this->container->make( Settings::class )->options_page();
+	}
+
+	/**
+	 * Adds required actions for post types.
+	 *
+	 * @since TBD
+	 */
+	protected function add_filters() {
+		add_filter( 'manage_wpcs_session_posts_columns',[ $this, 'manage_post_types_columns' ] );
+		add_filter( 'manage_edit-wpcs_session_sortable_columns', [ $this, 'manage_sortable_columns' ] );
+		add_filter( 'display_post_states', [ $this, 'display_post_states' ] );
+	}
+
+	/**
+	 * Adds or modifies the columns in the admin screen for custom post types.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $columns The existing columns.
+	 *
+	 * @return array The modified columns.
+	 */
+	public function manage_post_types_columns( array $columns ): array {
+		return $this->container->make( Columns::class )->manage_post_types_columns( $columns );
+	}
+
+	/**
+	 * Defines sortable columns in the admin screen.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $sortable The existing sortable columns.
+	 *
+	 * @return array The modified sortable columns.
+	 */
+	public function manage_sortable_columns( array $sortable ): array {
+		return $this->container->make( Columns::class )->manage_sortable_columns( $sortable );
+	}
+
+	/**
+	 * Displays post states in the admin screen.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $states The existing post states.
+	 *
+	 * @return array The modified post states.
+	 */
+	public function display_post_states( array $states ): array {
+		return $this->container->make( Columns::class )->display_post_states( $states );
 	}
 }
