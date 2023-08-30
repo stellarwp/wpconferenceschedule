@@ -180,12 +180,6 @@ class Plugin {
 		$this->container->singleton( 'conference-schedule', $this );
 		$this->container->singleton( 'conference-schedule.plugin', $this );
 
-
-		if ( ! $this->check_plugin_dependencies() ) {
-			// If the plugin dependency manifest is not met, then bail and stop here.
-			//return;
-		}
-
 		$this->container->register( Post_Types_Provider::class );
 		$this->container->register( Admin_Provider::class );
 	}
