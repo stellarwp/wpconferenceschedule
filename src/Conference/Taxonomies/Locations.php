@@ -21,12 +21,10 @@ use TEC\Conference\Plugin;
  *
  * @package TEC\Conference\Taxonomies
  */
-class Locations {
+class Locations extends Abstract_Taxonomy {
 
 	/**
-	 * Registers the 'wpcs_location' taxonomy.
-	 *
-	 * @since TBD
+	 * @inheritdoc
 	 */
 	public function register_taxonomy() {
 
@@ -67,6 +65,6 @@ class Locations {
 		$args = apply_filters( 'tec_conference_schedule_wpcs_location_taxonomy_args', $args );
 
 		// Register the Locations taxonomy.
-		register_taxonomy( Plugin::LOCATION_TAXONOMY, Plugin::SESSION_POSTTYPE, $args );
+		$this->taxonomy_object = register_taxonomy( Plugin::LOCATION_TAXONOMY, Plugin::SESSION_POSTTYPE, $args );
 	}
 }
