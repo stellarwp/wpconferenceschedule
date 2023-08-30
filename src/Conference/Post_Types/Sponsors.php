@@ -18,7 +18,7 @@ use TEC\Conference\Plugin;
  *
  * @package TEC\Conference\Post_Types
  */
-class Sponsors extends Abstract_Post_Types {
+class Sponsors extends Abstract_Post_Type {
 
 	/**
 	 * @inheritDoc

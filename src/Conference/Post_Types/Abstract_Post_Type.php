@@ -1,6 +1,6 @@
 <?php
 /**
- * Handles Setup of Post Types.
+ * Abstract class to handle setup of post types.
  *
  * @since   TBD
  *
@@ -14,13 +14,13 @@ use WP_Post_Type;
 use WP_Post;
 
 /**
- * Class Abstract_Post_Types
+ * Class Abstract_Post_Type
  *
  * @since   TBD
  *
  * @package TEC\Conference\Post_Types
  */
-abstract class Abstract_Post_Types {
+abstract class Abstract_Post_Type {
 
 	/**
 	 * The registered post type object.
