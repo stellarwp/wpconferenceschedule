@@ -38,3 +38,4 @@ files/
 
 # Misc
 bin/strauss.phar
+vendor/*

@@ -18,11 +18,47 @@
  * Domain Path:       /languages
  */
 
-// If this file is called directly, abort.
-if ( ! defined( 'WPINC' ) ) {
-	die;
+define( 'CONFERENCE_SCHEDULE_FILE', __FILE__ );
+
+// Load the required php min version functions.
+require_once dirname( CONFERENCE_SCHEDULE_FILE ) . '/src/functions/php-min-version.php';
+
+/**
+ * Verifies if we need to warn the user about min PHP version and bail to avoid fatal errors.
+ */
+if ( tribe_is_not_min_php_version() ) {
+	tribe_not_php_version_textdomain( 'conference-schedule', CONFERENCE_SCHEDULE_FILE );
+
+	/**
+	 * Include the plugin name into the correct place.
+	 *
+	 * @since  1.0.1
+	 *
+	 * @param  array $names current list of names.
+	 *
+	 * @return array List of names after adding Event Automator.
+	 */
+	function tec_conference_schedule_not_php_version_plugin_name( $names ) {
+		$names['conference-schedule'] = esc_html__( 'Conference Schedule', 'conference-schedule' );
+		return $names;
+	}
+
+	add_filter( 'tribe_not_php_version_names', 'tec_conference_schedule_not_php_version_plugin_name' );
+
+	if ( ! has_filter( 'admin_notices', 'tribe_not_php_version_notice' ) ) {
+		add_action( 'admin_notices', 'tribe_not_php_version_notice' );
+	}
+
+	return false;
 }
 
+// Include the file that defines the functions handling the plugin load operations.
+require_once __DIR__ . '/src/functions/load.php';
+
+add_action( 'plugins_loaded', 'conference_schedule_load', 0 );
+
+
+//@TODO START OF ORIGINAL PLUGIN CODE - WILL MOVE AND REPLACE IN FUTURE PRS
 // Plugin directory
 define( 'WPCS_DIR' , plugin_dir_path( __FILE__ ) );
 
@@ -30,13 +66,13 @@ define( 'WPCS_DIR' , plugin_dir_path( __FILE__ ) );
 define( 'PLUGIN_FILE_URL' , __FILE__);
 
 // Pro Plugin Active
-if ( ! defined( 'WPCSP_ACTIVE' ) ) {
+/*if ( ! defined( 'WPCSP_ACTIVE' ) ) {
 	if(is_plugin_active('wp-conference-schedule-pro/wp-conference-schedule-pro.php')){
 		define( 'WPCSP_ACTIVE', true );
 	}else{
 		define( 'WPCSP_ACTIVE', false );
 	}
-}
+}*/
 
 // Includes
 require_once( WPCS_DIR . 'inc/post-types.php' );
