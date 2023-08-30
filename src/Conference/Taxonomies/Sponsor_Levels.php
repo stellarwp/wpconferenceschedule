@@ -21,12 +21,10 @@ use TEC\Conference\Plugin;
  *
  * @package TEC\Conference\Taxonomies
  */
-class Sponsor_Levels {
+class Sponsor_Levels extends Abstract_Taxonomy {
 
 	/**
-	 * Registers the 'wpcs_sponsor_level' taxonomy.
-	 *
-	 * @since TBD
+	 * @inheritdoc
 	 */
 	public function register_taxonomy() {
 
@@ -67,6 +65,6 @@ class Sponsor_Levels {
 		$args = apply_filters( 'tec_conference_schedule_wpcsp_sponsor_level_taxonomy_args', $args );
 
 		// Register the Sponsor Levels taxonomy.
-		register_taxonomy( Plugin::SPONSOR_LEVEL_TAXONOMY, Plugin::SPONSOR_POSTTYPE, $args );
+		$this->taxonomy_object = register_taxonomy( Plugin::SPONSOR_LEVEL_TAXONOMY, Plugin::SPONSOR_POSTTYPE, $args );
 	}
 }

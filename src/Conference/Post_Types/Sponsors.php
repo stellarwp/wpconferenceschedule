@@ -18,12 +18,10 @@ use TEC\Conference\Plugin;
  *
  * @package TEC\Conference\Post_Types
  */
-class Sponsors {
+class Sponsors extends Abstract_Post_Type {
 
 	/**
-	 * Registers the 'wpcs_sponsor' post type.
-	 *
-	 * @since TBD
+	 * @inheritDoc
 	 */
 	public function register_post_type() {
 
@@ -71,24 +69,13 @@ class Sponsors {
 		 */
 		apply_filters( 'tec_conference_schedule_sponsors_post_type_args', $args );
 
-		register_post_type( Plugin::SPONSOR_POSTTYPE, $args );
+		$this->post_type_object = register_post_type( Plugin::SPONSOR_POSTTYPE, $args );
 	}
 
 	/**
-	 * Changes the title placeholder text for the 'Sessions' post type.
-	 *
-	 * @since TBD
-	 *
-	 * @param string  $title The current placeholder text.
-	 * @param WP_Post $post  The current post object.
-	 *
-	 * @return string The modified placeholder text.
+	 * @inheritDoc
 	 */
-	public function change_title_text( $title, $post ) {
-		if ( $post->post_type === Plugin::SPONSOR_POSTTYPE ) {
-			$title = _x( 'Enter Sponsoring Company Name Here', 'Sponsor title placeholder', 'wp-conference-schedule' );
-		}
-
-		return $title;
+	public function get_title_text(): string {
+		return _x( 'Enter Sponsoring Company Name Here', 'Sponsor title placeholder', 'wp-conference-schedule' );
 	}
 }

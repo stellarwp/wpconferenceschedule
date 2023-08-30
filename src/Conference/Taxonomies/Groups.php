@@ -21,12 +21,10 @@ use TEC\Conference\Plugin;
  *
  * @package TEC\Conference\Taxonomies
  */
-class Groups {
+class Groups extends Abstract_Taxonomy {
 
 	/**
-	 * Registers the 'wpcs_group' taxonomy.
-	 *
-	 * @since TBD
+	 * @inheritdoc
 	 */
 	public function register_taxonomy() {
 
@@ -67,6 +65,6 @@ class Groups {
 		$args = apply_filters( 'tec_conference_schedule_wpcsp_group_taxonomy_args', $args );
 
 		// Register the Groups taxonomy.
-		register_taxonomy( Plugin::GROUP_TAXONOMY, Plugin::SPEAKER_POSTTYPE, $args );
+		$this->taxonomy_object = register_taxonomy( Plugin::GROUP_TAXONOMY, Plugin::SPEAKER_POSTTYPE, $args );
 	}
 }

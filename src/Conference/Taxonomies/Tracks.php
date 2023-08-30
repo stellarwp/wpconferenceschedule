@@ -21,12 +21,10 @@ use TEC\Conference\Plugin;
  *
  * @package TEC\Conference\Taxonomies
  */
-class Tracks {
+class Tracks extends Abstract_Taxonomy {
 
 	/**
-	 * Registers the 'wpcs_track' taxonomy.
-	 *
-	 * @since TBD
+	 * @inheritdoc
 	 */
 	public function register_taxonomy() {
 
@@ -67,6 +65,6 @@ class Tracks {
 		$args = apply_filters( 'tec_conference_schedule_wpcs_track_taxonomy_args', $args );
 
 		// Register the Tracks taxonomy.
-		register_taxonomy( Plugin::TRACK_TAXONOMY, Plugin::SESSION_POSTTYPE, $args );
+		$this->taxonomy_object = register_taxonomy( Plugin::TRACK_TAXONOMY, Plugin::SESSION_POSTTYPE, $args );
 	}
 }
