@@ -11,10 +11,6 @@
   "license": "GPL-2.0",
   "minimum-stability": "dev",
   "prefer-stable": true,
-  "require-dev": {
-    "the-events-calendar/coding-standards": "dev-master",
-    "the-events-calendar/tec-testing-facilities": "dev-master"
-  },
   "config": {
     "preferred-install": "dist",
     "platform": {
@@ -24,9 +20,83 @@
       "dealerdirect/phpcodesniffer-composer-installer": true
     }
   },
+  "require": {
+    "lucatume/di52": "^3.3.0",
+    "stellarwp/arrays": "^1.0.0",
+    "stellarwp/assets": "^1.0.0",
+    "stellarwp/container-contract": "^1.0.4",
+    "stellarwp/db": "^1.0.3",
+    "stellarwp/installer": "^1.1.0",
+    "stellarwp/telemetry": "^2.0.0"
+  },
+  "require-dev": {
+    "the-events-calendar/coding-standards": "dev-master",
+    "the-events-calendar/tec-testing-facilities": "dev-master"
+  },
+  "repositories": [
+    {
+      "name": "the-events-calendar/tec-testing-facilities",
+      "type": "github",
+      "url": "https://github.com/the-events-calendar/tec-testing-facilities",
+      "no-api": true
+    },
+    {
+      "name": "the-events-calendar/coding-standards",
+      "type": "github",
+      "url": "https://github.com/the-events-calendar/coding-standards",
+      "no-api": true
+    },
+    {
+      "name": "lucatume/di52",
+      "type": "github",
+      "url": "https://github.com/lucatume/di52",
+      "no-api": true
+    },
+    {
+      "name": "stellarwp/telemetry",
+      "type": "vcs",
+      "url": "git@github.com:stellarwp/telemetry.git"
+    }
+  ],
+  "scripts": {
+    "strauss": [
+      "test -f ./bin/strauss.phar || curl -o bin/strauss.phar -L -C - https://github.com/BrianHenryIE/strauss/releases/download/0.13.0/strauss.phar",
+      "vendor/stellarwp/installer/bin/set-domain domain=wpconferenceschedule",
+      "@php bin/strauss.phar"
+    ],
+    "post-install-cmd": [
+      "@strauss"
+    ],
+    "post-update-cmd": [
+      "@strauss"
+    ]
+  },
   "autoload": {
     "psr-4": {
       "TEC\\Conference\\" : "src/Conference"
+    }
+  },
+  "extra": {
+    "strauss": {
+      "target_directory": "vendor/vendor-prefixed",
+      "namespace_prefix": "TEC\\Conference\\Vendor",
+      "classmap_prefix": "TEC__Conference__Vendor__",
+      "constant_prefix": "TEC_Conference_Vendor_",
+      "packages": [
+        "stellarwp/arrays",
+        "stellarwp/assets",
+        "stellarwp/container-contract",
+        "stellarwp/db",
+        "stellarwp/installer",
+        "stellarwp/telemetry",
+        "lucatume/di52"
+      ],
+      "exclude_from_prefix": {
+        "file_patterns": []
+      },
+      "delete_vendor_files": true,
+      "include_modified_date": false,
+      "include_author": false
     }
   }
 }
