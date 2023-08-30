@@ -9,11 +9,10 @@
 
 namespace TEC\Conference;
 
+use TEC\Conference\Contracts\Container;
 use TEC\Conference\Post_Types\Provider as Post_Types_Provider;
 use TEC\Conference\Admin\Provider as Admin_Provider;
 use TEC\Conference\Taxonomies\Provider as Taxonomies_Provider;
-use Tribe__Autoloader;
-use Tribe__Main;
 
 /**
  * Class Plugin
@@ -128,11 +127,6 @@ class Plugin {
 	private $should_prevent_autoload_init = false;
 
 	/**
-	 * @var string tribe-common VERSION regex
-	 */
-	private $common_version_regex = "/const\s+VERSION\s*=\s*'([^']+)'/m";
-
-	/**
 	 * @since TBD
 	 *
 	 * @var string Plugin Directory.
@@ -176,84 +170,8 @@ class Plugin {
 	 * @param ?\Tribe__Container $container The container to use, if any. If not provided, the global container will be used.
 	 */
 	public function set_container( $container = null ): void {
-		$this->container = $container ?: tribe();
+		$this->container = $container ?: new Container();
 	}
-
-	/**
-	 * To avoid duplication of our own methods and to provide a underlying system
-	 * Conference Schedule maintains a Library called Common to store a base for our plugins
-	 *
-	 * Currently we will read the File `common/package.json` to determine which version
-	 * of the Common Lib we will pass to the Auto-Loader of PHP.
-	 *
-	 * In the past we used to parse `common/src/Tribe/Main.php` for the Common Lib version.
-	 *
-	 * @link https://github.com/moderntribe/tribe-common
-	 * @see  self::init_autoloading
-	 *
-	 * @since TBD
-	 */
-	public function maybe_set_common_lib_info() {
-		// if there isn't a tribe-common version, bail with a notice
-		$common_version = file_get_contents( $this->plugin_path . 'common/src/Tribe/Main.php' );
-		if ( ! preg_match( $this->common_version_regex, $common_version, $matches ) ) {
-			return add_action( 'admin_head', [ $this, 'missing_common_libs' ] );
-		}
-
-		$common_version = $matches[1];
-
-		/**
-		 * If we don't have a version of Common or a Older version of the Lib
-		 * overwrite what should be loaded by the auto-loader
-		 */
-		if (
-			empty( $GLOBALS['tribe-common-info'] )
-			|| version_compare( $GLOBALS['tribe-common-info']['version'], $common_version, '<' )
-		) {
-			$GLOBALS['tribe-common-info'] = [
-				'dir'     => "{$this->plugin_path}common/src/Tribe",
-				'version' => $common_version,
-			];
-		}
-	}
-
-	/**
-	 * To allow easier usage of classes on our files we have a AutoLoader that will match
-	 * class names to it's required file inclusion into the Request.
-	 *
-	 * @since TBD
-	 */
-	protected function init_autoloading() {
-		$autoloader = $this->get_autoloader_instance();
-
-		// Deprecated classes are registered in a class to path fashion.
-		foreach ( glob( $this->plugin_path . 'src/deprecated/*.php', GLOB_NOSORT ) as $file ) {
-			$class_name = str_replace( '.php', '', basename( $file ) );
-			$autoloader->register_class( $class_name, $file );
-		}
-
-		$autoloader->register_autoloader();
-	}
-
-	/**
-	 * Returns the autoloader singleton instance to use in a context-aware manner.
-	 *
-	 * @since TBD
-	 *
-	 * @return \Tribe__Autoloader The singleton common Autoloader instance.
-	 */
-	public function get_autoloader_instance() {
-		if ( ! class_exists( 'Tribe__Autoloader', false ) ) {
-			require_once $GLOBALS['tribe-common-info']['dir'] . '/Autoloader.php';
-
-			Tribe__Autoloader::instance()->register_prefixes( [
-				'Tribe__' => $GLOBALS['tribe-common-info']['dir'],
-			] );
-		}
-
-		return Tribe__Autoloader::instance();
-	}
-
 
 	/**
 	 * Boots the plugin class and registers it as a singleton.
@@ -271,35 +189,7 @@ class Plugin {
 		$this->plugin_dir  = trailingslashit( basename( $this->plugin_path ) );
 		$this->plugin_url  = plugins_url( $this->plugin_dir, $this->plugin_path );
 
-		// Set common lib information, needs to happen file load
-		$this->maybe_set_common_lib_info();
-
-		/**
-		 * Before any methods from this plugin are called, we initialize our Autoloading
-		 * After this method we can use any `Tribe__` classes
-		 */
-		$this->init_autoloading();
-
-		add_filter( 'tec_common_parent_plugin_file', [ $this, 'include_parent_plugin_path_to_common' ] );
-
-		Tribe__Main::instance();
-
-		add_action( 'tribe_common_loaded', [ $this, 'bootstrap' ], 0 );
-	}
-
-	/**
-	 * Adds our main plugin file to the list of paths.
-	 *
-	 * @since TBD
-	 *
-	 * @param array<string> $paths The paths to TCMN parent plugins.
-	 *
-	 * @return array<string>
-	 */
-	public function include_parent_plugin_path_to_common( $paths ): array {
-		$paths[] = CONFERENCE_SCHEDULE_FILE;
-
-		return $paths;
+		add_action( 'plugins_loaded', [ $this, 'bootstrap' ], 1 );
 	}
 
 	/**
@@ -316,7 +206,6 @@ class Plugin {
 		$plugin->register_autoloader();
 		$plugin->set_container();
 		$plugin->container->singleton( static::class, $plugin );
-
 		$plugin->register();
 	}
 
@@ -337,12 +226,6 @@ class Plugin {
 		$this->container->singleton( 'conference-schedule', $this );
 		$this->container->singleton( 'conference-schedule.plugin', $this );
 
-
-		if ( ! $this->check_plugin_dependencies() ) {
-			// If the plugin dependency manifest is not met, then bail and stop here.
-			//return;
-		}
-
 		$this->container->register( Post_Types_Provider::class );
 		$this->container->register( Taxonomies_Provider::class );
 		$this->container->register( Admin_Provider::class );
@@ -354,34 +237,9 @@ class Plugin {
 	 * @since TBD
 	 */
 	protected function register_autoloader() {
-		// Load Composer autoload file only if we've not included this file already.
+		// Load Composer autoload and strauss autoloader.
+		require_once dirname( CONFERENCE_SCHEDULE_FILE ) . '/vendor/vendor-prefixed/autoload.php';
 		require_once dirname( CONFERENCE_SCHEDULE_FILE ) . '/vendor/autoload.php';
-
-		$autoloader = Tribe__Autoloader::instance();
-
-		// For namespaced classes.
-		$autoloader->register_prefix(
-			'\\TEC\\Conference\\',
-			$this->plugin_path . '/src/Conference',
-			'conference-schedule'
-		);
-	}
-
-	/**
-	 * Checks whether the plugin dependency manifest is satisfied or not.
-	 *
-	 * @since TBD
-	 *
-	 * @return bool Whether the plugin dependency manifest is satisfied or not.
-	 */
-	protected function check_plugin_dependencies(): bool {
-		$this->register_plugin_dependencies();
-
-		if ( ! tribe_check_plugin( static::class ) ) {
-			return false;
-		}
-
-		return true;
 	}
 
 	/**

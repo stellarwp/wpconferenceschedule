@@ -10,7 +10,7 @@
 
 namespace TEC\Conference\Post_Types;
 
-use TEC\Common\Contracts\Service_Provider;
+use TEC\Conference\Contracts\Service_Provider;
 
 /**
  * Class Provider
