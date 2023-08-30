@@ -1,24 +1,22 @@
 <?php
 /**
- * Handles Setup of Post Types.
+ * Abstract class to handle setup of custom taxonomies
  *
  * @since   TBD
  *
- * @package TEC\Conference\Post_Types
+ * @package TEC\Conference\Taxonomies
  */
 
 namespace TEC\Conference\Taxonomies;
 
-use TEC\Conference\Plugin;
 use WP_Taxonomy;
-use WP_Post;
 
 /**
- * Class Abstract_Post_Types
+ * Class Abstract_Taxonomy
  *
  * @since   TBD
  *
- * @package TEC\Conference\Post_Types
+ * @package TEC\Conference\Taxonomies
  */
 abstract class Abstract_Taxonomy {
 
