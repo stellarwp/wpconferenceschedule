@@ -10,6 +10,8 @@
 namespace TEC\Conference;
 
 use TEC\Conference\Contracts\Container;
+use TEC\Conference\Post_Types\Provider as Post_Types_Provider;
+use TEC\Conference\Admin\Provider as Admin_Provider;
 
 /**
  * Class Plugin
@@ -45,6 +47,33 @@ class Plugin {
 	 * @var string
 	 */
 	const FILE = CONFERENCE_SCHEDULE_FILE;
+
+	/**
+	 * The Sessions Post Type.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	const SESSION_POSTTYPE = 'wpcs_session';
+
+	/**
+	 * The Speakers Post Type.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	const SPEAKER_POSTTYPE = 'wpcsp_speaker';
+
+	/**
+	 * The Sponsors Post Type.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	const SPONSOR_POSTTYPE = 'wpcsp_sponsor';
 
 	/**
 	 * @var bool Prevent autoload initialization
@@ -150,6 +179,9 @@ class Plugin {
 		$this->container->singleton( static::class, $this );
 		$this->container->singleton( 'conference-schedule', $this );
 		$this->container->singleton( 'conference-schedule.plugin', $this );
+
+		$this->container->register( Post_Types_Provider::class );
+		$this->container->register( Admin_Provider::class );
 	}
 
 	/**
@@ -174,5 +206,32 @@ class Plugin {
 
 		$this->container->singleton( Plugin_Register::class, $plugin_register );
 		$this->container->singleton( 'conference-schedule.plugin_register', $plugin_register );
+	}
+
+	/**
+	 * Plugin activation callback
+	 * @see register_activation_hook()
+	 *
+	 * @since TBD
+	 */
+	public static function activate() {
+		//@todo added as a placeholder to be finished when adding capabilities for the cpts.
+		//self::instance()->plugins_loaded();
+
+		// call your CPT registration function here (it should also be hooked into 'init')
+		//wpcs_register_post_types();
+		//flush_rewrite_rules();
+	}
+
+	/**
+	 * plugin deactivation callback
+	 * @see register_deactivation_hook()
+	 *
+	 * @since TBD
+	 * @param bool $network_deactivating
+	 */
+	public static function deactivate( $network_deactivating ) {
+		//@todo added as a placeholder to be finished when adding capabilities for the cpts.
+		flush_rewrite_rules();
 	}
 }
