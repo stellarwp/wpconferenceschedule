@@ -26,8 +26,8 @@ class Settings extends Menu {
 	public function options_page() {
 		add_submenu_page(
 			$this->get_menu_slug(),
-			'Settings',
-			'Settings',
+			_x( 'Settings', 'submenu page title', 'wp-conference-schedule' ),
+			_x( 'Settings', 'submenu menu title', 'wp-conference-schedule' ),
 			'manage_options',
 			'wp-conference-schedule-settings',
 			[ $this, 'options_page_html' ]
@@ -41,34 +41,34 @@ class Settings extends Menu {
 	 */
 	public function init() {
 		// Register a info section in the "wpcs" page.
-		add_settings_section( 'wpcs_section_info', __( 'Share The Love!', 'wpcs' ), [ $this, 'section_info_cb' ], 'wpcs' );
+		add_settings_section( 'wpcs_section_info', _x( 'Share The Love!', 'settings section title', 'wp-conference-schedule' ), [ $this, 'section_info_cb' ], 'wpcs' );
 
 		// Register a settings section in the "wpcs" page.
-		add_settings_section( 'wpcs_section_settings', __( 'General Settings', 'wpcs' ), [ $this, 'section_settings_cb' ], 'wpcs' );
+		add_settings_section( 'wpcs_section_settings', _x( 'General Settings', 'settings section title', 'wp-conference-schedule' ), [ $this, 'section_settings_cb' ], 'wpcs' );
 
 		// Register byline setting for "wpcs" page.
-		register_setting( "wpcs", "wpcs_field_byline" );
+		register_setting( 'wpcs', 'wpcs_field_byline' );
 
 		// Register byline field in the "wpcs_section_info" section, inside the "wpcs" page.
-		add_settings_field( "wpcs_field_byline", "Show The WP Conference Schedule link", [ $this, "field_byline_cb" ], "wpcs", "wpcs_section_info" );
+		add_settings_field( 'wpcs_field_byline', _x( 'Show The WP Conference Schedule link', 'settings field title', 'wp-conference-schedule' ), [ $this, 'field_byline_cb' ], 'wpcs', 'wpcs_section_info' );
 
 		// Register schedule page URL setting for "wpcs" page.
-		register_setting( "wpcs", "wpcs_field_schedule_page_url" );
+		register_setting( 'wpcs', 'wpcs_field_schedule_page_url' );
 
 		// Register schedule page URL field in the "wpcs_section_info" section, inside the "wpcs" page.
-		add_settings_field( "wpcs_field_schedule_page_url", "Schedule Page URL", [ $this, "field_schedule_page_url_cb" ], "wpcs", "wpcs_section_settings" );
+		add_settings_field( 'wpcs_field_schedule_page_url', _x( 'Schedule Page URL', 'settings field title', 'wp-conference-schedule' ), [ $this, 'field_schedule_page_url_cb' ], 'wpcs', 'wpcs_section_settings' );
 
-		// Register schedule page URL setting for "wpcs" page.
-		register_setting( "wpcs", "wpcsp_field_speakers_page_url", [ $this, "sanitize_field_speakers_page_url" ] );
+		// Register speakers page URL setting for "wpcs" page.
+		register_setting( 'wpcs', 'wpcsp_field_speakers_page_url', [ $this, 'sanitize_field_speakers_page_url' ] );
 
-		// Register schedule page URL field in the "wpcs_section_info" section, inside the "wpcs" page.
-		add_settings_field( "wpcsp_field_speakers_page_url", "Speakers Page URL", [ $this, "field_speakers_page_url_cb" ], "wpcs", "wpcs_section_settings" );
+		// Register speakers page URL field in the "wpcs_section_info" section, inside the "wpcs" page.
+		add_settings_field( 'wpcsp_field_speakers_page_url', _x( 'Speakers Page URL', 'settings field title', 'wp-conference-schedule' ), [ $this, 'field_speakers_page_url_cb' ], 'wpcs', 'wpcs_section_settings' );
 
-		// Register schedule page URL setting for "wpcs" page.
-		register_setting( "wpcs", "wpcsp_field_sponsor_page_url", [ $this, "sanitize_field_sponsor_page_url" ] );
+		// Register sponsor page URL setting for "wpcs" page.
+		register_setting( 'wpcs', 'wpcsp_field_sponsor_page_url', [ $this, 'sanitize_field_sponsor_page_url' ] );
 
-		// Register schedule page URL field in the "wpcs_section_info" section, inside the "wpcs" page.
-		add_settings_field( "wpcsp_field_sponsor_page_url", "Sponsor URL Redirect", [ $this, "field_sponsor_page_url_cb" ], "wpcs", "wpcs_section_settings" );
+		// Register sponsor page URL field in the "wpcs_section_info" section, inside the "wpcs" page.
+		add_settings_field( 'wpcsp_field_sponsor_page_url', _x( 'Sponsor URL Redirect', 'settings field title', 'wp-conference-schedule' ), [ $this, 'field_sponsor_page_url_cb' ], 'wpcs', 'wpcs_section_settings' );
 	}
 
 	/**
@@ -81,7 +81,7 @@ class Settings extends Menu {
 	public function section_info_cb( $args ) {
 		?>
 		<p id="<?php echo esc_attr( $args['id'] ); ?>">
-			<?php esc_html_e( 'Show your thanks to WP Conference Schedule for creating an amazing free plugin by giving them recognition with a small text-only link at the bottom of your conference schedule.', 'wpcs' ); ?>
+			<?php echo esc_html_x( 'Show your thanks to WP Conference Schedule for creating an amazing free plugin by giving them recognition with a small text-only link at the bottom of your conference schedule.', 'Settings message to recognize the plugin on your site.', 'wp-conference-schedule' ); ?>
 		</p>
 		<?php
 	}
@@ -95,9 +95,7 @@ class Settings extends Menu {
 	 */
 	public function section_settings_cb( $args ) {
 		?>
-		<p id="<?php echo esc_attr( $args['id'] ); ?>">
-			<?php esc_html_e( '', 'wpcs' ); ?>
-		</p>
+		<p id="<?php echo esc_attr( $args['id'] ); ?>"></p>
 		<?php
 	}
 
@@ -121,7 +119,9 @@ class Settings extends Menu {
 	public function field_schedule_page_url_cb() {
 		?>
 		<input type="text" name="wpcs_field_schedule_page_url" value="<?php echo get_option( 'wpcs_field_schedule_page_url' ); ?>" style="width: 450px;">
-		<p class="description">The URL of the page that your conference schedule is embedded on.</p>
+		<p class="description">
+			<?php echo esc_html_x( 'The URL of the page that your conference schedule is embedded on.', 'description for the Schedule Page URL,= field.', 'wp-conference-schedule' ); ?>
+		</p>
 		<?php
 	}
 
@@ -133,7 +133,9 @@ class Settings extends Menu {
 	public function field_speakers_page_url_cb() {
 		?>
 		<input type="text" name="wpcsp_field_speakers_page_url" value="<?php echo get_option( 'wpcsp_field_speakers_page_url' ); ?>" style="width: 450px;">
-		<p class="description">The URL of the page that your speakers are embedded on.</p>
+		<p class="description">
+			<?php echo esc_html_x( 'The URL of the page that your speakers are embedded on.', 'The description for the speaker page url.', 'wp-conference-schedule' ); ?>
+		</p>
 		<?php
 	}
 
@@ -159,16 +161,22 @@ class Settings extends Menu {
 		$sponsor_url = get_option( 'wpcsp_field_sponsor_page_url' );
 		?>
 		<select name="wpcsp_field_sponsor_page_url" id="sponsors_url">
-			<option value="sponsor_page" <?php if ( $sponsor_url == "sponsor_page" ) {
-				echo "selected";
-			} ?>>Redirect to Sponsor Page
+			<option
+				value="sponsor_page"
+				<?php selected( $sponsor_url === 'sponsor_site' ); ?>
+			>
+				<?php echo esc_html_x( 'Redirect to Sponsor Page', 'Sponsor url redirect option for the sponsor internal page.', 'wp-conference-schedule' ); ?>
 			</option>
-			<option value="sponsor_site" <?php if ( $sponsor_url == "sponsor_site" ) {
-				echo "selected";
-			} ?>>Redirect to Sponsor Site
+			<option
+				value="sponsor_site"
+				<?php selected( $sponsor_url === 'sponsor_site' ); ?>
+			>
+				<?php echo esc_html_x( 'Redirect to Sponsor Site', 'Sponsor url redirect option to send to the sponsor url.', 'wp-conference-schedule' ); ?>
 			</option>
 		</select>
-		<p class="description">The location to redirect sponsor links to on the session single page.</p>
+		<p class="description">
+			<?php echo esc_html_x( 'The location to redirect sponsor links to on the session single page.', 'description for sponsor url redirect options.', 'wp-conference-schedule' ); ?>
+		</p>
 		<?php
 	}
 
@@ -182,10 +190,9 @@ class Settings extends Menu {
 	 * @return string Sanitized redirect option.
 	 */
 	public function sanitize_field_sponsor_page_url( $redirect ) {
-		if (
-			$redirect === 'sponsor_page'
-			|| $redirect === 'sponsor_site'
-		) {
+		$valid_redirects = [ 'sponsor_page', 'sponsor_site' ];
+
+		if ( in_array( $redirect, $valid_redirects, true ) ) {
 			return $redirect;
 		}
 
@@ -207,7 +214,7 @@ class Settings extends Menu {
 		// WordPress will add the "settings-updated" $_GET parameter to the url.
 		if ( isset( $_GET['settings-updated'] ) ) {
 			// add settings saved message with the class of "updated"
-			add_settings_error( 'wpcs_messages', 'wpcs_message', __( 'Settings Saved', 'wpcs' ), 'updated' );
+			add_settings_error( 'wpcs_messages', 'wpcs_message', _x( 'Settings Saved', 'Settings saved message.', 'wp-conference-schedule' ), 'updated' );
 		}
 		?>
 		<div class="wrap">
@@ -220,7 +227,7 @@ class Settings extends Menu {
 				// (sections are registered for "wpcs", each field is registered to a specific section)
 				do_settings_sections( 'wpcs' );
 				// output save settings button
-				submit_button( 'Save Settings' );
+				submit_button( _x( 'Save Settings', 'Settings saved buttom text.', 'wp-conference-schedule' ) );
 				?>
 			</form>
 		</div>

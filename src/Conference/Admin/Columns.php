@@ -104,9 +104,11 @@ class Columns {
 	public function manage_sortable_columns( array $sortable ): array {
 		$current_filter = current_filter();
 
-		if ( $current_filter === 'manage_edit-wpcs_session_sortable_columns' ) {
-			$sortable['conference_session_time'] = '_wpcs_session_time';
+		if ( $current_filter !== 'manage_edit-wpcs_session_sortable_columns' ) {
+			return $sortable;
 		}
+
+		$sortable['conference_session_time'] = '_wpcs_session_time';
 
 		return $sortable;
 	}
@@ -128,7 +130,7 @@ class Columns {
 		}
 
 		$session_type = get_post_meta( $post->ID, '_wpcs_session_type', true );
-		if ( ! in_array( $session_type, ['session', 'custom', 'mainstage'], true ) ) {
+		if ( ! in_array( $session_type, [ 'session', 'custom', 'mainstage' ], true ) ) {
 			$session_type = 'session';
 		}
 
