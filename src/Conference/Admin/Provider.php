@@ -225,6 +225,13 @@ class Provider extends Service_Provider {
 		return $this->container->make( Columns::class )->display_post_states( $states );
 	}
 
+	/**
+	 * Filters session speaker meta field.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $cmb The current CMB2 box object.
+	 */
 	public function filter_session_speaker_meta_field( $cmb ) {
 		return $this->container->make( Speaker_Meta::class )->filter_session_speaker_meta_field( $cmb );
 	}

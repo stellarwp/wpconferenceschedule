@@ -77,7 +77,6 @@ define( 'PLUGIN_FILE_URL' , __FILE__);
 // Includes
 require_once( WPCS_DIR . 'inc/post-types.php' );
 require_once( WPCS_DIR . 'inc/schedule-output-functions.php' );
-require_once( WPCS_DIR . '/cmb2/init.php');
 
 class WP_Conference_Schedule_Plugin {
 

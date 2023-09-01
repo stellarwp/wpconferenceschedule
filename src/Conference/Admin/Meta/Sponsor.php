@@ -30,7 +30,7 @@ class Sponsor {
 	public function sponsor_metabox(): void {
 		$cmb = new_cmb2_box([
 			'id'           => 'wpcsp_sponsor_metabox',
-			'title'        => _x( 'Sponsor Information', 'sponsor meta box title', 'wpcsp' ),
+			'title'        => _x( 'Sponsor Information', 'sponsor meta box title', 'wp-conference-schedule' ),
 			'object_types' => [ Plugin::SPONSOR_POSTTYPE ],
 			'context'      => 'normal',
 			'priority'     => 'high',
@@ -39,7 +39,7 @@ class Sponsor {
 
 		// Website URL
 		$cmb->add_field([
-			'name'      => _x( 'Website URL', 'sponsor meta box field', 'wpcsp' ),
+			'name'      => _x( 'Website URL', 'sponsor meta box field', 'wp-conference-schedule' ),
 			'id'        => 'wpcsp_website_url',
 			'type'      => 'text_url',
 			'protocols' => [ 'http', 'https' ],
@@ -54,15 +54,15 @@ class Sponsor {
 	public function sponsor_level_metabox(): void {
 		$cmb = new_cmb2_box([
 			'id'           => 'wpcsp_sponsor_level_metabox',
-			'title'        => _x( 'Category Metabox', 'sponsor level meta box title', 'cmb2' ),
+			'title'        => _x( 'Category Metabox', 'sponsor level meta box title', 'wp-conference-schedule' ),
 			'object_types' => [ 'term' ],
 			'taxonomies'   => [ Plugin::SPONSOR_LEVEL_TAXONOMY ],
 		]);
 
 		// Logo Height
 		$cmb->add_field([
-			'name'       => _x( 'Logo Height', 'sponsor level meta box field', 'wpcsp' ),
-			'desc'       => _x( 'Pixels', 'sponsor level meta box field description', 'wpcsp' ),
+			'name'       => _x( 'Logo Height', 'sponsor level meta box field', 'wp-conference-schedule' ),
+			'desc'       => _x( 'Pixels', 'sponsor level meta box field description', 'wp-conference-schedule' ),
 			'id'         => 'wpcsp_logo_height',
 			'type'       => 'text_small',
 			'attributes' => [

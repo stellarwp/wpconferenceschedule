@@ -28,7 +28,7 @@ class Speaker {
 	public function speaker_metabox() {
 		$cmb = new_cmb2_box( [
 			'id'           => 'wpcsp_speaker_metabox',
-			'title'        => _x( 'Speaker Information', 'speaker meta box title', 'wpcsp' ),
+			'title'        => _x( 'Speaker Information', 'speaker meta box title', 'wp-conference-schedule' ),
 			'object_types' => [ Plugin::SPEAKER_POSTTYPE ],
 			'context'      => 'normal',
 			'priority'     => 'high',
@@ -37,35 +37,35 @@ class Speaker {
 
 		// First Name
 		$cmb->add_field( [
-			'name' => _x( 'First Name', 'speaker meta box field', 'wpcsp' ),
+			'name' => _x( 'First Name', 'speaker meta box field', 'wp-conference-schedule' ),
 			'id'   => 'wpcsp_first_name',
 			'type' => 'text'
 		] );
 
 		// Last Name
 		$cmb->add_field( [
-			'name' => _x( 'Last Name', 'speaker meta box field', 'wpcsp' ),
+			'name' => _x( 'Last Name', 'speaker meta box field', 'wp-conference-schedule' ),
 			'id'   => 'wpcsp_last_name',
 			'type' => 'text'
 		] );
 
 		// Title
 		$cmb->add_field( [
-			'name' => _x( 'Title', 'speaker meta box field', 'wpcsp' ),
+			'name' => _x( 'Title', 'speaker meta box field', 'wp-conference-schedule' ),
 			'id'   => 'wpcsp_title',
 			'type' => 'text'
 		] );
 
 		// Organization
 		$cmb->add_field( [
-			'name' => _x( 'Organization', 'speaker meta box field', 'wpcsp' ),
+			'name' => _x( 'Organization', 'speaker meta box field', 'wp-conference-schedule' ),
 			'id'   => 'wpcsp_organization',
 			'type' => 'text'
 		] );
 
 		// Facebook URL
 		$cmb->add_field( [
-			'name'      => _x( 'Facebook URL', 'speaker meta box field', 'wpcsp' ),
+			'name'      => _x( 'Facebook URL', 'speaker meta box field', 'wp-conference-schedule' ),
 			'id'        => 'wpcsp_facebook_url',
 			'type'      => 'text_url',
 			'protocols' => [ 'http', 'https' ]
@@ -73,7 +73,7 @@ class Speaker {
 
 		// Twitter URL
 		$cmb->add_field( [
-			'name'      => _x( 'Twitter URL', 'speaker meta box field', 'wpcsp' ),
+			'name'      => _x( 'Twitter URL', 'speaker meta box field', 'wp-conference-schedule' ),
 			'id'        => 'wpcsp_twitter_url',
 			'type'      => 'text_url',
 			'protocols' => [ 'http', 'https' ]
@@ -81,7 +81,7 @@ class Speaker {
 
 		// Instagram URL
 		$cmb->add_field( [
-			'name'      => _x( 'Instagram URL', 'speaker meta box field', 'wpcsp' ),
+			'name'      => _x( 'Instagram URL', 'speaker meta box field', 'wp-conference-schedule' ),
 			'id'        => 'wpcsp_instagram_url',
 			'type'      => 'text_url',
 			'protocols' => [ 'http', 'https' ]
@@ -89,7 +89,7 @@ class Speaker {
 
 		// LinkedIn URL
 		$cmb->add_field( [
-			'name'      => _x( 'LinkedIn URL', 'speaker meta box field', 'wpcsp' ),
+			'name'      => _x( 'LinkedIn URL', 'speaker meta box field', 'wp-conference-schedule' ),
 			'id'        => 'wpcsp_linkedin_url',
 			'type'      => 'text_url',
 			'protocols' => [ 'http', 'https' ]
@@ -97,7 +97,7 @@ class Speaker {
 
 		// YouTube URL
 		$cmb->add_field( [
-			'name'      => _x( 'YouTube URL', 'speaker meta box field', 'wpcsp' ),
+			'name'      => _x( 'YouTube URL', 'speaker meta box field', 'wp-conference-schedule' ),
 			'id'        => 'wpcsp_youtube_url',
 			'type'      => 'text_url',
 			'protocols' => [ 'http', 'https' ]
@@ -105,7 +105,7 @@ class Speaker {
 
 		// Website URL
 		$cmb->add_field( [
-			'name'      => _x( 'Website URL', 'speaker meta box field', 'wpcsp' ),
+			'name'      => _x( 'Website URL', 'speaker meta box field', 'wp-conference-schedule' ),
 			'id'        => 'wpcsp_website_url',
 			'type'      => 'text_url',
 			'protocols' => [ 'http', 'https' ]
@@ -122,13 +122,13 @@ class Speaker {
 	public function filter_session_speaker_meta_field( $cmb ) {
 		// Speaker Display Type
 		$cmb->add_field( [
-			'name'             => _x( 'Speaker Display', 'session meta field', 'wpcsp' ),
+			'name'             => _x( 'Speaker Display', 'session meta field', 'wp-conference-schedule' ),
 			'id'               => 'wpcsp_session_speaker_display',
 			'type'             => 'radio',
 			'show_option_none' => false,
 			'options'          => [
-				'typed' => _x( 'Speaker Names (Typed)', 'session meta field option', 'wpcsp' ),
-				'cpt'   => _x( 'Speaker Select (from Speakers CPT)', 'session meta field option', 'wpcsp' )
+				'typed' => _x( 'Speaker Names (Typed)', 'session meta field option', 'wp-conference-schedule' ),
+				'cpt'   => _x( 'Speaker Select (from Speakers CPT)', 'session meta field option', 'wp-conference-schedule' )
 			],
 			'default'          => 'typed'
 		] );
@@ -143,9 +143,9 @@ class Speaker {
 
 		// Speaker Select Field
 		$cmb->add_field( [
-			'name'       => _x( 'Speakers', 'session meta field', 'wpcsp' ),
+			'name'       => _x( 'Speakers', 'session meta field', 'wp-conference-schedule' ),
 			'id'         => 'wpcsp_session_speakers',
-			'desc'       => _x( 'Select speakers. Drag to reorder.', 'session meta field description', 'wpcsp' ),
+			'desc'       => _x( 'Select speakers. Drag to reorder.', 'session meta field description', 'wp-conference-schedule' ),
 			'type'       => 'pw_multiselect',
 			'options'    => $speakers,
 			'attributes' => [
@@ -156,7 +156,7 @@ class Speaker {
 
 		// Speaker Names Field
 		$cmb->add_field( [
-			'name'       => _x( 'Speaker Name(s)', 'session meta field', 'wpcsp' ),
+			'name'       => _x( 'Speaker Name(s)', 'session meta field', 'wp-conference-schedule' ),
 			'id'         => '_wpcs_session_speakers',
 			'type'       => 'text',
 			'attributes' => [
@@ -175,9 +175,9 @@ class Speaker {
 
 		// Sponsor Select Field
 		$cmb->add_field( [
-			'name'    => _x( 'Sponsors', 'session meta field', 'wpcsp' ),
+			'name'    => _x( 'Sponsors', 'session meta field', 'wp-conference-schedule' ),
 			'id'      => 'wpcsp_session_sponsors',
-			'desc'    => _x( 'Select sponsor. Drag to reorder.', 'session meta field description', 'wpcsp' ),
+			'desc'    => _x( 'Select sponsor. Drag to reorder.', 'session meta field description', 'wp-conference-schedule' ),
 			'type'    => 'pw_multiselect',
 			'options' => $sponsors
 		] );

@@ -240,6 +240,7 @@ class Plugin {
 		// Load Composer autoload and strauss autoloader.
 		require_once dirname( CONFERENCE_SCHEDULE_FILE ) . '/vendor/vendor-prefixed/autoload.php';
 		require_once dirname( CONFERENCE_SCHEDULE_FILE ) . '/vendor/autoload.php';
+		require_once dirname( CONFERENCE_SCHEDULE_FILE ) . '/vendor/cmb2/cmb2/init.php';
 	}
 
 	/**
