@@ -250,7 +250,7 @@ class Settings extends Menu {
 	 * @since TBD
 	 */
 	public function render_order_sponsor_levels() {
-	    $this->render_order_levels('wpcsp_conference_sponsor_level_order', Plugin::SPONSOR_LEVEL_TAXONOMY, _x('Change the order of sponsor levels displayed in the sponsors page template.', 'wpcsp'));
+	    $this->render_order_levels('wpcsp_conference_sponsor_level_order', Plugin::SPONSOR_LEVEL_TAXONOMY, _x('Change the order of sponsor levels displayed in the sponsors page template.', 'Directions for ordering of sponsor levels in the settings.', 'wp-conference-schedule'));
 	}
 
 	/**
@@ -259,7 +259,7 @@ class Settings extends Menu {
 	 * @since TBD
 	 */
 	public function render_order_speaker_levels() {
-	    $this->render_order_levels('wpcsp_speaker_level_order', Plugin::GROUP_TAXONOMY, _x('Change the order of speaker groups displayed in the speaker page template.', 'wpcsp'));
+	    $this->render_order_levels('wpcsp_speaker_level_order', Plugin::GROUP_TAXONOMY, _x('Change the order of speaker groups displayed in the speaker page template.', 'Directions for ordering of speaker groups in the settings.', 'wp-conference-schedule'));
 	}
 
 	/**
