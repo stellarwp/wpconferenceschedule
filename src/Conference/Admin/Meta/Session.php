@@ -10,6 +10,8 @@
 namespace TEC\Conference\Admin\Meta;
 
 use TEC\Conference\Admin\WP_Post;
+use TEC\Conference\Plugin;
+use TEC\Conference\Vendor\StellarWP\Arrays\Arr;
 
 /**
  * Class Session
@@ -29,36 +31,36 @@ class Session {
 	 * @param WP_Post $post    Post object.
 	 */
 	public function save_post_session( $post_id, $post ) {
-		if ( wp_is_post_revision( $post_id ) || $post->post_type != 'wpcs_session' ) {
+		if (
+			wp_is_post_revision( $post_id )
+			|| $post->post_type != Plugin::SESSION_POSTTYPE
+		) {
 			return;
 		}
 
-		if ( isset( $_POST['wpcs-meta-speakers-list-nonce'] ) && wp_verify_nonce( $_POST['wpcs-meta-speakers-list-nonce'], 'edit-speakers-list' ) && current_user_can( 'edit_post', $post_id ) ) {
+		$meta_speak_list_nonce = Arr::get( $_POST, 'wpcs-meta-speakers-list-nonce' );
+		if ( ! empty( $meta_speak_list_nonce ) && wp_verify_nonce( $meta_speak_list_nonce, 'edit-speakers-list' ) && current_user_can( 'edit_post', $post_id ) ) {
 
-			// Update the text box as is for backwards compatibility.
-			$speakers = sanitize_text_field( $_POST['wpcs-speakers-list'] );
+			$speakers = sanitize_text_field( Arr::get( $_POST, 'wpcs-speakers-list' ) );
 			update_post_meta( $post_id, '_conference_session_speakers', $speakers );
 		}
 
-		if ( isset( $_POST['wpcs-meta-session-info'] ) && wp_verify_nonce( $_POST['wpcs-meta-session-info'], 'edit-session-info' ) ) {
+		$meta_session_nonce = Arr::get( $_POST, 'wpcs-meta-session-info' );
+		if ( ! empty( $meta_session_nonce ) && wp_verify_nonce( $meta_session_nonce, 'edit-session-info' ) ) {
 
-			// Update session time
-			$session_time = strtotime( sprintf( '%s %d:%02d %s', sanitize_text_field( $_POST['wpcs-session-date'] ), absint( $_POST['wpcs-session-hour'] ), absint( $_POST['wpcs-session-minutes'] ), 'am' == $_POST['wpcs-session-meridiem'] ? 'am' : 'pm' ) );
+			$session_time = strtotime( sprintf( '%s %d:%02d %s', sanitize_text_field( Arr::get( $_POST, 'wpcs-session-date' ) ), absint( Arr::get( $_POST, 'wpcs-session-hour' ) ), absint( Arr::get( $_POST, 'wpcs-session-minutes' ) ), 'am' == Arr::get( $_POST, 'wpcs-session-meridiem' ) ? 'am' : 'pm' ) );
 			update_post_meta( $post_id, '_wpcs_session_time', $session_time );
 
-			// Update session end time
-			$session_end_time = strtotime( sprintf( '%s %d:%02d %s', sanitize_text_field( $_POST['wpcs-session-date'] ), absint( $_POST['wpcs-session-end-hour'] ), absint( $_POST['wpcs-session-end-minutes'] ), 'am' == $_POST['wpcs-session-end-meridiem'] ? 'am' : 'pm' ) );
+			$session_end_time = strtotime( sprintf( '%s %d:%02d %s', sanitize_text_field( Arr::get( $_POST, 'wpcs-session-date' ) ), absint( Arr::get( $_POST, 'wpcs-session-end-hour' ) ), absint( Arr::get( $_POST, 'wpcs-session-end-minutes' ) ), 'am' == Arr::get( $_POST, 'wpcs-session-end-meridiem' ) ? 'am' : 'pm' ) );
 			update_post_meta( $post_id, '_wpcs_session_end_time', $session_end_time );
 
-			// Update session type
-			$session_type = sanitize_text_field( $_POST['wpcs-session-type'] );
-			if ( ! in_array( $session_type, array( 'session', 'custom', 'mainstage' ) ) ) {
+			$session_type = sanitize_text_field( Arr::get( $_POST, 'wpcs-session-type' ) );
+			if ( ! in_array( $session_type, [ 'session', 'custom', 'mainstage' ] ) ) {
 				$session_type = 'session';
 			}
 			update_post_meta( $post_id, '_wpcs_session_type', $session_type );
 
-			// Update session speakers
-			$session_speakers = sanitize_text_field( $_POST['wpcs-session-speakers'] );
+			$session_speakers = sanitize_text_field( Arr::get( $_POST, 'wpcs-session-speakers' ) );
 			update_post_meta( $post_id, '_wpcs_session_speakers', $session_speakers );
 		}
 	}
@@ -72,20 +74,20 @@ class Session {
 		$cmb = new_cmb2_box( [
 			'id'           => 'wpcs_session_metabox',
 			'title'        => _x( 'Session Information', 'Metabox title', 'wp-conference-schedule' ),
-			'object_types' => [ 'wpcs_session' ], // Post type
+			'object_types' => [ Plugin::SESSION_POSTTYPE ], // Post type
 			'context'      => 'normal',
 			'priority'     => 'high',
 			'show_names'   => true, // Show field names on the left
 		] );
 
-		/**
-		 * Filters the speaker meta field in the session information meta box.
-		 *
-		 * @since TBD
-		 *
-		 * @param object $cmb CMB2 box object.
-		 */
 		if ( has_filter( 'wpcs_filter_session_speaker_meta_field' ) ) {
+			/**
+			 * Filters the speaker meta field in the session information meta box.
+			 *
+			 * @since TBD
+			 *
+			 * @param object $cmb CMB2 box object.
+			 */
 			$cmb = apply_filters( 'wpcs_filter_session_speaker_meta_field', $cmb );
 		} else {
 			// Speaker Name(s)
@@ -107,7 +109,7 @@ class Session {
 			'session-info',
 			_x( 'Session Info', 'Session Metabox Name.','wp-conference-schedule' ),
 			[ $this, 'metabox_session_info' ],
-			'wpcs_session',
+			Plugin::SESSION_POSTTYPE,
 			'normal'
 		);
 	}
