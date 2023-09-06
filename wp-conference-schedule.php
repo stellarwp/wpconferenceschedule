@@ -77,7 +77,6 @@ define( 'PLUGIN_FILE_URL' , __FILE__);
 // Includes
 require_once( WPCS_DIR . 'inc/post-types.php' );
 require_once( WPCS_DIR . 'inc/schedule-output-functions.php' );
-require_once( WPCS_DIR . 'inc/settings.php' );
 require_once( WPCS_DIR . '/cmb2/init.php');
 
 class WP_Conference_Schedule_Plugin {
@@ -86,14 +85,13 @@ class WP_Conference_Schedule_Plugin {
 	 * Fired when plugin file is loaded.
 	 */
 	function __construct() {
-
-		add_action( 'admin_init', array( $this, 'wpcs_admin_init' ) );
 		add_action( 'admin_print_styles', array( $this, 'wpcs_admin_css' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'wpcs_admin_enqueue_scripts' ) );
 		add_action( 'admin_print_footer_scripts', array( $this, 'wpcs_admin_print_scripts' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'wpcs_enqueue_scripts' ) );
+
 		add_action( 'save_post', array( $this, 'wpcs_save_post_session' ), 10, 2 );
-		add_action( 'manage_posts_custom_column', array( $this, 'wpcs_manage_post_types_columns_output' ), 10, 2 );
+
 		add_action( 'cmb2_admin_init', array($this, 'wpcs_session_metabox' ) );
 		add_action( 'add_meta_boxes', array( $this, 'wpcs_add_meta_boxes' ) );
 		add_action('enqueue_block_editor_assets', array( $this, 'wpcs_loadBlockFiles' ) );
@@ -112,37 +110,7 @@ class WP_Conference_Schedule_Plugin {
 			'render_callback' => [$this, 'wpcs_scheduleBlockOutput'],
 		]);
 
-		add_filter( 'manage_wpcs_session_posts_columns', array( $this, 'wpcs_manage_post_types_columns' ) );
-		add_filter( 'manage_edit-wpcs_session_sortable_columns', array( $this, 'wpcs_manage_sortable_columns' ) );
-		add_filter( 'display_post_states', array( $this, 'wpcs_display_post_states' ) );
-
 		add_shortcode( 'wpcs_schedule', array( $this, 'wpcs_shortcode_schedule' ) );
-	}
-
-	/**
-	 * Runs during admin_init.
-	 */
-	function wpcs_admin_init() {
-		add_action( 'pre_get_posts', array( $this, 'wpcs_admin_pre_get_posts' ) );
-	}
-
-	/**
-	 * Runs during pre_get_posts in admin.
-	 *
-	 * @param WP_Query $query
-	 */
-	function wpcs_admin_pre_get_posts( $query ) {
-		if ( ! is_admin() || ! $query->is_main_query() ) {
-			return;
-		}
-
-		$current_screen = get_current_screen();
-
-		// Order by session time
-		if ( 'edit-wpcs_session' == $current_screen->id && $query->get( 'orderby' ) == '_wpcs_session_time' ) {
-			$query->set( 'meta_key', '_wpcs_session_time' );
-			$query->set( 'orderby', 'meta_value_num' );
-		}
 	}
 
 	function wpcs_admin_enqueue_scripts() {
@@ -452,84 +420,6 @@ class WP_Conference_Schedule_Plugin {
 
 		}
 
-	}
-	
-	/**
-	 * Filters our custom post types columns.
-	 *
-	 * @uses current_filter()
-	 * @see __construct()
-	 */
-	function wpcs_manage_post_types_columns( $columns ) {
-		$current_filter = current_filter();
-
-		switch ( $current_filter ) {
-			case 'manage_wpcs_session_posts_columns':
-				$columns = array_slice( $columns, 0, 1, true ) + array( 'conference_session_time'     => __( 'Time',     'wp-conference-schedule' ) ) + array_slice( $columns, 1, null, true );
-				break;
-			default:
-		}
-
-		return $columns;
-	}
-
-	/**
-	 * Custom columns output
-	 *
-	 * This generates the output to the extra columns added to the posts lists in the admin.
-	 *
-	 * @see wpcs_manage_post_types_columns()
-	 */
-	function wpcs_manage_post_types_columns_output( $column, $post_id ) {
-		switch ( $column ) {
-
-			case 'conference_session_time':
-				$session_time = absint( get_post_meta( get_the_ID(), '_wpcs_session_time', true ) );
-				$session_time = ( $session_time ) ? date( get_option( 'time_format' ), $session_time ) : '&mdash;';
-				echo esc_html( $session_time );
-				break;
-
-			default:
-		}
-	}
-
-	/**
-	 * Additional sortable columns for WP_Posts_List_Table
-	 */
-	function wpcs_manage_sortable_columns( $sortable ) {
-		$current_filter = current_filter();
-
-		if ( 'manage_edit-wpcs_session_sortable_columns' == $current_filter ) {
-			$sortable['conference_session_time'] = '_wpcs_session_time';
-		}
-
-		return $sortable;
-	}
-
-	/**
-	 * Display an additional post label if needed.
-	 */
-	function wpcs_display_post_states( $states ) {
-		$post = get_post();
-
-		if ( 'wpcs_session' != $post->post_type ) {
-			return $states;
-		}
-
-		$session_type = get_post_meta( $post->ID, '_wpcs_session_type', true );
-		if ( ! in_array( $session_type, array( 'session', 'custom', 'mainstage' ) ) ) {
-			$session_type = 'session';
-		}
-
-		if ( 'session' == $session_type ) {
-			$states['wpcs-session-type'] = __( 'Session', 'wp-conference-schedule' );
-		} elseif ( 'custom' == $session_type ) {
-			$states['wpcs-session-type'] = __( 'Custom', 'wp-conference-schedule' );
-		} elseif ( 'mainstage' == $session_type ) {
-			$states['wpcs-session-type'] = __( 'Mainstage', 'wp-conference-schedule' );
-		}
-
-		return $states;
 	}
 
 	/**
