@@ -168,7 +168,7 @@ class Speaker {
 		// Fetch sponsors
 		$args     = [
 			'numberposts' => - 1,
-			'post_type'   => 'wpcsp_sponsor',
+			'post_type'   => Plugin::SPONSOR_POSTTYPE,
 		];
 		$sponsors = get_posts( $args );
 		$sponsors = wp_list_pluck( $sponsors, 'post_title', 'ID' );
