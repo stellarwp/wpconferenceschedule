@@ -84,7 +84,6 @@ class WP_Conference_Schedule_Plugin {
 	 * Fired when plugin file is loaded.
 	 */
 	function __construct() {
-		add_action( 'admin_print_styles', array( $this, 'wpcs_admin_css' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'wpcs_admin_enqueue_scripts' ) );
 		add_action( 'admin_print_footer_scripts', array( $this, 'wpcs_admin_print_scripts' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'wpcs_enqueue_scripts' ) );
@@ -153,15 +152,6 @@ class WP_Conference_Schedule_Plugin {
 			array(),
 			'1.0.0'
 		);
-	}
-
-	/**
-	 * Runs during admin_print_styles, adds CSS for custom admin columns and block editor
-	 *
-	 * @uses wp_enqueue_style()
-	 */
-	function wpcs_admin_css() {
-		wp_enqueue_style( 'wpcs-admin', plugins_url( '/assets/css/admin.css', __FILE__ ), array(), 1 );
 	}
 
 	/**

@@ -9,6 +9,7 @@
 namespace TEC\Conference\Admin;
 
 use TEC\Conference\Plugin;
+use TEC\Conference\Vendor\StellarWP\Assets\Assets;
 
 /**
  * Class Settings
@@ -26,7 +27,7 @@ class Settings extends Menu {
 	 * @since TBD
 	 */
 	public function options_page() {
-		add_submenu_page(
+		$page = add_submenu_page(
 			$this->get_menu_slug(),
 			_x( 'Settings', 'submenu page title', 'wp-conference-schedule' ),
 			_x( 'Settings', 'submenu menu title', 'wp-conference-schedule' ),
@@ -34,6 +35,8 @@ class Settings extends Menu {
 			'wp-conference-schedule-settings',
 			[ $this, 'options_page_html' ]
 		);
+
+		add_action( "admin_print_scripts-$page", array( $this, 'enqueue_assets' ) );
 	}
 
 	/**
@@ -355,5 +358,9 @@ class Settings extends Menu {
 	    }
 
 	    return array_merge($ordered_terms, array_values($terms));
+	}
+
+	public function enqueue_assets() {
+		Assets::instance()->enqueue_group( 'conference-schedule-pro-admin' );
 	}
 }

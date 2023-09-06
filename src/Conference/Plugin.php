@@ -13,6 +13,7 @@ use TEC\Conference\Contracts\Container;
 use TEC\Conference\Post_Types\Provider as Post_Types_Provider;
 use TEC\Conference\Admin\Provider as Admin_Provider;
 use TEC\Conference\Taxonomies\Provider as Taxonomies_Provider;
+use TEC\Conference\Vendor\StellarWP\Assets\Config;
 
 /**
  * Class Plugin
@@ -207,6 +208,13 @@ class Plugin {
 		$plugin->set_container();
 		$plugin->container->singleton( static::class, $plugin );
 		$plugin->register();
+
+		add_action( 'plugins_loaded', function() {
+			Config::set_hook_prefix( PLUGIN::SLUG );
+			Config::set_path( dirname( PLUGIN::FILE ) );
+			Config::set_version( PLUGIN::VERSION );
+			Config::set_relative_asset_path( 'src/resources/' );
+		} );
 	}
 
 	/**
