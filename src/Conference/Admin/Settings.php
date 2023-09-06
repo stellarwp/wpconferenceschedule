@@ -26,14 +26,10 @@ class Settings extends Menu {
 	 * @since TBD
 	 */
 	public function options_page() {
-		add_submenu_page(
-			$this->get_menu_slug(),
-			_x( 'Settings', 'submenu page title', 'wp-conference-schedule' ),
-			_x( 'Settings', 'submenu menu title', 'wp-conference-schedule' ),
-			'manage_options',
-			'wp-conference-schedule-settings',
-			[ $this, 'options_page_html' ]
-		);
+		add_submenu_page( $this->get_menu_slug(), _x( 'Settings', 'submenu page title', 'wp-conference-schedule' ), _x( 'Settings', 'submenu menu title', 'wp-conference-schedule' ), 'manage_options', 'wp-conference-schedule-settings', [
+				$this,
+				'options_page_html'
+			] );
 	}
 
 	/**
@@ -52,33 +48,51 @@ class Settings extends Menu {
 		register_setting( 'wpcs', 'wpcs_field_byline' );
 
 		// Register byline field in the "wpcs_section_info" section, inside the "wpcs" page.
-		add_settings_field( 'wpcs_field_byline', _x( 'Show The WP Conference Schedule link', 'settings field title', 'wp-conference-schedule' ), [ $this, 'field_byline_cb' ], 'wpcs', 'wpcs_section_info' );
+		add_settings_field( 'wpcs_field_byline', _x( 'Show The WP Conference Schedule link', 'settings field title', 'wp-conference-schedule' ), [
+			$this,
+			'field_byline_cb'
+		], 'wpcs', 'wpcs_section_info' );
 
 		// Register schedule page URL setting for "wpcs" page.
 		register_setting( 'wpcs', 'wpcs_field_schedule_page_url' );
 
 		// Register schedule page URL field in the "wpcs_section_info" section, inside the "wpcs" page.
-		add_settings_field( 'wpcs_field_schedule_page_url', _x( 'Schedule Page URL', 'settings field title', 'wp-conference-schedule' ), [ $this, 'field_schedule_page_url_cb' ], 'wpcs', 'wpcs_section_settings' );
+		add_settings_field( 'wpcs_field_schedule_page_url', _x( 'Schedule Page URL', 'settings field title', 'wp-conference-schedule' ), [
+			$this,
+			'field_schedule_page_url_cb'
+		], 'wpcs', 'wpcs_section_settings' );
 
 		// Register speakers page URL setting for "wpcs" page.
 		register_setting( 'wpcs', 'wpcsp_field_speakers_page_url', [ $this, 'sanitize_field_speakers_page_url' ] );
 
 		// Register speakers page URL field in the "wpcs_section_info" section, inside the "wpcs" page.
-		add_settings_field( 'wpcsp_field_speakers_page_url', _x( 'Speakers Page URL', 'settings field title', 'wp-conference-schedule' ), [ $this, 'field_speakers_page_url_cb' ], 'wpcs', 'wpcs_section_settings' );
+		add_settings_field( 'wpcsp_field_speakers_page_url', _x( 'Speakers Page URL', 'settings field title', 'wp-conference-schedule' ), [
+			$this,
+			'field_speakers_page_url_cb'
+		], 'wpcs', 'wpcs_section_settings' );
 
 		// Register sponsor page URL setting for "wpcs" page.
 		register_setting( 'wpcs', 'wpcsp_field_sponsor_page_url', [ $this, 'sanitize_field_sponsor_page_url' ] );
 
 		// Register sponsor page URL field in the "wpcs_section_info" section, inside the "wpcs" page.
-		add_settings_field( 'wpcsp_field_sponsor_page_url', _x( 'Sponsor URL Redirect', 'settings field title', 'wp-conference-schedule' ), [ $this, 'field_sponsor_page_url_cb' ], 'wpcs', 'wpcs_section_settings' );
+		add_settings_field( 'wpcsp_field_sponsor_page_url', _x( 'Sponsor URL Redirect', 'settings field title', 'wp-conference-schedule' ), [
+			$this,
+			'field_sponsor_page_url_cb'
+		], 'wpcs', 'wpcs_section_settings' );
 
-		register_setting( 'wpcs', 'wpcsp_conference_sponsor_level_order', array( $this, 'validate_sponsor_options' ) );
+		register_setting( 'wpcs', 'wpcsp_conference_sponsor_level_order', [ $this, 'validate_sponsor_options' ] );
 
-		add_settings_field( 'wpcsp_field_sponsor_level_order', _x( 'Sponsor Level Order', 'settings field title', 'wp-conference-schedule' ), [ $this, 'render_order_sponsor_levels' ], 'wpcs', 'wpcs_section_settings' );
+		add_settings_field( 'wpcsp_field_sponsor_level_order', _x( 'Sponsor Level Order', 'settings field title', 'wp-conference-schedule' ), [
+			$this,
+			'render_order_sponsor_levels'
+		], 'wpcs', 'wpcs_section_settings' );
 
-		register_setting( 'wpcs', 'wpcsp_speaker_level_order', array( $this, 'validate_sponsor_options' ) );
+		register_setting( 'wpcs', 'wpcsp_speaker_level_order', [ $this, 'validate_sponsor_options' ] );
 
-		add_settings_field( 'wpcsp_field_speaker_group_order', _x( 'Speaker Group Order', 'settings field title', 'wp-conference-schedule' ), [ $this, 'render_order_speaker_levels' ], 'wpcs', 'wpcs_section_settings' );
+		add_settings_field( 'wpcsp_field_speaker_group_order', _x( 'Speaker Group Order', 'settings field title', 'wp-conference-schedule' ), [
+			$this,
+			'render_order_speaker_levels'
+		], 'wpcs', 'wpcs_section_settings' );
 	}
 
 	/**
@@ -250,7 +264,11 @@ class Settings extends Menu {
 	 * @since TBD
 	 */
 	public function render_order_sponsor_levels() {
-	    $this->render_order_levels('wpcsp_conference_sponsor_level_order', Plugin::SPONSOR_LEVEL_TAXONOMY, _x('Change the order of sponsor levels displayed in the sponsors page template.', 'Directions for ordering of sponsor levels in the settings.', 'wp-conference-schedule'));
+		$this->render_order_levels(
+			'wpcsp_conference_sponsor_level_order',
+			Plugin::SPONSOR_LEVEL_TAXONOMY,
+			_x( 'Change the order of sponsor levels displayed in the sponsors page template.', 'Directions for ordering of sponsor levels in the settings.', 'wp-conference-schedule' )
+		);
 	}
 
 	/**
@@ -259,7 +277,11 @@ class Settings extends Menu {
 	 * @since TBD
 	 */
 	public function render_order_speaker_levels() {
-	    $this->render_order_levels('wpcsp_speaker_level_order', Plugin::GROUP_TAXONOMY, _x('Change the order of speaker groups displayed in the speaker page template.', 'Directions for ordering of speaker groups in the settings.', 'wp-conference-schedule'));
+		$this->render_order_levels(
+			'wpcsp_speaker_level_order',
+			Plugin::GROUP_TAXONOMY,
+			_x( 'Change the order of speaker groups displayed in the speaker page template.', 'Directions for ordering of speaker groups in the settings.', 'wp-conference-schedule' )
+		);
 	}
 
 	/**
@@ -267,32 +289,32 @@ class Settings extends Menu {
 	 *
 	 * @since TBD
 	 *
-	 * @param string $option    The option key to fetch from the database.
-	 * @param string $taxonomy  The taxonomy to fetch terms for.
-	 * @param string $message   The instructional message to display.
+	 * @param string $option   The option key to fetch from the database.
+	 * @param string $taxonomy The taxonomy to fetch terms for.
+	 * @param string $message  The instructional message to display.
 	 */
-	private function render_order_levels(string $option, string $taxonomy, string $message) {
-	    if ( ! isset( $_REQUEST['updated'] ) ) {
-	        $_REQUEST['updated'] = false;
-	    }
+	private function render_order_levels( string $option, string $taxonomy, string $message ) {
+		if ( ! isset( $_REQUEST['updated'] ) ) {
+			$_REQUEST['updated'] = false;
+		}
 
-	    $levels = $this->get_sponsor_levels($option, $taxonomy);
-	    if( empty($levels) ) {
-	        return;
-	    }
-	    ?>
-	    <div class="description sponsor-order-instructions">
-	        <?php echo $message; ?>
-	    </div>
-	    <ul class="sponsor-order">
-	    <?php foreach ( $levels as $term ) : ?>
-	        <li class="level">
-	            <input type="hidden" class="level-id" name="<?php echo $option; ?>[]" value="<?php echo esc_attr( $term->term_id ); ?>" />
-	            <?php echo esc_html( $term->name ); ?>
-	        </li>
-	    <?php endforeach; ?>
-	    </ul>
-	    <?php
+		$levels = $this->get_sponsor_levels( $option, $taxonomy );
+		if ( empty( $levels ) ) {
+			return;
+		}
+		?>
+		<div class="description sponsor-order-instructions">
+			<?php echo $message; ?>
+		</div>
+		<ul class="sponsor-order">
+			<?php foreach ( $levels as $term ) : ?>
+				<li class="level">
+					<input type="hidden" class="level-id" name="<?php echo $option; ?>[]" value="<?php echo esc_attr( $term->term_id ); ?>"/>
+					<?php echo esc_html( $term->name ); ?>
+				</li>
+			<?php endforeach; ?>
+		</ul>
+		<?php
 	}
 
 	/**
@@ -304,12 +326,12 @@ class Settings extends Menu {
 	 *
 	 * @return array|null Sanitized array of integers or null.
 	 */
-	public function validate_sponsor_options(?array $input): ?array {
-	    if (!is_array($input)) {
-	        return null;
-	    }
+	public function validate_sponsor_options( ?array $input ): ?array {
+		if ( ! is_array( $input ) ) {
+			return null;
+		}
 
-	    return array_values(array_map('intval', $input));
+		return array_values( array_map( 'intval', $input ) );
 	}
 
 	/**
@@ -317,21 +339,21 @@ class Settings extends Menu {
 	 *
 	 * @since TBD
 	 *
-	 * @param string $option The option key to fetch from the database.
+	 * @param string $option   The option key to fetch from the database.
 	 * @param string $taxonomy The taxonomy to fetch terms for.
 	 *
 	 * @return array Array of term objects.
 	 */
-	public function get_sponsor_levels(string $option, string $taxonomy): array {
-	    $option = get_option($option, []);
-	    $term_objects = get_terms($taxonomy, ['get' => 'all']);
-	    $terms = [];
+	public function get_sponsor_levels( string $option, string $taxonomy ): array {
+		$option       = get_option( $option, [] );
+		$term_objects = get_terms( $taxonomy, [ 'get' => 'all' ] );
+		$terms        = [];
 
-	    foreach ($term_objects as $term) {
-	        $terms[$term->term_id] = $term;
-	    }
+		foreach ( $term_objects as $term ) {
+			$terms[ $term->term_id ] = $term;
+		}
 
-	    return $this->order_terms_by_option($terms, $option);
+		return $this->order_terms_by_option( $terms, $option );
 	}
 
 	/**
@@ -339,21 +361,21 @@ class Settings extends Menu {
 	 *
 	 * @since TBD
 	 *
-	 * @param array $terms The terms to be ordered.
+	 * @param array $terms  The terms to be ordered.
 	 * @param array $option The order option.
 	 *
 	 * @return array The ordered terms.
 	 */
-	private function order_terms_by_option(array $terms, array $option): array {
-	    $ordered_terms = [];
+	private function order_terms_by_option( array $terms, array $option ): array {
+		$ordered_terms = [];
 
-	    foreach ($option as $term_id) {
-	        if (isset($terms[$term_id])) {
-	            $ordered_terms[] = $terms[$term_id];
-	            unset($terms[$term_id]);
-	        }
-	    }
+		foreach ( $option as $term_id ) {
+			if ( isset( $terms[ $term_id ] ) ) {
+				$ordered_terms[] = $terms[ $term_id ];
+				unset( $terms[ $term_id ] );
+			}
+		}
 
-	    return array_merge($ordered_terms, array_values($terms));
+		return array_merge( $ordered_terms, array_values( $terms ) );
 	}
 }
