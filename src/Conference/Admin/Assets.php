@@ -20,7 +20,12 @@ use TEC\Conference\Vendor\StellarWP\Assets\Asset;
  */
 class Assets {
 
-	public function register_assets() {
+	/**
+	 * Registers the admin assets.
+	 *
+	 * @since TBD
+	 */
+	public function register_admin_assets() {
 		Asset::add(
 			'conference-schedule-pro-admin-css',
 			'conference-schedule-admin.css'
@@ -28,5 +33,4 @@ class Assets {
 		->add_to_group( 'conference-schedule-pro-admin' )
 		->register();
 	}
-
 }
