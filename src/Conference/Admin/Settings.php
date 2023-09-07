@@ -40,6 +40,15 @@ class Settings extends Menu {
 	}
 
 	/**
+	 * Enqueues Admin Assets.
+	 *
+	 * @since TBD
+	 */
+	public function enqueue_assets() {
+		Assets::instance()->enqueue_group( 'conference-schedule-pro-admin' );
+	}
+
+	/**
 	 * Initializes settings and fields.
 	 *
 	 * @since TBD
@@ -384,9 +393,5 @@ class Settings extends Menu {
 		}
 
 		return array_merge( $ordered_terms, array_values( $terms ) );
-	}
-
-	public function enqueue_assets() {
-		Assets::instance()->enqueue_group( 'conference-schedule-pro-admin' );
 	}
 }
