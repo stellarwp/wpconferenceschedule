@@ -55,51 +55,51 @@ class Settings extends Menu {
 		register_setting( 'wpcs', 'wpcs_field_byline' );
 
 		// Register byline field in the "wpcs_section_info" section, inside the "wpcs" page.
-		add_settings_field( 'wpcs_field_byline', _x( 'Show The WP Conference Schedule link', 'settings field title', 'wp-conference-schedule' ), [
-			$this,
-			'field_byline_cb'
-		], 'wpcs', 'wpcs_section_info' );
+		add_settings_field( 'wpcs_field_byline', _x( 'Show The WP Conference Schedule link', 'settings field title', 'wp-conference-schedule' ), [ $this, 'field_byline_cb' ], 'wpcs', 'wpcs_section_info' );
 
 		// Register schedule page URL setting for "wpcs" page.
 		register_setting( 'wpcs', 'wpcs_field_schedule_page_url' );
 
 		// Register schedule page URL field in the "wpcs_section_info" section, inside the "wpcs" page.
-		add_settings_field( 'wpcs_field_schedule_page_url', _x( 'Schedule Page URL', 'settings field title', 'wp-conference-schedule' ), [
-			$this,
-			'field_schedule_page_url_cb'
-		], 'wpcs', 'wpcs_section_settings' );
+		add_settings_field( 'wpcs_field_schedule_page_url', _x( 'Schedule Page URL', 'settings field title', 'wp-conference-schedule' ), [ $this, 'field_schedule_page_url_cb' ], 'wpcs', 'wpcs_section_settings' );
 
 		// Register speakers page URL setting for "wpcs" page.
 		register_setting( 'wpcs', 'wpcsp_field_speakers_page_url', [ $this, 'sanitize_field_speakers_page_url' ] );
 
 		// Register speakers page URL field in the "wpcs_section_info" section, inside the "wpcs" page.
-		add_settings_field( 'wpcsp_field_speakers_page_url', _x( 'Speakers Page URL', 'settings field title', 'wp-conference-schedule' ), [
-			$this,
-			'field_speakers_page_url_cb'
-		], 'wpcs', 'wpcs_section_settings' );
+		add_settings_field( 'wpcsp_field_speakers_page_url', _x( 'Speakers Page URL', 'settings field title', 'wp-conference-schedule' ), [ $this, 'field_speakers_page_url_cb' ], 'wpcs', 'wpcs_section_settings' );
 
 		// Register sponsor page URL setting for "wpcs" page.
 		register_setting( 'wpcs', 'wpcsp_field_sponsor_page_url', [ $this, 'sanitize_field_sponsor_page_url' ] );
 
 		// Register sponsor page URL field in the "wpcs_section_info" section, inside the "wpcs" page.
-		add_settings_field( 'wpcsp_field_sponsor_page_url', _x( 'Sponsor URL Redirect', 'settings field title', 'wp-conference-schedule' ), [
-			$this,
-			'field_sponsor_page_url_cb'
-		], 'wpcs', 'wpcs_section_settings' );
+		add_settings_field( 'wpcsp_field_sponsor_page_url', _x( 'Sponsor URL Redirect', 'settings field title', 'wp-conference-schedule' ), [ $this, 'field_sponsor_page_url_cb' ], 'wpcs', 'wpcs_section_settings' );
 
 		register_setting( 'wpcs', 'wpcsp_conference_sponsor_level_order', [ $this, 'validate_sponsor_options' ] );
 
-		add_settings_field( 'wpcsp_field_sponsor_level_order', _x( 'Sponsor Level Order', 'settings field title', 'wp-conference-schedule' ), [
-			$this,
-			'render_order_sponsor_levels'
-		], 'wpcs', 'wpcs_section_settings' );
+		add_settings_field(
+			'wpcsp_field_sponsor_level_order',
+			_x( 'Sponsor Level Order', 'settings field title', 'wp-conference-schedule' ),
+			[
+				$this,
+				'render_order_sponsor_levels'
+			],
+		'wpcs',
+		'wpcs_section_settings'
+		);
 
 		register_setting( 'wpcs', 'wpcsp_speaker_level_order', [ $this, 'validate_sponsor_options' ] );
 
-		add_settings_field( 'wpcsp_field_speaker_group_order', _x( 'Speaker Group Order', 'settings field title', 'wp-conference-schedule' ), [
-			$this,
-			'render_order_speaker_levels'
-		], 'wpcs', 'wpcs_section_settings' );
+		add_settings_field(
+			'wpcsp_field_speaker_group_order',
+			_x( 'Speaker Group Order', 'settings field title', 'wp-conference-schedule' ),
+			[
+				$this,
+				'render_order_speaker_levels'
+			],
+			'wpcs',
+			'wpcs_section_settings'
+		);
 	}
 
 	/**
