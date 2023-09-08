@@ -11,6 +11,10 @@
 namespace TEC\Conference\Admin;
 
 use TEC\Conference\Contracts\Service_Provider;
+use TEC\Conference\Admin\Meta\Session as Session_Meta;
+use TEC\Conference\Admin\Meta\Speaker as Speaker_Meta;
+use TEC\Conference\Admin\Meta\Sponsor as Sponsor_Meta;
+
 
 /**
  * Class Provider
@@ -49,6 +53,14 @@ class Provider extends Service_Provider {
 
 		add_action( 'admin_init', [ $this, 'options_init' ] );
 		add_action( 'admin_menu', [ $this, 'options_page' ] );
+
+		add_action( 'save_post', [ $this, 'save_post_session' ], 10, 2 );
+		add_action( 'cmb2_admin_init', [ $this, 'session_metabox' ] );
+		add_action( 'add_meta_boxes', [ $this, 'add_meta_boxes' ] );
+
+		add_action( 'cmb2_admin_init', [ $this, 'speaker_metabox' ] );
+		add_action( 'cmb2_admin_init', [ $this, 'sponsor_metabox' ] );
+		add_action( 'cmb2_admin_init', [ $this, 'sponsor_level_metabox' ] );
 	}
 
 	/**
@@ -111,6 +123,58 @@ class Provider extends Service_Provider {
 	}
 
 	/**
+	 * Saves post session details.
+	 *
+	 * @since TBD
+	 *
+	 * @param int     $post_id Post ID.
+	 * @param WP_Post $post    Post object.
+	 */
+	public function save_post_session( $post_id, $post ) {
+		$this->container->make( Session_Meta::class )->save_post_session( $post_id, $post );
+	}
+
+	/**
+	 * Adds the session information meta box.
+	 *
+	 * @since TBD
+	 */
+	public function session_metabox() {
+		$this->container->make( Session_Meta::class )->session_metabox();
+	}
+
+	/**
+	 * Adds meta boxes for the session post type.
+	 *
+	 * @since TBD
+	 */
+	public function add_meta_boxes() {
+		$this->container->make( Session_Meta::class )->add_meta_boxes();
+	}
+
+	/**
+	 * Adds the speaker information meta box.
+	 *
+	 * @since TBD
+	 */
+	public function speaker_metabox() {
+		$this->container->make( Speaker_Meta::class )->speaker_metabox();
+	}
+
+	/**
+	 * Adds the sponsor information meta box.
+	 *
+	 * @since TBD
+	 */
+	public function sponsor_metabox() {
+		$this->container->make( Sponsor_Meta::class )->sponsor_metabox();
+	}
+
+	public function sponsor_level_metabox() {
+		$this->container->make( Sponsor_Meta::class )->sponsor_level_metabox();
+	}
+
+	/**
 	 * Adds required actions for post types.
 	 *
 	 * @since TBD
@@ -119,6 +183,7 @@ class Provider extends Service_Provider {
 		add_filter( 'manage_wpcs_session_posts_columns',[ $this, 'manage_post_types_columns' ] );
 		add_filter( 'manage_edit-wpcs_session_sortable_columns', [ $this, 'manage_sortable_columns' ] );
 		add_filter( 'display_post_states', [ $this, 'display_post_states' ] );
+		add_filter( 'wpcs_filter_session_speaker_meta_field', [ $this, 'filter_session_speaker_meta_field' ] );
 	}
 
 	/**
@@ -158,5 +223,16 @@ class Provider extends Service_Provider {
 	 */
 	public function display_post_states( array $states ): array {
 		return $this->container->make( Columns::class )->display_post_states( $states );
+	}
+
+	/**
+	 * Filters session speaker meta field.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $cmb The current CMB2 box object.
+	 */
+	public function filter_session_speaker_meta_field( $cmb ) {
+		return $this->container->make( Speaker_Meta::class )->filter_session_speaker_meta_field( $cmb );
 	}
 }

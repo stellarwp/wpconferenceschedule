@@ -21,6 +21,7 @@
     }
   },
   "require": {
+    "cmb2/cmb2": "^2.10.0",
     "lucatume/di52": "^3.3.0",
     "stellarwp/arrays": "^1.0.0",
     "stellarwp/assets": "^1.0.0",
