@@ -76,7 +76,6 @@ define( 'PLUGIN_FILE_URL' , __FILE__);
 
 // Includes
 require_once( WPCS_DIR . 'inc/post-types.php' );
-require_once( WPCS_DIR . 'inc/schedule-output-functions.php' );
 
 class WP_Conference_Schedule_Plugin {
 
@@ -100,8 +99,6 @@ class WP_Conference_Schedule_Plugin {
 			],
 			'render_callback' => [$this, 'wpcs_scheduleBlockOutput'],
 		]);
-
-		add_shortcode( 'wpcs_schedule', array( $this, 'wpcs_shortcode_schedule' ) );
 	}
 
 	function wpcs_enqueue_scripts() {
@@ -113,13 +110,6 @@ class WP_Conference_Schedule_Plugin {
 			array(),
 			'1.0.0'
 		);
-	}
-
-	/**
-	 * The [schedule] shortcode callback
-	 */
-	function wpcs_shortcode_schedule( $attr, $content ) {
-		return wpcs_scheduleOutput( $attr );
 	}
 
 	/**
@@ -138,7 +128,7 @@ class WP_Conference_Schedule_Plugin {
 	 * Schedule Block Dynamic content Output.
 	 */
 	function wpcs_scheduleBlockOutput($props) {
-		return wpcs_scheduleOutput( $props );
+		//return wpcs_scheduleOutput( $props );
 	}
 
 }

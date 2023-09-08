@@ -13,6 +13,7 @@ use TEC\Conference\Contracts\Container;
 use TEC\Conference\Post_Types\Provider as Post_Types_Provider;
 use TEC\Conference\Admin\Provider as Admin_Provider;
 use TEC\Conference\Taxonomies\Provider as Taxonomies_Provider;
+use TEC\Conference\Views\Provider as Views_Provider;
 use TEC\Conference\Vendor\StellarWP\Assets\Config;
 
 /**
@@ -237,6 +238,7 @@ class Plugin {
 		$this->container->register( Post_Types_Provider::class );
 		$this->container->register( Taxonomies_Provider::class );
 		$this->container->register( Admin_Provider::class );
+		$this->container->register( Views_Provider::class );
 	}
 
 	/**
