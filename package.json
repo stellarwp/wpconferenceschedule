@@ -1,0 +1,47 @@
+{
+  "name": "conference-schedule-pro",
+  "version": "1.0.0",
+  "repository": "git@github.com:stellarwp/wpconferenceschedule.git",
+  "_zipname": "conference-schedule-pro",
+  "_zipfoldername": "conference-schedule-pro",
+  "_resourcepath": "src/resources",
+  "_domainPath": "lang",
+  "_textDomain": "conference-schedule-pro",
+  "_glotPressUrl": "https://translations.stellarwp.com",
+  "_glotPressSlug": "conference-schedule-pro",
+  "_glotPressFileFormat": "%textdomain%-%wp_locale%.%format%",
+  "_glotPressFormats": ["po", "mo"],
+  "_glotPressFilter": {
+    "translation_sets": false,
+    "minimum_percentage": 30,
+    "waiting_strings": false
+  },
+  "_filePath": {
+    "eslint": ["src/resources/js/**/*.js", "!src/resources/js/**/*.min.js"],
+    "stylelint": ["src/resources/postcss/**/*.pcss"]
+  },
+  "engines": { "node": "18.13.0", "npm": "8.19.3" },
+  "scripts": {
+    "build:gulp": "NODE_ENV=production gulp",
+    "prebuild": "node node_modules/@the-events-calendar/product-taskmaster/scripts/syncBrowserslistConfig.js",
+    "build": "npm run build:gulp",
+    "rebuild": "rm -rf node_modules && npm install && npm run build",
+    "lint": "npm run lint:eslint && npm run lint:stylelint",
+    "lint:eslint": "gulp eslint",
+    "lint:stylelint": "gulp stylelint",
+    "glotpress": "gulp glotpress"
+  },
+  "devDependencies": { "@the-events-calendar/product-taskmaster": "^3.0.0" },
+  "browserslist": [
+    "last 2 Chrome versions",
+    "last 2 Firefox versions",
+    "last 2 Safari versions",
+    "last 2 Edge versions",
+    "last 2 Opera versions",
+    "last 2 iOS versions",
+    "last 1 Android version",
+    "last 1 ChromeAndroid version",
+    "last 1 FirefoxAndroid version",
+    "> 1%, not op_mini all, not ie <= 11, not ie_mob <= 11"
+  ]
+}

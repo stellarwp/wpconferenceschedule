@@ -54,6 +54,8 @@ class Provider extends Service_Provider {
 		add_action( 'admin_init', [ $this, 'options_init' ] );
 		add_action( 'admin_menu', [ $this, 'options_page' ] );
 
+		add_action( 'admin_print_styles', [ $this, 'register_admin_assets' ] );
+
 		add_action( 'save_post', [ $this, 'save_post_session' ], 10, 2 );
 		add_action( 'cmb2_admin_init', [ $this, 'session_metabox' ] );
 		add_action( 'add_meta_boxes', [ $this, 'add_meta_boxes' ] );
@@ -120,6 +122,15 @@ class Provider extends Service_Provider {
 	 */
 	public function options_page() {
 		$this->container->make( Settings::class )->options_page();
+	}
+
+	/**
+	 * Registers admin css.
+	 *
+	 * @since TBD
+	 */
+	public function register_admin_assets() {
+		$this->container->make( Assets::class )->register_admin_assets();
 	}
 
 	/**
