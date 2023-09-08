@@ -23,7 +23,7 @@ const conferenceScheduleProAdmin= {};
 		integrationList: '#wpcs-session-date',
 
 		// Admin Sorting.
-		sortingOrder: '.sponsor-order',
+		sortingOrder: '.wpcs-sponsor-order',
 	};
 
 	/**

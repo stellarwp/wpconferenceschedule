@@ -19,11 +19,8 @@ const conferenceSchedulePro = {};
 	 * @type {PlainObject}
 	 */
 	obj.selectors = {
-		// Sessions.
-		integrationList: '#wpcs-session-date',
-
-		// Admin Sorting.
-		sortingOrder: '.sponsor-order',
+		// Tabs.
+		//integrationList: '#wpcs-session-date',
 	};
 
 	/**
@@ -32,6 +29,7 @@ const conferenceSchedulePro = {};
 	 * @since TBD
 	 */
 	obj.setupTabs = function() {
+		//@TODO when working on the frontend make this target tabs only within the conference schedule pro container.
 		window.addEventListener( 'DOMContentLoaded', () => {
 			const tabs = document.querySelectorAll( '[role="tab"]' );
 			const tabList = document.querySelector( '[role="tablist"]' );
