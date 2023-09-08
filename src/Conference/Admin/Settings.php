@@ -8,6 +8,8 @@
 
 namespace TEC\Conference\Admin;
 
+use TEC\Conference\Plugin;
+
 /**
  * Class Settings
  *
@@ -69,6 +71,32 @@ class Settings extends Menu {
 
 		// Register sponsor page URL field in the "wpcs_section_info" section, inside the "wpcs" page.
 		add_settings_field( 'wpcsp_field_sponsor_page_url', _x( 'Sponsor URL Redirect', 'settings field title', 'wp-conference-schedule' ), [ $this, 'field_sponsor_page_url_cb' ], 'wpcs', 'wpcs_section_settings' );
+
+		register_setting( 'wpcs', 'wpcsp_conference_sponsor_level_order', [ $this, 'validate_sponsor_options' ] );
+
+		add_settings_field(
+			'wpcsp_field_sponsor_level_order',
+			_x( 'Sponsor Level Order', 'settings field title', 'wp-conference-schedule' ),
+			[
+				$this,
+				'render_order_sponsor_levels'
+			],
+		'wpcs',
+		'wpcs_section_settings'
+		);
+
+		register_setting( 'wpcs', 'wpcsp_speaker_level_order', [ $this, 'validate_sponsor_options' ] );
+
+		add_settings_field(
+			'wpcsp_field_speaker_group_order',
+			_x( 'Speaker Group Order', 'settings field title', 'wp-conference-schedule' ),
+			[
+				$this,
+				'render_order_speaker_levels'
+			],
+			'wpcs',
+			'wpcs_section_settings'
+		);
 	}
 
 	/**
@@ -232,5 +260,126 @@ class Settings extends Menu {
 			</form>
 		</div>
 		<?php
+	}
+
+	/**
+	 * Renders the Order Sponsor Levels admin page.
+	 *
+	 * @since TBD
+	 */
+	public function render_order_sponsor_levels() {
+		$this->render_order_levels(
+			'wpcsp_conference_sponsor_level_order',
+			Plugin::SPONSOR_LEVEL_TAXONOMY,
+			_x( 'Change the order of sponsor levels displayed in the sponsors page template.', 'Directions for ordering of sponsor levels in the settings.', 'wp-conference-schedule' )
+		);
+	}
+
+	/**
+	 * Renders the Order Speaker Levels admin page.
+	 *
+	 * @since TBD
+	 */
+	public function render_order_speaker_levels() {
+		$this->render_order_levels(
+			'wpcsp_speaker_level_order',
+			Plugin::GROUP_TAXONOMY,
+			_x( 'Change the order of speaker groups displayed in the speaker page template.', 'Directions for ordering of speaker groups in the settings.', 'wp-conference-schedule' )
+		);
+	}
+
+	/**
+	 * General method to render the order levels.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $option   The option key to fetch from the database.
+	 * @param string $taxonomy The taxonomy to fetch terms for.
+	 * @param string $message  The instructional message to display.
+	 */
+	private function render_order_levels( string $option, string $taxonomy, string $message ) {
+		if ( ! isset( $_REQUEST['updated'] ) ) {
+			$_REQUEST['updated'] = false;
+		}
+
+		$levels = $this->get_sponsor_levels( $option, $taxonomy );
+		if ( empty( $levels ) ) {
+			return;
+		}
+		?>
+		<div class="description sponsor-order-instructions">
+			<?php echo $message; ?>
+		</div>
+		<ul class="sponsor-order">
+			<?php foreach ( $levels as $term ) : ?>
+				<li class="level">
+					<input type="hidden" class="level-id" name="<?php echo $option; ?>[]" value="<?php echo esc_attr( $term->term_id ); ?>"/>
+					<?php echo esc_html( $term->name ); ?>
+				</li>
+			<?php endforeach; ?>
+		</ul>
+		<?php
+	}
+
+	/**
+	 * Validates the sponsor options ensuring they are an array of integers.
+	 *
+	 * @since TBD
+	 *
+	 * @param array|null $input The input options array.
+	 *
+	 * @return array|null Sanitized array of integers or null.
+	 */
+	public function validate_sponsor_options( ?array $input ): ?array {
+		if ( ! is_array( $input ) ) {
+			return null;
+		}
+
+		return array_values( array_map( 'intval', $input ) );
+	}
+
+	/**
+	 * Returns the sponsor level terms in set order.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $option   The option key to fetch from the database.
+	 * @param string $taxonomy The taxonomy to fetch terms for.
+	 *
+	 * @return array Array of term objects.
+	 */
+	public function get_sponsor_levels( string $option, string $taxonomy ): array {
+		$option       = get_option( $option, [] );
+		$term_objects = get_terms( $taxonomy, [ 'get' => 'all' ] );
+		$terms        = [];
+
+		foreach ( $term_objects as $term ) {
+			$terms[ $term->term_id ] = $term;
+		}
+
+		return $this->order_terms_by_option( $terms, $option );
+	}
+
+	/**
+	 * Orders the terms by a given option.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $terms  The terms to be ordered.
+	 * @param array $option The order option.
+	 *
+	 * @return array The ordered terms.
+	 */
+	private function order_terms_by_option( array $terms, array $option ): array {
+		$ordered_terms = [];
+
+		foreach ( $option as $term_id ) {
+			if ( isset( $terms[ $term_id ] ) ) {
+				$ordered_terms[] = $terms[ $term_id ];
+				unset( $terms[ $term_id ] );
+			}
+		}
+
+		return array_merge( $ordered_terms, array_values( $terms ) );
 	}
 }
