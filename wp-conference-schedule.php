@@ -84,8 +84,6 @@ class WP_Conference_Schedule_Plugin {
 	 * Fired when plugin file is loaded.
 	 */
 	function __construct() {
-		add_action( 'admin_enqueue_scripts', array( $this, 'wpcs_admin_enqueue_scripts' ) );
-		add_action( 'admin_print_footer_scripts', array( $this, 'wpcs_admin_print_scripts' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'wpcs_enqueue_scripts' ) );
 		add_action('enqueue_block_editor_assets', array( $this, 'wpcs_loadBlockFiles' ) );
 
@@ -104,43 +102,6 @@ class WP_Conference_Schedule_Plugin {
 		]);
 
 		add_shortcode( 'wpcs_schedule', array( $this, 'wpcs_shortcode_schedule' ) );
-	}
-
-	function wpcs_admin_enqueue_scripts() {
-		global $post_type;
-
-		// Enqueues scripts and styles for session admin page
-		if ( 'wpcs_session' == $post_type ) {
-			wp_enqueue_script( 'jquery-ui-datepicker' );
-			wp_register_style( 'jquery-ui', plugins_url( '/assets/css/jquery-ui.css', __FILE__ ) );
-
-			wp_enqueue_style( 'jquery-ui' ); 
-		}
-
-	}
-
-	/*
-	 * Print JavaScript
-	 */
-	function wpcs_admin_print_scripts() {
-		global $post_type;
-
-		// DatePicker for Session posts
-		if ( 'wpcs_session' == $post_type ) :
-			?>
-
-			<script type="text/javascript">
-				jQuery( document ).ready( function( $ ) {
-					$( '#wpcs-session-date' ).datepicker( {
-						dateFormat:  'yy-mm-dd',
-						changeMonth: true,
-						changeYear:  true
-					} );
-				} );
-			</script>
-
-			<?php
-		endif;
 	}
 
 	function wpcs_enqueue_scripts() {
