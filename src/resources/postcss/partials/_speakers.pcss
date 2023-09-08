@@ -1,0 +1,132 @@
+/*
+ * Speakers
+ * -------------------------------------------------------------
+ */
+.single-wpcsp_speaker {
+	.entry .entry-content > * {
+		max-width: 100%;
+	}
+
+	.entry {
+		h2 {
+			font-size: 1.2em;
+		}
+	}
+
+	.has-post-thumbnail {
+		.wpcsp-speaker-grid {
+			@include breakpoint(sm) {
+				display: grid;
+				grid-template-columns: 1fr 2fr;
+				grid-column-gap: 30px;
+			}
+			@include breakpoint(lg) {
+				grid-column-gap: 50px;
+			}
+		}
+	}
+
+	.wpcsp-speaker-details {
+		p {
+			margin: 0;
+			font-weight: bold;
+			font-size: 1.1em;
+		}
+	}
+
+	.wpcsp-speaker-social {
+		list-style-type: none;
+		margin-left: 0;
+		padding-left: 0;
+
+		&-icon {
+			display: inline-block;
+			padding: 0px 2px;
+			font-size: 1em;
+
+			&-link {
+				text-decoration: none !important;
+			}
+		}
+	}
+
+	.wpcsp-speaker-links {
+		.wpcsp-speaker-link {
+			display: block;
+			@include breakpoint(sm) {
+				display: inline-block;
+			}
+
+			&-speakers {
+				@include breakpoint(sm) {
+					margin-right: 40px;
+				}
+			}
+
+			&-schedule {
+
+			}
+		}
+	}
+}
+
+.wpcsp-speakers {
+	display: block !important;
+	@include breakpoint(sm) {
+		display: grid !important;
+	}
+
+	.wpcsp-speaker {
+		&-image {
+			border-radius: 50%;
+			margin-bottom: 15px;
+		}
+
+		&-name {
+			font-size: 1em;
+		}
+
+		&-title-organization {
+			font-size: 0.9em;
+			@include breakpoint(sm) {
+				margin-bottom: 0;
+			}
+		}
+	}
+}
+
+.wpcsp-single-session-speakers {
+	text-align: center;
+	padding: 30px 0;
+	@include breakpoint(sm) {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		grid-gap: 30px;
+	}
+
+	&-title {
+		font-size: 1.2em;
+		text-align: left;
+		@include breakpoint(sm) {
+			grid-column: 1 / 4;
+			grid-row: 1;
+		}
+	}
+
+	&-speaker {
+		&-image {
+			border-radius: 50%;
+			margin-bottom: 15px;
+		}
+
+		&-name {
+			font-weight: bold;
+			font-size: 1em;
+			margin: 0;
+		}
+
+		&-title-organization {
+			font-size: 0.9em;
+		}
+	}
+}

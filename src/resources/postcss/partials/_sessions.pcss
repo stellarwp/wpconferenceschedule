@@ -1,0 +1,54 @@
+/*
+ * Sessions
+ * -------------------------------------------------------------
+ */
+#conference_session_time {
+	width: 80px;
+}
+
+#wpcs-session-date {
+	margin-bottom: 15px;
+}
+
+.wpcsp-session-tags {
+	list-style-type: none;
+	padding: 0;
+	margin-bottom: 0;
+
+	&-tag {
+		display: inline-block;
+		font-weight: bold;
+		font-size: 0.8em;
+		line-height: 0.8em;
+		margin: 0 5px 10px 0px;
+
+		&-link,
+		&-link:visited {
+			text-decoration: none !important;
+			color: $color-white;
+			background-color: $color-blue;
+			display: block;
+			padding: 10px;
+			border-radius: 3px;
+
+			.wpcs-color-scheme-dark & {
+				color: $color-black;
+				background-color: $color-white;
+			}
+		}
+	}
+}
+
+.wpcsp-session-speaker {
+	&:first-child {
+		margin-top: 10px;
+	}
+
+	&-name {
+		font-weight: bold;
+	}
+
+	&-title-organization {
+		font-size: 0.9em;
+	}
+}
