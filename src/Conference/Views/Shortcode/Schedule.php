@@ -31,19 +31,17 @@ class Schedule {
 	 * @return string The HTML output the shortcode.
 	 */
 	public function render_shortcode( $atts ) {
-		$defaults = array(
-			'date' => '',
-		);
+		$defaults = [ 'date' => '' ];
 
-		$props    = shortcode_atts( $defaults, $atts, 'wpcs_schedule' );
+		$props = shortcode_atts( $defaults, $atts, 'wpcs_schedule' );
 
 		$output = '';
 
-		$dates_arr = isset( $props['date'] ) ? $props['date'] : '';
+		$dates_arr = $props['date'] ?? '';
 		$dates     = explode( ',', $dates_arr );
 
-		if ( $dates ) {
-			$current_tab = ( isset( $_GET['wpcs-tab'] ) && ! empty( $_GET['wpcs-tab'] ) ) ? intval( $_GET['wpcs-tab'] ) : null;
+		if ( $dates !== [] ) {
+			$current_tab = ( isset( $_GET['wpcs-tab'] ) && ! empty( $_GET['wpcs-tab'] ) ) ? (int) $_GET['wpcs-tab'] : null;
 
 			if ( count( $dates ) > 1 ) {
 
@@ -139,7 +137,7 @@ class Schedule {
 
 							// Gather relevant data about the session
 							$colspan              = 1;
-							$classes              = array();
+							$classes              = [];
 							$session              = get_post( $entry[ $term_id ] );
 							$session_title        = apply_filters( 'the_title', $session->post_title );
 							$session_tracks       = get_the_terms( $session->ID, 'wpcs_track' );
@@ -148,7 +146,7 @@ class Schedule {
 							$speakers             = get_post_meta( $session->ID, '_wpcs_session_speakers', true );
 
 
-							if ( ! in_array( $session_type, array( 'session', 'custom', 'mainstage' ) ) ) {
+							if ( ! in_array( $session_type, [ 'session', 'custom', 'mainstage' ] ) ) {
 								$session_type = 'session';
 							}
 
@@ -227,8 +225,8 @@ class Schedule {
 							$columns_html .= sprintf( '<td colspan="%d" class="%s" data-track-title="%s" data-session-id="%s">%s</td>', $colspan, esc_attr( implode( ' ', $classes ) ), $session_track_titles, esc_attr( $session->ID ), $content );
 						}
 
-						$global_session      = $colspan == count( $columns ) ? ' wpcs-global-session' . ' wpcs-global-session-' . esc_html( $session_type ) : '';
-						$global_session_slug = $global_session ? ' ' . sanitize_html_class( sanitize_title_with_dashes( $session->post_title ) ) : '';
+						$global_session      = $colspan === count( $columns ) ? ' wpcs-global-session wpcs-global-session-' . esc_html( $session_type ) : '';
+						$global_session_slug = $global_session !== '' && $global_session !== '0' ? ' ' . sanitize_html_class( sanitize_title_with_dashes( $session->post_title ) ) : '';
 
 						$html .= sprintf( '<tr class="%s">', sanitize_html_class( 'wpcs-time-' . date( $time_format, $time ) ) . $global_session . $global_session_slug );
 						$html .= sprintf( '<td class="wpcs-time">%s</td>', str_replace( ' ', '&nbsp;', esc_html( date( $time_format, $time ) ) ) );
@@ -250,56 +248,39 @@ class Schedule {
 					$schedule_date = $attr['date'];
 					$time_format   = get_option( 'time_format', 'g:i a' );
 
-					$query_args = array(
-						'post_type'      => 'wpcs_session',
-						'posts_per_page' => - 1,
-						'meta_key'       => '_wpcs_session_time',
-						'orderby'        => 'meta_value_num',
-						'order'          => 'ASC',
-						'meta_query'     => array(
-							'relation' => 'AND',
-							array(
-								'key'     => '_wpcs_session_time',
-								'compare' => 'EXISTS',
-							),
-						),
-					);
+					$query_args = [ 'post_type'      => 'wpcs_session',
+					                'posts_per_page' => - 1,
+					                'meta_key'       => '_wpcs_session_time',
+					                'orderby'        => 'meta_value_num',
+					                'order'          => 'ASC',
+					                'meta_query'     => [ 'relation' => 'AND', [ 'key' => '_wpcs_session_time', 'compare' => 'EXISTS' ] ]
+					];
 					if ( $schedule_date && strtotime( $schedule_date ) ) {
-						$query_args['meta_query'][] = array(
-							'key'     => '_wpcs_session_time',
-							'value'   => array(
-								strtotime( $schedule_date ),
-								strtotime( $schedule_date . ' +1 day' ),
-							),
-							'compare' => 'BETWEEN',
-							'type'    => 'NUMERIC',
-						);
+						$query_args['meta_query'][] = [ 'key'     => '_wpcs_session_time',
+						                                'value'   => [ strtotime( $schedule_date ), strtotime( $schedule_date . ' +1 day' ) ],
+						                                'compare' => 'BETWEEN',
+						                                'type'    => 'NUMERIC'
+						];
 					}
-					if ( $tracks_explicitly_specified ) {
-						// If tracks were provided, restrict the lookup in WP_Query.
-						if ( ! empty( $tracks ) ) {
-							$query_args['tax_query'][] = array(
-								'taxonomy' => 'wpcs_track',
-								'field'    => 'id',
-								'terms'    => array_values( wp_list_pluck( $tracks, 'term_id' ) ),
-							);
-						}
+					// If tracks were provided, restrict the lookup in WP_Query.
+					if ( $tracks_explicitly_specified && ! empty( $tracks ) ) {
+						$query_args['tax_query'][] = [ 'taxonomy' => 'wpcs_track', 'field' => 'id', 'terms' => array_values( wp_list_pluck( $tracks, 'term_id' ) ) ];
 					}
 
 					$sessions_query = new WP_Query( $query_args );
 
-					$array_times = array();
+					$array_times = [];
 					foreach ( $sessions_query->posts as $session ) {
 						$time     = absint( get_post_meta( $session->ID, '_wpcs_session_time', true ) );
 						$end_time = absint( get_post_meta( $session->ID, '_wpcs_session_end_time', true ) );
 						$terms    = get_the_terms( $session->ID, 'wpcs_track' );
 
 						if ( ! in_array( $end_time, $array_times ) ) {
-							array_push( $array_times, $end_time );
+							$array_times[] = $end_time;
 						}
 
 						if ( ! in_array( $time, $array_times ) ) {
-							array_push( $array_times, $time );
+							$array_times[] = $time;
 						}
 
 					}
@@ -359,34 +340,30 @@ class Schedule {
 					$html .= '<div id="wpcs_' . $array_times[0] . '" class="schedule wpcs-schedule wpcs-color-scheme-' . $attr['color_scheme'] . ' wpcs-layout-' . $attr['layout'] . ' wpcs-row-height-' . $attr['row_height'] . '" aria-labelledby="schedule-heading">';
 
 					// Track Titles
-					if ( $tracks ) {
+					if ( $tracks !== [] ) {
 						foreach ( $tracks as $track ) {
 							$html .= sprintf( '<span class="wpcs-col-track" style="grid-column: ' . $track->slug . '; grid-row: tracks;"> <span class="wpcs-track-name">%s</span> <span class="wpcs-track-description">%s</span> </span>', isset( $track->term_id ) ? esc_html( $track->name ) : '', isset( $track->term_id ) ? esc_html( $track->description ) : '' );
 						}
 					}
 
 					// Time Slots
-					if ( $array_times ) {
+					if ( $array_times !== [] ) {
 						foreach ( $array_times as $array_time ) {
 							$html .= '<h2 class="wpcs-time" style="grid-row: time-' . $array_time . ';">' . date( $time_format, $array_time ) . '</h2>';
 						}
 					}
 
 					// Sessions
-					$query_args['meta_query'][] = array(
-						'key'     => '_wpcs_session_time',
-						'value'   => array(
-							strtotime( $schedule_date ),
-							strtotime( $schedule_date . ' +1 day' ),
-						),
-						'compare' => 'BETWEEN',
-						'type'    => 'NUMERIC',
-					);
+					$query_args['meta_query'][] = [ 'key'     => '_wpcs_session_time',
+					                                'value'   => [ strtotime( $schedule_date ), strtotime( $schedule_date . ' +1 day' ) ],
+					                                'compare' => 'BETWEEN',
+					                                'type'    => 'NUMERIC'
+					];
 
 					$sessions_query = new WP_Query( $query_args );
 
 					foreach ( $sessions_query->posts as $session ) {
-						$classes              = array();
+						$classes              = [];
 						$session              = get_post( $session );
 						$session_url          = get_the_permalink( $session->ID );
 						$session_title        = apply_filters( 'the_title', $session->post_title );
@@ -400,12 +377,12 @@ class Schedule {
 						$end_time   = get_post_meta( $session->ID, '_wpcs_session_end_time', true );
 						$minutes    = ( $end_time - $start_time ) / 60;
 
-						if ( ! in_array( $session_type, array( 'session', 'custom', 'mainstage' ) ) ) {
+						if ( ! in_array( $session_type, [ 'session', 'custom', 'mainstage' ] ) ) {
 							$session_type = 'session';
 						}
 
-						$tracks_array       = array();
-						$tracks_names_array = array();
+						$tracks_array       = [];
+						$tracks_names_array = [];
 						if ( $session_tracks ) {
 							foreach ( $session_tracks as $session_track ) {
 
@@ -533,7 +510,7 @@ class Schedule {
 	 * @return array Associative array of terms with term_id as the key.
 	 */
 	public function get_schedule_tracks( $selected_tracks ) {
-		$tracks = array();
+		$tracks = [];
 		if ( 'all' === $selected_tracks ) {
 			// Include all tracks.
 			$tracks = get_terms( Plugin::TRACK_TAXONOMY );
@@ -563,45 +540,30 @@ class Schedule {
 	 * @return array Associative array of session ids by time and track.
 	 */
 	public function get_schedule_sessions( $schedule_date, $tracks_explicitly_specified, $tracks ) {
-		$query_args = array(
-			'post_type'      => Plugin::SESSION_POSTTYPE,
-			'posts_per_page' => - 1,
-			'meta_query'     => array(
-				'relation' => 'AND',
-				array(
-					'key'     => '_wpcs_session_time',
-					'compare' => 'EXISTS',
-				),
-			),
-		);
+		$query_args = [ 'post_type' => Plugin::SESSION_POSTTYPE, 'posts_per_page' => - 1, 'meta_query' => [ 'relation' => 'AND', [ 'key' => '_wpcs_session_time', 'compare' => 'EXISTS' ] ] ];
 
 		if ( $schedule_date && strtotime( $schedule_date ) ) {
-			$query_args['meta_query'][] = array(
+			$query_args['meta_query'][] = [
 				'key'     => '_wpcs_session_time',
-				'value'   => array(
-					strtotime( $schedule_date ),
-					strtotime( $schedule_date . ' +1 day' ),
-				),
-				'compare' => 'BETWEEN',
-				'type'    => 'NUMERIC',
-			);
+                'value'   => [ strtotime( $schedule_date ), strtotime( $schedule_date . ' +1 day' ) ],
+                'compare' => 'BETWEEN',
+                'type'    => 'NUMERIC'
+			];
 		}
 
-		if ( $tracks_explicitly_specified ) {
-			// If tracks were provided, restrict the lookup in WP_Query.
-			if ( ! empty( $tracks ) ) {
-				$query_args['tax_query'][] = array(
-					'taxonomy' => Plugin::TRACK_TAXONOMY,
-					'field'    => 'id',
-					'terms'    => array_values( wp_list_pluck( $tracks, 'term_id' ) ),
-				);
-			}
+		// If tracks were provided, restrict the lookup in WP_Query.
+		if ( $tracks_explicitly_specified && ! empty( $tracks ) ) {
+			$query_args['tax_query'][] = [
+				'taxonomy' => Plugin::TRACK_TAXONOMY,
+				'field' => 'id',
+				'terms' => array_values( wp_list_pluck( $tracks, 'term_id' ) )
+			];
 		}
 
 		// Loop through all sessions and assign them into the formatted
 		// $sessions array: $sessions[ $time ][ $track ] = $session_id
 		// Use 0 as the track ID if no tracks exist.
-		$sessions       = array();
+		$sessions       = [];
 		$sessions_query = new WP_Query( $query_args );
 
 		foreach ( $sessions_query->posts as $session ) {
@@ -609,7 +571,7 @@ class Schedule {
 			$terms = get_the_terms( $session->ID, Plugin::TRACK_TAXONOMY );
 
 			if ( ! isset( $sessions[ $time ] ) ) {
-				$sessions[ $time ] = array();
+				$sessions[ $time ] = [];
 			}
 
 			if ( empty( $terms ) ) {
@@ -641,7 +603,7 @@ class Schedule {
 		$columns = [];
 
 		// Use tracks to form the columns.
-		if ( $tracks ) {
+		if ( $tracks !== [] ) {
 			foreach ( $tracks as $track ) {
 				$columns[ $track->term_id ] = $track->term_id;
 			}
@@ -655,7 +617,7 @@ class Schedule {
 
 			foreach ( $sessions as $time => $entry ) {
 				if ( is_array( $entry ) ) {
-					foreach ( $entry as $term_id => $session_id ) {
+					foreach ( array_keys( $entry ) as $term_id ) {
 						$used_terms[ $term_id ] = $term_id;
 					}
 				}
@@ -678,16 +640,19 @@ class Schedule {
 	public function preprocess_schedule_attributes( $props ) {
 
 		// Set Defaults
-		$attr = array(
+		$attr = [
 			'date'         => null,
 			'tracks'       => 'all',
-			'session_link' => 'permalink', // permalink|anchor|none
-			'color_scheme' => 'light', // light/dark
-			'align'        => '', // alignwide|alignfull
+			'session_link' => 'permalink',
+			// permalink|anchor|none
+			'color_scheme' => 'light',
+			// light/dark
+			'align'        => '',
+			// alignwide|alignfull
 			'layout'       => 'table',
 			'row_height'   => 'match',
-			'content'      => 'none' // none|excerpt|full
-		);
+			'content'      => 'none',
+		];
 
 		// Check if props exist. Fixes PHP errors when shortcode doesn't have any attributes.
 		if ( $props ):
@@ -727,11 +692,11 @@ class Schedule {
 				$attr['tracks'] = $props['tracks'];
 			}
 
-			foreach ( array( 'tracks', 'session_link', 'color_scheme' ) as $key_for_case_sensitive_value ) {
+			foreach ( [ 'tracks', 'session_link', 'color_scheme' ] as $key_for_case_sensitive_value ) {
 				$attr[ $key_for_case_sensitive_value ] = strtolower( $attr[ $key_for_case_sensitive_value ] );
 			}
 
-			if ( ! in_array( $attr['session_link'], array( 'permalink', 'anchor', 'none' ), true ) ) {
+			if ( ! in_array( $attr['session_link'], [ 'permalink', 'anchor', 'none' ], true ) ) {
 				$attr['session_link'] = 'permalink';
 			}
 
