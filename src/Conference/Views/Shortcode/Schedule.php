@@ -520,7 +520,6 @@ class Schedule {
 		}
 
 		return $output;
-
 	}
 
 	/**

@@ -55,7 +55,7 @@ class Provider extends Service_Provider {
 	 * @return string The HTML output the shortcode.
 	 */
 	public function render_schedule_shortcode( $props ) {
-		$this->container->make( Shortcode\Schedule::class )->render_shortcode( $props );
+		return $this->container->make( Shortcode\Schedule::class )->render_shortcode( $props );
 	}
 
 	/**
