@@ -10,6 +10,7 @@
 namespace TEC\Conference\Views\Shortcode;
 
 use TEC\Conference\Plugin;
+use TEC\Conference\Vendor\StellarWP\Assets\Assets;
 use WP_Query;
 
 /**
@@ -31,6 +32,8 @@ class Schedule {
 	 * @return string The HTML output the shortcode.
 	 */
 	public function render_shortcode( $atts ) {
+		Assets::instance()->enqueue_group( 'conference-schedule-pro-views' );
+
 		$defaults = [ 'date' => '' ];
 
 		$props = shortcode_atts( $defaults, $atts, 'wpcs_schedule' );

@@ -43,6 +43,7 @@ class Provider extends Service_Provider {
 	 */
 	protected function add_actions() {
 		add_shortcode( 'wpcs_schedule', [ $this, 'render_schedule_shortcode' ] );
+		add_action( 'wp_enqueue_scripts', [ $this, 'register_views_assets' ] );
 	}
 
 	/**
@@ -56,6 +57,15 @@ class Provider extends Service_Provider {
 	 */
 	public function render_schedule_shortcode( $props ) {
 		return $this->container->make( Shortcode\Schedule::class )->render_shortcode( $props );
+	}
+
+	/**
+	 * Registers the view assets.
+	 *
+	 * @since TBD
+	 */
+	public function register_views_assets() {
+		$this->container->make( Assets::class )->register_views_assets();
 	}
 
 	/**

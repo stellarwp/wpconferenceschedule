@@ -20,7 +20,9 @@ const conferenceSchedulePro = {};
 	 */
 	obj.selectors = {
 		// Tabs.
-		//integrationList: '#wpcs-session-date',
+		scheduleTabContainer: '.wpcsp-tabs',
+		scheduleTabRole: '[role="tab"]',
+		scheduleTabRoleList: '[role="tablist"]',
 	};
 
 	/**
@@ -29,42 +31,44 @@ const conferenceSchedulePro = {};
 	 * @since TBD
 	 */
 	obj.setupTabs = function() {
-		//@TODO when working on the frontend make this target tabs only within the conference schedule pro container.
-		window.addEventListener( 'DOMContentLoaded', () => {
-			const tabs = document.querySelectorAll( '[role="tab"]' );
-			const tabList = document.querySelector( '[role="tablist"]' );
+		const container = document.querySelector( obj.selectors.scheduleTabContainer );
+		if ( !container ) {
+			return;
+		}
 
-			// Add a click event handler to each tab
-			tabs.forEach( tab => {
-				tab.addEventListener( 'click', obj.changeTabs );
-			} );
+		const tabs = container.querySelectorAll( obj.selectors.scheduleTabRole );
+		const tabList = container.querySelector( obj.selectors.scheduleTabRoleList );
 
-			// Enable arrow navigation between tabs in the tab list
-			let tabFocus = 0;
+		// Add a click event handler to each tab
+		tabs.forEach( tab => {
+			tab.addEventListener( 'click', obj.changeTabs );
+		} );
 
-			tabList.addEventListener( 'keydown', e => {
-				// Move right
-				if ( e.keyCode === 39 || e.keyCode === 37 ) {
-					tabs[tabFocus].setAttribute( 'tabindex', -1 );
-					if ( e.keyCode === 39 ) {
-						tabFocus++;
-						// If we're at the end, go to the start
-						if ( tabFocus >= tabs.length ) {
-							tabFocus = 0;
-						}
-						// Move left
-					} else if ( e.keyCode === 37 ) {
-						tabFocus--;
-						// If we're at the start, move to the end
-						if ( tabFocus < 0 ) {
-							tabFocus = tabs.length - 1;
-						}
+		// Enable arrow navigation between tabs in the tab list
+		let tabFocus = 0;
+
+		tabList.addEventListener( 'keydown', e => {
+			// Move right
+			if ( e.keyCode === 39 || e.keyCode === 37 ) {
+				tabs[tabFocus].setAttribute( 'tabindex', -1 );
+				if ( e.keyCode === 39 ) {
+					tabFocus++;
+					// If we're at the end, go to the start
+					if ( tabFocus >= tabs.length ) {
+						tabFocus = 0;
 					}
-
-					tabs[tabFocus].setAttribute( 'tabindex', 0 );
-					tabs[tabFocus].focus();
+					// Move left
+				} else if ( e.keyCode === 37 ) {
+					tabFocus--;
+					// If we're at the start, move to the end
+					if ( tabFocus < 0 ) {
+						tabFocus = tabs.length - 1;
+					}
 				}
-			} );
+
+				tabs[tabFocus].setAttribute( 'tabindex', 0 );
+				tabs[tabFocus].focus();
+			}
 		} );
 	};
 
