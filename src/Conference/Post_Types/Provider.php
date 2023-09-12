@@ -10,6 +10,7 @@
 
 namespace TEC\Conference\Post_Types;
 
+use TEC\Conference\Admin\Meta\Speaker;
 use TEC\Conference\Contracts\Service_Provider;
 
 /**
@@ -100,12 +101,15 @@ class Provider extends Service_Provider {
 	protected function add_filters() {
 		// Sessions.
 		add_filter( 'enter_title_here', [ $this, 'change_sessions_title_text' ], 10, 2 );
+		add_filter( 'single_template', [ $this, 'set_single_session_template' ] );
 
 		// Speakers.
 		add_filter( 'enter_title_here', [ $this, 'change_speakers_title_text' ], 10, 2 );
 
+		add_filter( 'single_template', [ $this, 'set_single_speaker_template' ] );
 		// Sponsors.
 		add_filter( 'enter_title_here', [ $this, 'change_sponsors_title_text' ], 10, 2 );
+		add_filter( 'single_template', [ $this, 'set_single_sponsor_template' ] );
 	}
 
 	/**
@@ -123,6 +127,19 @@ class Provider extends Service_Provider {
 	}
 
 	/**
+	 * Sets the single template for the session post type.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $single_template The single template path.
+	 *
+	 * @return string The single template path.
+	 */
+	public function set_single_session_template( $single_template ) {
+		return $this->container->make( Sessions::class )->set_single_template( $single_template );
+	}
+
+	/**
 	 * Changes the title placeholder text for the 'Speakers' post type.
 	 *
 	 * @since TBD
@@ -137,6 +154,19 @@ class Provider extends Service_Provider {
 	}
 
 	/**
+	 * Sets the single template for the speaker post type.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $single_template The single template path.
+	 *
+	 * @return string The single template path.
+	 */
+	public function set_single_speaker_template( $single_template ) {
+		return $this->container->make( Speakers::class )->set_single_template( $single_template );
+	}
+
+	/**
 	 * Changes the title placeholder text for the 'Sponsors' post type.
 	 *
 	 * @since TBD
@@ -148,5 +178,18 @@ class Provider extends Service_Provider {
 	 */
 	public function change_sponsors_title_text( $title, $post ) {
 		return $this->container->make( Sponsors::class )->change_title_text( $title, $post );
+	}
+
+	/**
+	 * Sets the single template for the sponsor post type.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $single_template The single template path.
+	 *
+	 * @return string The single template path.
+	 */
+	public function set_single_sponsor_template( $single_template ) {
+		return $this->container->make( Sponsors::class )->set_single_template( $single_template );
 	}
 }

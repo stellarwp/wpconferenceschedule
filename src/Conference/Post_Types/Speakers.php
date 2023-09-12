@@ -80,4 +80,23 @@ class Speakers extends Abstract_Post_Type {
 	public function get_title_text(): string {
 		return _x( 'Enter Speaker Full Name Here', 'Speaker title placeholder', 'wp-conference-schedule' );
 	}
+
+	/**
+	 * Sets the single template for the speaker post type.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $single_template The single template path.
+	 *
+	 * @return string The single template path.
+	 */
+	public function set_single_template( $single_template ) {
+		global $post;
+
+		if ( $post->post_type !== Plugin::SPEAKER_POSTTYPE ) {
+			return $single_template;
+		}
+
+		return trailingslashit( dirname( CONFERENCE_SCHEDULE_FILE ) ) . 'templates/speaker-template.php';
+	}
 }
