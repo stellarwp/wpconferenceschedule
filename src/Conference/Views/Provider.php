@@ -84,7 +84,7 @@ class Provider extends Service_Provider {
 	 * @return string The HTML output the shortcode.
 	 */
 	public function render_speakers_shortcode( $props ) {
-		return $this->container->make( Shortcode\Schedule::class )->render_shortcode( $props );
+		return $this->container->make( Shortcode\Speakers::class )->render_shortcode( $props );
 	}
 
 	/**
@@ -97,7 +97,7 @@ class Provider extends Service_Provider {
 	 * @return string The HTML output the shortcode.
 	 */
 	public function render_sponsors_shortcode( $props ) {
-		return $this->container->make( Shortcode\Schedule::class )->render_shortcode( $props );
+		return $this->container->make( Shortcode\Sponsors::class )->render_shortcode( $props );
 	}
 
 	/**

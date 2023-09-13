@@ -9,7 +9,9 @@
 
 namespace TEC\Conference\Views\Shortcode;
 
+use TEC\Conference\Plugin;
 use TEC\Conference\Vendor\StellarWP\Assets\Assets;
+use WP_Query;
 
 /**
  * Class Sponsors
@@ -29,23 +31,24 @@ class Speakers {
 	 *
 	 * @return string The HTML output the shortcode.
 	 */
-	public function render_shortcode( $attr, $content ) {
+	public function render_shortcode( $attr ) {
 		Assets::instance()->enqueue_group( 'conference-schedule-pro-views' );
 		global $post;
 
 		// Prepare the shortcodes arguments
-		$attr = shortcode_atts( [ 'show_image'     => true,
-		                          'image_size'     => 150,
-		                          'show_content'   => true,
-		                          'posts_per_page' => - 1,
-		                          'orderby'        => 'date',
-		                          'order'          => 'desc',
-		                          'speaker_link'   => '',
-		                          'track'          => '',
-		                          'groups'         => '',
-		                          'columns'        => 1,
-		                          'gap'            => 30,
-		                          'align'          => 'left'
+		$attr = shortcode_atts( [
+			'show_image'     => true,
+			'image_size'     => 150,
+			'show_content'   => true,
+			'posts_per_page' => - 1,
+			'orderby'        => 'date',
+			'order'          => 'desc',
+			'speaker_link'   => '',
+			'track'          => '',
+			'groups'         => '',
+			'columns'        => 1,
+			'gap'            => 30,
+			'align'          => 'left'
 		], $attr );
 
 		foreach ( [ 'orderby', 'order', 'speaker_link' ] as $key_for_case_sensitive_value ) {
@@ -61,10 +64,10 @@ class Speakers {
 		$attr['groups']       = array_filter( explode( ',', $attr['groups'] ) );
 
 		// Fetch all the relevant sessions
-		$session_args = [ 'post_type' => 'wpcs_session', 'posts_per_page' => - 1 ];
+		$session_args = [ 'post_type' => Plugin::SESSION_POSTTYPE, 'posts_per_page' => -1 ];
 
 		if ( isset( $attr['track'] ) && $attr['track'] !== [] ) {
-			$session_args['tax_query'] = [ [ 'taxonomy' => 'wpcs_track', 'field' => 'slug', 'terms' => $attr['track'] ] ];
+			$session_args['tax_query'] = [ [ 'taxonomy' => Plugin::TRACK_TAXONOMY, 'field' => 'slug', 'terms' => $attr['track'] ] ];
 		}
 
 		$sessions = get_posts( $session_args );

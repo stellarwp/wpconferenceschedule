@@ -10,6 +10,7 @@
 namespace TEC\Conference\Views\Shortcode;
 
 use TEC\Conference\Vendor\StellarWP\Assets\Assets;
+use WP_Query;
 
 /**
  * Class Sponsors
@@ -29,17 +30,16 @@ class Sponsors {
 	 *
 	 * @return string The HTML output the shortcode.
 	 */
-	public function render_shortcode( $attr, $content ) {
+	public function render_shortcode( $attr ) {
 		Assets::instance()->enqueue_group( 'conference-schedule-pro-views' );
 
-		$attr = shortcode_atts( [ 'link' => 'none', 'title' => 'visible', 'content' => 'full', 'excerpt_length' => 55, 'heading_level' => 'h2' ], $attr );
-		/*
-		title = visible
-		link = website, post
-		content = full, excerpt
-		heading_level = h2
-		excerpt_length = 0
-		*/
+		$attr = shortcode_atts( [
+			'link' => 'none',
+			'title' => 'visible',
+			'content' => 'full',
+			'excerpt_length' => 55,
+			'heading_level' => 'h2'
+		], $attr );
 
 		$attr['link'] = strtolower( $attr['link'] );
 		$terms        = $this->get_sponsor_levels( 'conference_sponsor_level_order', 'wpcsp_sponsor_level' );
@@ -127,5 +127,50 @@ class Sponsors {
 		ob_end_clean();
 
 		return $content;
+	}
+
+	/**
+	 * Returns the sponsor level terms in set order.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $option   The option key to fetch from the database.
+	 * @param string $taxonomy The taxonomy to fetch terms for.
+	 *
+	 * @return array Array of term objects.
+	 */
+	public function get_sponsor_levels( string $option, string $taxonomy ): array {
+		$option       = get_option( $option, [] );
+		$term_objects = get_terms( $taxonomy, [ 'get' => 'all' ] );
+		$terms        = [];
+
+		foreach ( $term_objects as $term ) {
+			$terms[ $term->term_id ] = $term;
+		}
+
+		return $this->order_terms_by_option( $terms, $option );
+	}
+
+	/**
+	 * Orders the terms by a given option.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $terms  The terms to be ordered.
+	 * @param array $option The order option.
+	 *
+	 * @return array The ordered terms.
+	 */
+	private function order_terms_by_option( array $terms, array $option ): array {
+		$ordered_terms = [];
+
+		foreach ( $option as $term_id ) {
+			if ( isset( $terms[ $term_id ] ) ) {
+				$ordered_terms[] = $terms[ $term_id ];
+				unset( $terms[ $term_id ] );
+			}
+		}
+
+		return array_merge( $ordered_terms, array_values( $terms ) );
 	}
 }
