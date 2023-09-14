@@ -9,7 +9,9 @@
 
 namespace TEC\Conference\Views;
 
+use TEC\Conference\Plugin;
 use TEC\Conference\Vendor\StellarWP\Assets\Asset;
+use TEC\Conference\Vendor\StellarWP\Assets\Assets as Stellar_Assets;
 
 /**
  * Class Assets
@@ -48,5 +50,28 @@ class Assets {
 		->set_dependencies( 'jquery' )
 		->add_to_group( 'conference-schedule-pro-views' )
 		->register();
+	}
+
+	/**
+	 * Checks for specified custom post types on single post pages and enqueues assets if true.
+	 *
+	 * @since TBD
+	 */
+	public function enqueue_views_posttype_assets() {
+		if ( ! is_single() ) {
+			return;
+		}
+
+		$post_types = array(
+			Plugin::SESSION_POSTTYPE,
+			Plugin::SPEAKER_POSTTYPE,
+			Plugin::SPONSOR_POSTTYPE,
+		);
+
+		if ( ! in_array( get_post_type(), $post_types ) ) {
+			return;
+		}
+
+		Stellar_Assets::instance()->enqueue_group( 'conference-schedule-pro-views' );
 	}
 }

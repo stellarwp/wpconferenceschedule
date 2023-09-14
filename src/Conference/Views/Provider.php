@@ -50,6 +50,8 @@ class Provider extends Service_Provider {
 
 		// Single Session.
 		add_action( 'wpsc_single_taxonomies', [ $this, 'single_session_tags' ] );
+
+		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_views_posttype_assets' ] );
 	}
 
 	/**
@@ -107,6 +109,15 @@ class Provider extends Service_Provider {
 	 */
 	public function single_session_tags() {
 		$this->container->make( Filter_Modifications::class )->single_session_tags();
+	}
+
+	/**
+	 * Checks for specified custom post types on single post pages and enqueues assets if true.
+	 *
+	 * @since TBD
+	 */
+	public function enqueue_views_posttype_assets() {
+		$this->container->make( Assets::class )->enqueue_views_posttype_assets();
 	}
 
 	/**
