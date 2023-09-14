@@ -31,9 +31,19 @@ class Schedule {
 	 * @return string The HTML output the shortcode.
 	 */
 	public function render_shortcode( $atts ) {
-		$defaults = [ 'date' => '' ];
+		Assets::instance()->enqueue_group( 'conference-schedule-pro-views' );
 
-		$props = shortcode_atts( $defaults, $atts, 'wpcs_schedule' );
+		// Prepare the shortcodes arguments
+		$props = shortcode_atts( [
+			'date'         => null,
+			'tracks'       => 'all',
+			'session_link' => 'permalink',
+			'color_scheme' => 'light',
+			'align'        => '',
+			'layout'       => 'table',
+			'row_height'   => 'match',
+			'content'      => 'none',
+		], $atts, 'wpcs_schedule' );
 
 		$output = '';
 
