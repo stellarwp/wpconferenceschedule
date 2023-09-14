@@ -1,0 +1,28 @@
+/*
+ * Tabs
+ * -------------------------------------------------------------
+ */
+.wpcsp-tabs {
+	&-list {
+		text-align: center;
+
+		&-button {
+			width: 100%;
+			margin-bottom: 10px;
+			background-color: transparent;
+			color: $color-black;
+			border: solid 2px $color-black;
+			@include breakpoint(sm) {
+				margin-right: 10px;
+				width: auto;
+			}
+
+			&:hover,
+			&:focus,
+			&[aria-selected="true"] {
+				color: $color-white;
+				background-color: $color-black;
+			}
+		}
+	}
+}

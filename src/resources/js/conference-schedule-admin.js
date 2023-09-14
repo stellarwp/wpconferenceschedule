@@ -10,23 +10,20 @@ const conferenceScheduleProAdmin= {};
 
 (function( $, obj ) {
 	'use-strict';
-	const $document = $( document );
 
 	/**
-	 * Selectors used for configuration and setup
+	 * Selectors used for configuration and setup.
 	 *
 	 * @since TBD
 	 *
 	 * @type {PlainObject}
 	 */
 	obj.selectors = {
-		integrationContainer: '.tec-automator-settings',
-		integrationAdd: '.tec-automator-settings__add-api-key-button',
-		messageWrap: '.tec-automator-settings-message__wrap',
+		// Sessions.
+		integrationList: '#wpcs-session-date',
 
-		// Individual Keys.
-		integrationList: '.tec-automator-settings-items__wrap',
-
+		// Admin Sorting.
+		sortingOrder: '.wpcs-sponsor-order',
 	};
 
 	/**
@@ -35,7 +32,7 @@ const conferenceScheduleProAdmin= {};
 	 * @since TBD
 	 */
 	obj.setupDatePicker = function() {
-		$( '#wpcs-session-date' ).datepicker( {
+		$( obj.selectors.integrationList ).datepicker( {
 			dateFormat: 'yy-mm-dd',
 			changeMonth: true,
 			changeYear: true
@@ -43,14 +40,20 @@ const conferenceScheduleProAdmin= {};
 	};
 
 	/**
+	 * Setup reordering for speakers and sponsors.
+	 *
+	 * @since TBD
+	 */
+	obj.setupReorder = function() {
+		$( obj.selectors.sortingOrder ).sortable();
+	};
+
+	/**
 	 * Bind the integration events.
 	 *
 	 * @since TBD
 	 */
-	obj.bindEvents = function() {
-/*		$document
-			.on( 'click', obj.selectors.endpointEnableButton, obj.handleEndpointAction );*/
-	};
+	obj.bindEvents = function() {};
 
 	/**
 	 * Unbind the integration events.
@@ -60,12 +63,13 @@ const conferenceScheduleProAdmin= {};
 	obj.unbindEvents = function() {};
 
 	/**
-	 * Handles the initialization of the admin when Document is ready
+	 * Handles the initialization of the admin when Document is ready.
 	 *
 	 * @since TBD
 	 */
 	obj.ready = function() {
 		obj.setupDatePicker();
+		obj.setupReorder();
 		obj.bindEvents();
 	};
 

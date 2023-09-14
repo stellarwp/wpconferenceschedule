@@ -1,0 +1,107 @@
+/*
+ * Sponsors
+ * -------------------------------------------------------------
+ */
+.wpcsp-sponsors {
+	.wpcsp-sponsor-level {
+		.wpcsp-sponsor-level-heading {
+			text-align: center;
+			position: relative;
+
+			&:before, &:after {
+				display: none;
+			}
+
+			&:before {
+				display: block;
+				position: absolute;
+				top: 50%;
+				width: 100%;
+				height: 1px;
+				background-color: LightGray;
+				margin: 0;
+				padding: 0;
+				z-index: -1;
+			}
+
+			span {
+				background-color: #fff;
+				padding: 0px 20px;
+			}
+		}
+
+		.wpcsp-sponsor-list {
+			list-style-type: none;
+			padding-left: 0;
+			text-align: center;
+
+			.wpcsp-sponsor {
+				display: inline-block;
+				margin: 10px;
+				@include breakpoint(sm) {
+					margin: 20px;
+				}
+
+				.wpcsp-sponsor-description {
+				}
+			}
+		}
+	}
+}
+
+.wpcsp-sponsor-single {
+	&-row {
+		@include breakpoint(sm) {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			column-gap: 30px;
+			align-content: center;
+		}
+	}
+
+	&-image {
+		text-align: center;
+
+		img {
+			max-height: 50px;
+		}
+	}
+}
+
+.single-wpcsp_sponsor {
+	.entry .entry-content > * {
+		max-width: 100%;
+	}
+
+	.entry {
+		h2 {
+			font-size: 1.2em;
+		}
+
+		&-title {
+			font-size: 2em;
+		}
+	}
+
+	.has-post-thumbnail {
+		.wpcsp-sponsor-grid {
+			@include breakpoint(sm) {
+				display: grid;
+				grid-template-columns: 1fr 2fr;
+				grid-column-gap: 30px;
+			}
+			@include breakpoint(lg) {
+				grid-column-gap: 50px;
+			}
+		}
+
+		.wpcsp-sponsor-level {
+			font-size: 1.5em;
+		}
+
+		.wpcsp-sponsor-website-link {
+
+		}
+	}
+}

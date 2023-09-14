@@ -319,10 +319,10 @@ class Settings extends Menu {
 			return;
 		}
 		?>
-		<div class="description sponsor-order-instructions">
+		<div class="description wpcs-sponsor-order-instructions">
 			<?php echo $message; ?>
 		</div>
-		<ul class="sponsor-order">
+		<ul class="wpcs-sponsor-order">
 			<?php foreach ( $levels as $term ) : ?>
 				<li class="level">
 					<input type="hidden" class="level-id" name="<?php echo $option; ?>[]" value="<?php echo esc_attr( $term->term_id ); ?>"/>

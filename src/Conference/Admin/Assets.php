@@ -46,7 +46,14 @@ class Assets {
 			'conference-schedule-pro-admin-js',
 			'conference-schedule-admin.js'
 		)
-		->set_dependencies( 'jquery', 'jquery-ui-datepicker' )
+		->set_dependencies( 'jquery', 'jquery-ui-datepicker', 'jquery-ui-sortable' )
+		->add_to_group( 'conference-schedule-pro-admin' )
+		->register();
+
+		Asset::add(
+			'conference-schedule-pro-js',
+			'conference-schedule-pro.js'
+		)
 		->add_to_group( 'conference-schedule-pro-admin' )
 		->register();
 	}
