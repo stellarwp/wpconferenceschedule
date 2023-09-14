@@ -21,8 +21,10 @@
     }
   },
   "require": {
+    "awran5/wp-cmb2-conditional-logic": "^1.0.0",
     "cmb2/cmb2": "^2.10.0",
     "lucatume/di52": "^3.3.0",
+    "mustardbees/cmb-field-select2": "^3.0.3",
     "stellarwp/arrays": "^1.0.0",
     "stellarwp/assets": "^1.0.0",
     "stellarwp/container-contract": "^1.0.4",
@@ -57,6 +59,25 @@
       "name": "stellarwp/telemetry",
       "type": "vcs",
       "url": "git@github.com:stellarwp/telemetry.git"
+    },
+    {
+      "type": "package",
+      "package": {
+        "name": "awran5/wp-cmb2-conditional-logic",
+        "version": "1.0.0",
+        "type": "wordpress-plugin",
+        "source": {
+          "url": "https://github.com/awran5/wp-cmb2-conditional-logic",
+          "type": "git",
+          "reference": "master"
+        }
+      }
+    },
+    {
+      "name": "mustardbees/cmb-field-select2",
+      "type": "github",
+      "url": "https://github.com/mustardbees/cmb-field-select2",
+      "no-api": true
     }
   ],
   "scripts": {

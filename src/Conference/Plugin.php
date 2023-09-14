@@ -249,6 +249,8 @@ class Plugin {
 		require_once dirname( CONFERENCE_SCHEDULE_FILE ) . '/vendor/vendor-prefixed/autoload.php';
 		require_once dirname( CONFERENCE_SCHEDULE_FILE ) . '/vendor/autoload.php';
 		require_once dirname( CONFERENCE_SCHEDULE_FILE ) . '/vendor/cmb2/cmb2/init.php';
+		require_once dirname( CONFERENCE_SCHEDULE_FILE ) . '/vendor/awran5/wp-cmb2-conditional-logic/cmb2-conditional-logic.php';
+		require_once dirname( CONFERENCE_SCHEDULE_FILE ) . '/vendor/mustardBees/cmb-field-select2/cmb-field-select2.php';
 	}
 
 	/**
