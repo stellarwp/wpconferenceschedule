@@ -11,6 +11,7 @@ namespace TEC\Conference\Views\Shortcode;
 
 use TEC\Conference\Plugin;
 use WP_Query;
+use TEC\Conference\Vendor\StellarWP\Arrays\Arr;
 
 /**
  * Class Schedule
@@ -51,7 +52,7 @@ class Schedule {
 		$dates     = explode( ',', $dates_arr );
 
 		if ( $dates !== [] ) {
-			$current_tab = ( isset( $_GET['wpcs-tab'] ) && ! empty( $_GET['wpcs-tab'] ) ) ? (int) $_GET['wpcs-tab'] : null;
+			$current_tab = Arr::get( 'wpcs-tab', $_GET, null );
 
 			if ( count( $dates ) > 1 ) {
 
@@ -266,10 +267,14 @@ class Schedule {
 					                'meta_query'     => [ 'relation' => 'AND', [ 'key' => '_wpcs_session_time', 'compare' => 'EXISTS' ] ]
 					];
 					if ( $schedule_date && strtotime( $schedule_date ) ) {
-						$query_args['meta_query'][] = [ 'key'     => '_wpcs_session_time',
-						                                'value'   => [ strtotime( $schedule_date ), strtotime( $schedule_date . ' +1 day' ) ],
-						                                'compare' => 'BETWEEN',
-						                                'type'    => 'NUMERIC'
+						$query_args['meta_query'][] = [
+							'key'     => '_wpcs_session_time',
+                            'value'   => [
+                                strtotime( $schedule_date ),
+                                strtotime( $schedule_date . ' +1 day' )
+                            ],
+                            'compare' => 'BETWEEN',
+                            'type'    => 'NUMERIC'
 						];
 					}
 					// If tracks were provided, restrict the lookup in WP_Query.
@@ -668,38 +673,18 @@ class Schedule {
 		if ( $props ):
 
 			// Set Attribute values base on props
-			if ( isset( $props['date'] ) ) {
-				$attr['date'] = $props['date'];
-			}
-
-			if ( isset( $props['color_scheme'] ) ) {
-				$attr['color_scheme'] = $props['color_scheme'];
-			}
-
-			if ( isset( $props['layout'] ) ) {
-				$attr['layout'] = $props['layout'];
-			}
-
-			if ( isset( $props['row_height'] ) ) {
-				$attr['row_height'] = $props['row_height'];
-			}
-
-			if ( isset( $props['content'] ) ) {
-				$attr['content'] = $props['content'];
-			}
-
-			if ( isset( $props['session_link'] ) ) {
-				$attr['session_link'] = $props['session_link'];
-			}
-
-			if ( isset( $props['align'] ) && $props['align'] == 'wide' ) {
+			$attr['date'] = Arr::get( 'date', $props, null );
+			$attr['tracks'] = Arr::get( 'tracks', $props, 'all' );
+			$attr['color_scheme'] = Arr::get( 'color_scheme', $props, 'light' );
+			$attr['layout'] = Arr::get( 'layout', $props, 'table' );
+			$attr['row_height'] = Arr::get( 'row_height', $props, 'match' );
+			$attr['content'] = Arr::get( 'content', $props, 'none' );
+			$attr['session_link'] = Arr::get( 'session_link', $props, 'permalink' );
+			$attr['align'] = Arr::get( 'align', $props, '' );
+			if ( $attr['align'] === 'wide' ) {
 				$attr['align'] = 'alignwide';
-			} elseif ( isset( $props['align'] ) && $props['align'] == 'full' ) {
+			} elseif ( $attr['align'] === 'full' ) {
 				$attr['align'] = 'alignfull';
-			}
-
-			if ( isset( $props['tracks'] ) ) {
-				$attr['tracks'] = $props['tracks'];
 			}
 
 			foreach ( [ 'tracks', 'session_link', 'color_scheme' ] as $key_for_case_sensitive_value ) {
