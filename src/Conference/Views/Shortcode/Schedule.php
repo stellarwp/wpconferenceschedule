@@ -12,6 +12,7 @@ namespace TEC\Conference\Views\Shortcode;
 use TEC\Conference\Plugin;
 use TEC\Conference\Vendor\StellarWP\Assets\Assets;
 use WP_Query;
+use TEC\Conference\Vendor\StellarWP\Arrays\Arr;
 
 /**
  * Class Schedule
@@ -52,7 +53,7 @@ class Schedule {
 		$dates     = explode( ',', $dates_arr );
 
 		if ( $dates !== [] ) {
-			$current_tab = ( isset( $_GET['wpcs-tab'] ) && ! empty( $_GET['wpcs-tab'] ) ) ? (int) $_GET['wpcs-tab'] : null;
+			$current_tab = Arr::get( 'wpcs-tab', $_GET, null );
 
 			if ( count( $dates ) > 1 ) {
 
@@ -150,6 +151,13 @@ class Schedule {
 							$colspan              = 1;
 							$classes              = [];
 							$session              = get_post( $entry[ $term_id ] );
+							/**
+							 * Filter the session title for the schedule shortcode.
+							 *
+							 * @since TBD
+							 *
+							 * @param string $session_title The session title.
+							 */
 							$session_title        = apply_filters( 'the_title', $session->post_title );
 							$session_tracks       = get_the_terms( $session->ID, 'wpcs_track' );
 							$session_track_titles = is_array( $session_tracks ) ? implode( ', ', wp_list_pluck( $session_tracks, 'name' ) ) : '';
@@ -174,7 +182,13 @@ class Schedule {
 							$content = '';
 							$content .= '<div class="wpcs-session-cell-content">';
 
-							// Session Content Header Filter
+							/**
+							 * Filter the session content header for the schedule shortcode.
+							 *
+							 * @since TBD
+							 *
+							 * @param int $session_ID The session ID.
+							 */
 							$wpcs_session_content_header = apply_filters( 'wpcs_session_content_header', $session->ID );
 							$content                     .= ( $wpcs_session_content_header != $session->ID ) ? $wpcs_session_content_header : '';
 
@@ -206,7 +220,13 @@ class Schedule {
 								$content .= sprintf( ' <span class="wpcs-session-speakers">%s</span>', esc_html( $speakers ) );
 							}
 
-							// Session Content Footer Filter
+							/**
+							 * Filter the session content footer for the schedule shortcode.
+							 *
+							 * @since TBD
+							 *
+							 * @param int $session_ID The session ID.
+							 */
 							$wpcs_session_content_footer = apply_filters( 'wpcs_session_content_footer', $session->ID );
 							$content                     .= ( $wpcs_session_content_footer != $session->ID ) ? $wpcs_session_content_footer : '';
 
@@ -247,9 +267,6 @@ class Schedule {
 
 					$html .= '</tbody>';
 					$html .= '</table>';
-					if ( get_option( 'wpcs_field_byline' ) ) {
-						$html .= '<div class="wpcs-promo"><small>Powered by <a href="https://wpconferenceschedule.com" target="_blank">WP Conference Schedule</a></small></div>';
-					}
 					$html   .= '</div>';
 					$output .= $html;
 
@@ -259,23 +276,38 @@ class Schedule {
 					$schedule_date = $attr['date'];
 					$time_format   = get_option( 'time_format', 'g:i a' );
 
-					$query_args = [ 'post_type'      => 'wpcs_session',
-					                'posts_per_page' => - 1,
-					                'meta_key'       => '_wpcs_session_time',
-					                'orderby'        => 'meta_value_num',
-					                'order'          => 'ASC',
-					                'meta_query'     => [ 'relation' => 'AND', [ 'key' => '_wpcs_session_time', 'compare' => 'EXISTS' ] ]
+					$query_args = [
+						'post_type'      => 'wpcs_session',
+		                'posts_per_page' => - 1,
+		                'meta_key'       => '_wpcs_session_time',
+		                'orderby'        => 'meta_value_num',
+		                'order'          => 'ASC',
+		                'meta_query'     => [
+		                    'relation' => 'AND',
+		                    [
+		                        'key' => '_wpcs_session_time',
+		                        'compare' => 'EXISTS'
+	                        ]
+                        ]
 					];
 					if ( $schedule_date && strtotime( $schedule_date ) ) {
-						$query_args['meta_query'][] = [ 'key'     => '_wpcs_session_time',
-						                                'value'   => [ strtotime( $schedule_date ), strtotime( $schedule_date . ' +1 day' ) ],
-						                                'compare' => 'BETWEEN',
-						                                'type'    => 'NUMERIC'
+						$query_args['meta_query'][] = [
+							'key'     => '_wpcs_session_time',
+                            'value'   => [
+                                strtotime( $schedule_date ),
+                                strtotime( $schedule_date . ' +1 day' )
+                            ],
+                            'compare' => 'BETWEEN',
+                            'type'    => 'NUMERIC'
 						];
 					}
 					// If tracks were provided, restrict the lookup in WP_Query.
 					if ( $tracks_explicitly_specified && ! empty( $tracks ) ) {
-						$query_args['tax_query'][] = [ 'taxonomy' => 'wpcs_track', 'field' => 'id', 'terms' => array_values( wp_list_pluck( $tracks, 'term_id' ) ) ];
+						$query_args['tax_query'][] = [
+							'taxonomy' => 'wpcs_track',
+							'field' => 'id',
+							'terms' => array_values( wp_list_pluck( $tracks, 'term_id' ) )
+						];
 					}
 
 					$sessions_query = new WP_Query( $query_args );
@@ -365,10 +397,14 @@ class Schedule {
 					}
 
 					// Sessions
-					$query_args['meta_query'][] = [ 'key'     => '_wpcs_session_time',
-					                                'value'   => [ strtotime( $schedule_date ), strtotime( $schedule_date . ' +1 day' ) ],
-					                                'compare' => 'BETWEEN',
-					                                'type'    => 'NUMERIC'
+					$query_args['meta_query'][] = [
+						'key'     => '_wpcs_session_time',
+					     'value'   => [
+					        strtotime( $schedule_date ),
+					        strtotime( $schedule_date . ' +1 day' )
+					     ],
+                        'compare' => 'BETWEEN',
+                        'type'    => 'NUMERIC'
 					];
 
 					$sessions_query = new WP_Query( $query_args );
@@ -377,11 +413,24 @@ class Schedule {
 						$classes              = [];
 						$session              = get_post( $session );
 						$session_url          = get_the_permalink( $session->ID );
+						/**
+						 * Filter the session title for the schedule shortcode.
+						 *
+						 * @since TBD
+						 *
+						 * @param string $session_title The session title.
+						 */
 						$session_title        = apply_filters( 'the_title', $session->post_title );
 						$session_tracks       = get_the_terms( $session->ID, 'wpcs_track' );
 						$session_track_titles = is_array( $session_tracks ) ? implode( ', ', wp_list_pluck( $session_tracks, 'name' ) ) : '';
 						$session_type         = get_post_meta( $session->ID, '_wpcs_session_type', true );
-						//$speakers         	  = get_post_meta( $session->ID, '_wpcs_session_speakers', true );
+						/**
+						 * Filter the session speakers for the schedule shortcode.
+						 *
+						 * @since TBD
+						 *
+						 * @param string $speakers The session speakers.
+						 */
 						$speakers = apply_filters( 'wpcs_filter_session_speakers', get_post_meta( $session->ID, '_wpcs_session_speakers', true ), $session->ID );
 
 						$start_time = get_post_meta( $session->ID, '_wpcs_session_time', true );
@@ -439,7 +488,13 @@ class Schedule {
 
 						$html .= '<div class="wpcs-session-cell-content">';
 
-						// Session Content Header Filter
+						/**
+						 * Filter the session content header for the schedule shortcode.
+						 *
+						 * @since TBD
+						 *
+						 * @param int $session_ID The session ID.
+						 */
 						$wpcs_session_content_header = apply_filters( 'wpcs_session_content_header', $session->ID );
 						$html                        .= ( $wpcs_session_content_header != $session->ID ) ? $wpcs_session_content_header : '';
 
@@ -480,7 +535,13 @@ class Schedule {
 							$html .= sprintf( ' <div class="wpcs-session-speakers">%s</div>', wp_specialchars_decode( $speakers ) );
 						}
 
-						// Session Content Footer Filter
+						/**
+						 * Filter the session content footer for the schedule shortcode.
+						 *
+						 * @since TBD
+						 *
+						 * @param int $session_ID The session ID.
+						 */
 						$wpcs_session_content_footer = apply_filters( 'wpcs_session_content_footer', $session->ID );
 						$html                        .= ( $wpcs_session_content_footer != $session->ID ) ? $wpcs_session_content_footer : '';
 
@@ -551,12 +612,25 @@ class Schedule {
 	 * @return array Associative array of session ids by time and track.
 	 */
 	public function get_schedule_sessions( $schedule_date, $tracks_explicitly_specified, $tracks ) {
-		$query_args = [ 'post_type' => Plugin::SESSION_POSTTYPE, 'posts_per_page' => - 1, 'meta_query' => [ 'relation' => 'AND', [ 'key' => '_wpcs_session_time', 'compare' => 'EXISTS' ] ] ];
+		$query_args = [
+			'post_type' => Plugin::SESSION_POSTTYPE,
+			'posts_per_page' => -1,
+			'meta_query' => [
+				'relation' => 'AND',
+				[
+					'key' => '_wpcs_session_time',
+					'compare' => 'EXISTS'
+				]
+			]
+		];
 
 		if ( $schedule_date && strtotime( $schedule_date ) ) {
 			$query_args['meta_query'][] = [
 				'key'     => '_wpcs_session_time',
-                'value'   => [ strtotime( $schedule_date ), strtotime( $schedule_date . ' +1 day' ) ],
+                'value'   => [
+                    strtotime( $schedule_date ),
+                    strtotime( $schedule_date . ' +1 day' )
+                ],
                 'compare' => 'BETWEEN',
                 'type'    => 'NUMERIC'
 			];
@@ -649,7 +723,6 @@ class Schedule {
 	 * @return array Array of attributes, after preprocessing.
 	 */
 	public function preprocess_schedule_attributes( $props ) {
-
 		// Set Defaults
 		$attr = [
 			'date'         => null,
@@ -669,38 +742,18 @@ class Schedule {
 		if ( $props ):
 
 			// Set Attribute values base on props
-			if ( isset( $props['date'] ) ) {
-				$attr['date'] = $props['date'];
-			}
-
-			if ( isset( $props['color_scheme'] ) ) {
-				$attr['color_scheme'] = $props['color_scheme'];
-			}
-
-			if ( isset( $props['layout'] ) ) {
-				$attr['layout'] = $props['layout'];
-			}
-
-			if ( isset( $props['row_height'] ) ) {
-				$attr['row_height'] = $props['row_height'];
-			}
-
-			if ( isset( $props['content'] ) ) {
-				$attr['content'] = $props['content'];
-			}
-
-			if ( isset( $props['session_link'] ) ) {
-				$attr['session_link'] = $props['session_link'];
-			}
-
-			if ( isset( $props['align'] ) && $props['align'] == 'wide' ) {
+			$attr['date']         = Arr::get( 'date', $props, null );
+			$attr['tracks']       = Arr::get( 'tracks', $props, 'all' );
+			$attr['color_scheme'] = Arr::get( 'color_scheme', $props, 'light' );
+			$attr['layout']       = Arr::get( 'layout', $props, 'table' );
+			$attr['row_height']   = Arr::get( 'row_height', $props, 'match' );
+			$attr['content']      = Arr::get( 'content', $props, 'none' );
+			$attr['session_link'] = Arr::get( 'session_link', $props, 'permalink' );
+			$attr['align']        = Arr::get( 'align', $props, '' );
+			if ( $attr['align'] === 'wide' ) {
 				$attr['align'] = 'alignwide';
-			} elseif ( isset( $props['align'] ) && $props['align'] == 'full' ) {
+			} elseif ( $attr['align'] === 'full' ) {
 				$attr['align'] = 'alignfull';
-			}
-
-			if ( isset( $props['tracks'] ) ) {
-				$attr['tracks'] = $props['tracks'];
 			}
 
 			foreach ( [ 'tracks', 'session_link', 'color_scheme' ] as $key_for_case_sensitive_value ) {

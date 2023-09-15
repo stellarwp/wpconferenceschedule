@@ -42,7 +42,7 @@ get_header(); ?>
 								<?php the_content(); ?>
 
 								<?php if ( $website_url ) { ?>
-									<p class="wpcsp-sponsor-website-link"><a target="_blank" href="<?php echo esc_url( $website_url ); ?>">Visit <?php echo get_the_title(); ?> Website</a></p>
+									<p class="wpcsp-sponsor-website-link"><a target="_blank" href="<?php echo esc_url( $website_url ); ?>">Visit <?php echo get_the_title(); ?> <?php echo esc_html_x( 'Website', 'Sponsor single template website field label.', 'conference-schedule-pro' ) ?></a></p>
 								<?php } ?>
 							</div>
 

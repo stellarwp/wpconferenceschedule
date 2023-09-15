@@ -37,11 +37,7 @@ get_header(); ?>
 								$social_icon = 'facebook-alt';
 							}
 
-							ob_start();
-
-							echo '<a class="wpcsp-speaker-social-icon-link" href="' . esc_url( $url ) . '" target="_blank" aria-label="' . $social_label . '"><span class="dashicons dashicons-' . $social_icon . '"></span></a>';
-
-							$social_icons[] = ob_get_clean();
+							$social_icons[] = '<a class="wpcsp-speaker-social-icon-link" href="' . esc_url( $url ) . '" target="_blank" aria-label="' . $social_label . '"><span class="dashicons dashicons-' . $social_icon . '"></span></a>';
 						}
 					}
 
@@ -88,12 +84,12 @@ get_header(); ?>
 									</ul>
 								<?php } ?>
 
-								<h2>About <?php echo esc_html( $full_name ); ?></h2>
+								<h2><?php echo esc_html_x( 'About', 'Speaker single template prefix text for name.', 'conference-schedule-pro' ) ?><?php echo esc_html( $full_name ); ?></h2>
 
 								<?php the_content(); ?>
 
 								<?php if ( $sessions ) { ?>
-									<h2>Sessions</h2>
+									<h2><?php echo esc_html_x( 'Sessions', 'Speaker single template session heading.', 'conference-schedule-pro' ) ?></h2>
 									<ul>
 										<?php foreach ( $sessions as $session ) { ?>
 											<li>
@@ -106,11 +102,11 @@ get_header(); ?>
 								<?php if ( $speaker_page_url || $schedule_page_url ) { ?>
 									<p class="wpcsp-speaker-links">
 										<?php if ( $speaker_page_url ) { ?>
-											<a class="wpcsp-speaker-link wpcsp-speaker-link-speakers" href="<?php echo esc_url( $speaker_page_url ); ?>">Go to Speakers List</a>
+											<a class="wpcsp-speaker-link wpcsp-speaker-link-speakers" href="<?php echo esc_url( $speaker_page_url ); ?>"><?php echo esc_html_x( 'Go to Speakers List', 'Speaker single template link to speaker list.', 'conference-schedule-pro' ) ?></a>
 										<?php } ?>
 
 										<?php if ( $schedule_page_url ) { ?>
-											<a class="wpcsp-speaker-link-schedule" href="<?php echo esc_url( get_bloginfo( 'url' ) ); ?>">Go to Conference Home</a>
+											<a class="wpcsp-speaker-link-schedule" href="<?php echo esc_url( get_bloginfo( 'url' ) ); ?>"><?php echo esc_html_x( 'Go to Conference Home', 'Speaker single template link to conference home.', 'conference-schedule-pro' ) ?></a>
 										<?php } ?>
 									</p>
 								<?php } ?>
