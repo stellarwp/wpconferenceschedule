@@ -7,7 +7,16 @@
 	const { createElement: el } = wp.element;
 	const { __ } = wp.i18n;
 
-	const wpcs_dateFormatted = ( date = new Date() ) => {
+	/**
+	 * Format a JavaScript Date object into a string in 'YYYY-MM-DD' format.
+	 *
+	 * @since TBD
+	 *
+	 * @param {Date} [date = new Date()] - The date to format, defaults to the current date.
+	 *
+	 * @return {string} The formatted date string.
+	 */
+	const dateFormatted = ( date = new Date() ) => {
 		let dd = String( date.getDate() ).padStart( 2, '0' );
 		let mm = String( date.getMonth() + 1 ).padStart( 2, '0' ); //January is 0!
 		let yyyy = date.getFullYear();
@@ -16,11 +25,21 @@
 	};
 
 	let trackTermsArray = [];
-	apiFetch( { path: "/wp/v2/session_track" } ).then( posts => {
-		posts.forEach( ( val, key ) => {
-			trackTermsArray.push( { id: val.id, name: val.name, slug: val.slug } );
+
+	/**
+	 * Fetch track terms from the WP API and populate the trackTermsArray with term details.
+	 *
+	 * @since TBD
+	 */
+	const fetchTrackTerms = () => {
+		apiFetch( {path: "/wp/v2/session_track"} ).then( posts => {
+			posts.forEach( ( val, key ) => {
+				trackTermsArray.push( {id: val.id, name: val.name, slug: val.slug} );
+			} );
 		} );
-	} );
+	};
+
+	fetchTrackTerms();
 
 	registerBlockType( 'wpcs/schedule-block', {
 		title: 'Conference Schedule',
@@ -30,7 +49,7 @@
 			align: [ 'wide', 'full' ]
 		},
 		attributes: {
-			date: { type: 'string', default: wpcs_dateFormatted() },
+			date: { type: 'string', default: dateFormatted() },
 			color_scheme: { type: 'string', default: 'light' },
 			layout: { type: 'string', default: 'table' },
 			row_height: { type: 'string', default: 'match' },
@@ -74,7 +93,7 @@
 					el( DateTimePicker, {
 						currentDate: date,
 						locale: 'en',
-						onChange: ( value ) => setAttributes( { date: wpcs_dateFormatted( new Date( value ) ) } ),
+						onChange: ( value ) => setAttributes( { date: dateFormatted( new Date( value ) ) } ),
 						selected: date,
 						key: 'date-picker'
 					} ),
