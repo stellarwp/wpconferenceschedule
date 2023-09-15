@@ -60,9 +60,11 @@ abstract class Abstract_Post_Type {
 	 * @return string The modified placeholder text.
 	 */
 	public function change_title_text( $title, $post ) {
-		if ( $post->post_type === Plugin::SESSION_POSTTYPE ) {
-			$title = $this->get_title_text();
+		if ( $post->post_type !== $this->post_type_object->name ) {
+			return $title;
 		}
+
+		$title = $this->get_title_text();
 
 		return $title;
 	}
