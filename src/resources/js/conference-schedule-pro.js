@@ -30,7 +30,7 @@ const conferenceSchedulePro = {};
 	 *
 	 * @since TBD
 	 */
-	obj.setupTabs = function() {
+	obj.setupTabs = ()  => {
 		const container = document.querySelector( obj.selectors.scheduleTabContainer );
 		if ( !container ) {
 			return;
@@ -50,7 +50,7 @@ const conferenceSchedulePro = {};
 		tabList.addEventListener( 'keydown', e => {
 			// Move right
 			if ( e.keyCode === 39 || e.keyCode === 37 ) {
-				tabs[tabFocus].setAttribute( 'tabindex', -1 );
+				tabs[ tabFocus ].setAttribute( 'tabindex', -1 );
 				if ( e.keyCode === 39 ) {
 					tabFocus++;
 					// If we're at the end, go to the start
@@ -66,8 +66,8 @@ const conferenceSchedulePro = {};
 					}
 				}
 
-				tabs[tabFocus].setAttribute( 'tabindex', 0 );
-				tabs[tabFocus].focus();
+				tabs[ tabFocus ].setAttribute( 'tabindex', 0 );
+				tabs[ tabFocus ].focus();
 			}
 		} );
 	};
@@ -79,7 +79,7 @@ const conferenceSchedulePro = {};
 	 *
 	 * @param event {Event} The event object.
 	 */
-	obj.changeTabs = function( event ) {
+	obj.changeTabs = ( event )  => {
 		const target = event.target;
 		const parent = target.parentNode;
 		const grandparent = parent.parentNode;
@@ -116,21 +116,21 @@ const conferenceSchedulePro = {};
 	 *
 	 * @since TBD
 	 */
-	obj.bindEvents = function() {};
+	obj.bindEvents = () => {};
 
 	/**
 	 * Unbind the integration events.
 	 *
 	 * @since TBD
 	 */
-	obj.unbindEvents = function() {};
+	obj.unbindEvents = () => {};
 
 	/**
 	 * Handles the initialization of the admin when Document is ready.
 	 *
 	 * @since TBD
 	 */
-	obj.ready = function() {
+	obj.ready = () => {
 		obj.setupTabs();
 		obj.bindEvents();
 	};
