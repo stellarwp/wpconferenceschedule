@@ -83,7 +83,6 @@ class WP_Conference_Schedule_Plugin {
 	 * Fired when plugin file is loaded.
 	 */
 	function __construct() {
-		add_action( 'wp_enqueue_scripts', array( $this, 'wpcs_enqueue_scripts' ) );
 		add_action('enqueue_block_editor_assets', array( $this, 'wpcs_loadBlockFiles' ) );
 
 		register_block_type('wpcs/schedule-block', [
@@ -99,17 +98,6 @@ class WP_Conference_Schedule_Plugin {
 			],
 			'render_callback' => [$this, 'wpcs_scheduleBlockOutput'],
 		]);
-	}
-
-	function wpcs_enqueue_scripts() {
-		wp_enqueue_style( 'wpcs_styles', plugins_url( '/assets/css/style.css', __FILE__ ), array(), 2 );
-
-		wp_enqueue_style(
-			'font-awesome',
-			'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css',
-			array(),
-			'1.0.0'
-		);
 	}
 
 	/**

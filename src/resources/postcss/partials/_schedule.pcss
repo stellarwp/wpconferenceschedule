@@ -3,20 +3,20 @@
 	border-spacing: 0px;
 	table-layout:fixed;
 	margin-bottom: 0;
-	border-bottom: 1px solid $color-gray-lighter;
+	border-bottom: 1px solid var(--wcsp-color-gray-lighter);
 	@media screen and ( max-width: 700px ) {
 		border: none;
 		width: 100%;
 	}
 	thead{
 		th{
-			background: $color-gray-lightest;
-			color: $color-black;
+			background: var(--wcsp-color-gray-lightest);
+			color: var(--wcsp-color-black);
 			border-bottom: none;
 			font-weight: 300;
 			padding-top: 10px;
 			padding-bottom: 10px;
-			border: 1px solid $color-gray-lighter;
+			border: 1px solid var(--wcsp-color-gray-lighter);
 			border-bottom: none;
 		}
 		@media screen and ( max-width: 700px ) {
@@ -34,9 +34,9 @@
 		}
 	}
 	tr {
-		background: $color-white;
+		background: var(--wcsp-color-white);
 		@media screen and ( max-width: 700px ) {
-			border: 1px solid $color-gray-dark;
+			border: 1px solid var(--wcsp-color-gray-dark);
 			margin-bottom: 16px;
 		}
 		td {
@@ -51,14 +51,14 @@
 		}
 	}
 	.wpcs-session-empty{
-		border-right: 1px solid $color-gray-lighter;
+		border-right: 1px solid var(--wcsp-color-gray-lighter);
 		@media screen and ( max-width: 700px ) {
 			display: none;
 		}
 	}
 	.wpcs-time {
 		min-width: 105px;
-		border: 1px solid $color-gray-lighter;
+		border: 1px solid var(--wcsp-color-gray-lighter);
 		border-bottom: 0px;
 		@media screen and ( max-width: 700px ) {
 			font-size: 22px;
@@ -66,8 +66,8 @@
 		}
 	}
 	[class*="wpcs-session-type-"]{
-		border-right: 1px solid $color-gray-lighter;
-		border-top: 1px solid $color-gray-lighter;
+		border-right: 1px solid var(--wcsp-color-gray-lighter);
+		border-top: 1px solid var(--wcsp-color-gray-lighter);
 	}
 	.wpcs-session-type-session {
 		@media screen and ( max-width: 700px ) {
@@ -77,10 +77,10 @@
 	}
 	.wpcs-session-type-session:before {
 		@media screen and ( max-width: 700px ) {
-			color: mix($color-gray-darkest, $color-white, 50%);
+			color: mix(var(--wcsp-color-gray-darkest), var(--wcsp-color-white), 50%);
 			content: attr( data-track-title );
-			border-bottom: 1px dashed $color-gray-lighter;
-			border-top: 1px dashed $color-gray-lighter;
+			border-bottom: 1px dashed var(--wcsp-color-gray-lighter);
+			border-top: 1px dashed var(--wcsp-color-gray-lighter);
 			display: block;
 			font-size: 110%;
 			line-height: 1;
@@ -123,48 +123,48 @@
 		}
 	}
 	.wpcs-global-session {
-		background: $color-gray-lightest;
+		background: var(--wcsp-color-gray-lightest);
 		td {
 			padding: 20px 0 !important;
 		}
 	}
 	.wpcs-global-session-mainstage,
 	.wpcs-session-type-mainstage{
-		background: $color-blue-light;
+		background: var(--wcsp-color-blue-light);
 	}
 	&.wpcs-color-scheme-light{
 	}
 	&.wpcs-color-scheme-dark{
-		color: $color-white;
+		color: var(--wcsp-color-white);
 		thead{
 			th{
-				background: $color-gray-darkest;
-				color: $color-white;
+				background: var(--wcsp-color-gray-darkest);
+				color: var(--wcsp-color-white);
 			}
 		}
 		a{
-			color: $color-white;
+			color: var(--wcsp-color-white);
 		}
 		tr{
-			background-color: $color-gray-darkest;
+			background-color: var(--wcsp-color-gray-darkest);
 		}
 		td {
 		}
 		.wpcs-session-title{
-			color: $color-white;
+			color: var(--wcsp-color-white);
 		}
 		.wpcs-session-type-session:before {
 			@media screen and ( max-width: 700px ) {
-				border-bottom-color: $color-gray-dark;
-				border-top-color: $color-gray-dark;
+				border-bottom-color: var(--wcsp-color-gray-dark);
+				border-top-color: var(--wcsp-color-gray-dark);
 			}
 		}
 		.wpcs-global-session {
-			background: $color-gray-darker;
+			background: var(--wcsp-color-gray-darker);
 		}
 		.wpcs-global-session-mainstage,
 		.wpcs-session-type-mainstage{
-			background: $color-gray-light;
+			background: var(--wcsp-color-gray-light);
 		}
 	}
 }
@@ -209,7 +209,7 @@
 		border-radius: 2px;
 		font-size: 14px;
 		box-shadow: rgba(0,0,0,.1) 4px 4px 0;
-		background-color: rgba($color-gray-lightest,1);
+		background-color: rgba(var(--wcsp-color-gray-lightest),1);
 		border: solid 1px white;
 		&:hover{
 		}
@@ -259,40 +259,40 @@
 		}
 	}
 	.wpcs-global-session {
-		background: $color-gray-lightest;
+		background: var(--wcsp-color-gray-lightest);
 		td {
 			padding: 20px 0 !important;
 		}
 	}
 	.wpcs-global-session-mainstage,
 	.wpcs-session-type-mainstage{
-		background: $color-blue-light;
+		background: var(--wcsp-color-blue-light);
 	}
 	&.wpcs-color-scheme-light{
 	}
 	&.wpcs-color-scheme-dark{
 		a{
-			color: $color-white;
+			color: var(--wcsp-color-white);
 		}
 		[class*="wpcs-session-type-"]{
 			border: solid 1px black;
-			background-color: $color-gray-darkest;
+			background-color: var(--wcsp-color-gray-darkest);
 		}
 		.wpcs-session-cell-content{
-			color: $color-white;
+			color: var(--wcsp-color-white);
 		}
 		.wpcs-session-title{
-			color: $color-white;
+			color: var(--wcsp-color-white);
 		}
 		.wpcs-global-session {
-			background: $color-gray-darker;
+			background: var(--wcsp-color-gray-darker);
 		}
 		.wpcs-global-session-mainstage,
 		.wpcs-session-type-mainstage{
-			background: $color-gray-light;
+			background: var(--wcsp-color-gray-light);
 		}
 		.wpcs-session-time{
-			color: mix($color-black, $color-white, 30%);
+			color: mix(var(--wcsp-color-black), var(--wcsp-color-white), 30%);
 		}
 	}
 }

@@ -10,6 +10,7 @@
 namespace TEC\Conference\Views\Shortcode;
 
 use TEC\Conference\Plugin;
+use TEC\Conference\Vendor\StellarWP\Assets\Assets;
 use WP_Query;
 use TEC\Conference\Vendor\StellarWP\Arrays\Arr;
 
