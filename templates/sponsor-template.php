@@ -17,7 +17,7 @@ get_header(); ?>
 				$terms       = get_the_terms( $post_id, 'wpcsp_sponsor_level' );
 				if ( ! is_wp_error( $terms ) ) {
 					$levels       = wp_list_pluck( $terms, 'name' );
-					$levels_label = ' Level Sponsor';
+					$levels_label = ' ' . esc_html_x( 'Level Sponsor', 'Sponsor single template sponsor level suffix, ie Gold Level Sponsor.', 'conference-schedule-pro' );
 					$levels       = implode( ', ', $levels );
 				}
 				?>
@@ -43,6 +43,20 @@ get_header(); ?>
 
 								<?php if ( $website_url ) { ?>
 									<p class="wpcsp-sponsor-website-link"><a target="_blank" href="<?php echo esc_url( $website_url ); ?>">Visit <?php echo get_the_title(); ?> <?php echo esc_html_x( 'Website', 'Sponsor single template website field label.', 'conference-schedule-pro' ) ?></a></p>
+
+									<p class="wpcsp-sponsor-website-link">
+									    <a target="_blank" href="<?php echo esc_url( $website_url ); ?>">
+									        <?php
+									        printf(
+									            /* translators: 1: Visit. 2: Sponsor title. 3: Website. */
+												'%1$s %2$s %3$s',
+									            esc_html_x( 'Visit', 'Sponsor single template visit label', 'conference-schedule-pro' ),
+									            get_the_title(),
+									            esc_html_x( 'Website', 'Sponsor single template website field label', 'conference-schedule-pro' )
+									        );
+									        ?>
+									    </a>
+									</p>
 								<?php } ?>
 							</div>
 
