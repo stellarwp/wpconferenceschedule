@@ -29,12 +29,18 @@ class Filter_Modifications {
 	 */
 	public function single_session_tags(): void {
 		$terms = get_the_terms( get_the_ID(), Plugin::TAGS_TAXONOMY );
-		if ( ! is_wp_error( $terms ) && ! empty( $terms ) ) {
-			$term_names = wp_list_pluck( $terms, 'name' );
-			$terms      = implode( ", ", $term_names );
-			if ( $terms !== '' && $terms !== '0' ) {
-				echo '<li class="wpsc-single-session-taxonomies-taxonomy wpsc-single-session-location"><i class="fas fa-tag"></i>' . $terms . '</li>';
-			}
+		if ( empty( $terms ) ) {
+			return;
+		}
+
+		if ( is_wp_error( $terms ) ) {
+			return;
+		}
+
+		$term_names = wp_list_pluck( $terms, 'name' );
+		$terms      = implode( ", ", $term_names );
+		if ( $terms !== '' && $terms !== '0' ) {
+			echo '<li class="wpsc-single-session-taxonomies-taxonomy wpsc-single-session-location"><i class="fas fa-tag"></i>' . $terms . '</li>';
 		}
 	}
 
@@ -65,8 +71,12 @@ class Filter_Modifications {
 				$last_name          = get_post_meta( $post_id, 'wpcsp_last_name', true );
 				$full_name          = $first_name . ' ' . $last_name;
 				$title_organization = [];
-				$title              = ( get_post_meta( $post_id, 'wpcsp_title', true ) ) ? $title_organization[] = get_post_meta( $post_id, 'wpcsp_title', true ) : null;
-				$organization       = ( get_post_meta( $post_id, 'wpcsp_organization', true ) ) ? $title_organization[] = get_post_meta( $post_id, 'wpcsp_organization', true ) : null;
+				$title              = ( get_post_meta( $post_id, 'wpcsp_title', true ) )
+					? $title_organization[] = get_post_meta( $post_id, 'wpcsp_title', true )
+					: null;
+				$organization       = ( get_post_meta( $post_id, 'wpcsp_organization', true ) )
+					? $title_organization[] = get_post_meta( $post_id, 'wpcsp_organization', true )
+					: null;
 
 				?>
 				<div class="wpcsp-session-speaker">
