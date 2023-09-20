@@ -107,4 +107,22 @@ class Sessions extends Abstract_Post_Type {
 		}
 	}
 
+	/**
+	 * Sets the single template for the session post type.
+	 *
+	 * @since TBD
+	 *
+	 * @param string $single_template The single template path.
+	 *
+	 * @return string The single template path.
+	 */
+	public function set_single_template( $single_template ) {
+		global $post;
+
+		if ( $post->post_type !== Plugin::SESSION_POSTTYPE ) {
+			return $single_template;
+		}
+
+		return trailingslashit( dirname( CONFERENCE_SCHEDULE_FILE ) ) . 'templates/session-template.php';
+	}
 }
