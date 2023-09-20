@@ -38,7 +38,7 @@
 			.wpcsp-sponsor {
 				display: inline-block;
 				margin: 10px;
-				@include breakpoint(sm) {
+				@mixin breakpoint-sm {
 					margin: 20px;
 				}
 
@@ -51,7 +51,7 @@
 
 .wpcsp-sponsor-single {
 	&-row {
-		@include breakpoint(sm) {
+		@mixin breakpoint-sm {
 			display: flex;
 			justify-content: center;
 			align-items: center;
@@ -86,7 +86,7 @@
 
 	.has-post-thumbnail {
 		.wpcsp-sponsor-grid {
-			@include breakpoint(sm) {
+			@mixin breakpoint-sm {
 				display: grid;
 				grid-template-columns: 1fr 2fr;
 				grid-column-gap: 30px;

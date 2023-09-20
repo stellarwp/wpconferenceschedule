@@ -15,7 +15,7 @@
 
 	.has-post-thumbnail {
 		.wpcsp-speaker-grid {
-			@include breakpoint(sm) {
+			@mixin breakpoint-sm {
 				display: grid;
 				grid-template-columns: 1fr 2fr;
 				grid-column-gap: 30px;
@@ -53,12 +53,12 @@
 	.wpcsp-speaker-links {
 		.wpcsp-speaker-link {
 			display: block;
-			@include breakpoint(sm) {
+			@mixin breakpoint-sm {
 				display: inline-block;
 			}
 
 			&-speakers {
-				@include breakpoint(sm) {
+				@mixin breakpoint-sm {
 					margin-right: 40px;
 				}
 			}
@@ -71,9 +71,9 @@
 }
 
 .wpcsp-speakers {
-	display: block !important;
-	@include breakpoint(sm) {
-		display: grid !important;
+	display: block;
+	@mixin breakpoint-sm {
+		display: grid;
 	}
 
 	.wpcsp-speaker {
@@ -88,7 +88,7 @@
 
 		&-title-organization {
 			font-size: 0.9em;
-			@include breakpoint(sm) {
+			@mixin breakpoint-sm {
 				margin-bottom: 0;
 			}
 		}
@@ -98,7 +98,7 @@
 .wpcsp-single-session-speakers {
 	text-align: center;
 	padding: 30px 0;
-	@include breakpoint(sm) {
+	@mixin breakpoint-sm {
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
 		grid-gap: 30px;
@@ -107,7 +107,7 @@
 	&-title {
 		font-size: 1.2em;
 		text-align: left;
-		@include breakpoint(sm) {
+		@mixin breakpoint-sm {
 			grid-column: 1 / 4;
 			grid-row: 1;
 		}

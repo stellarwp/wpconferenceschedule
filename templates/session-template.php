@@ -69,9 +69,6 @@ get_header(); ?>
 							</ul>
 
 						</div><!-- .meta-info -->
-
-						<?php echo $session_speakers; ?>
-
 					</header>
 					<?php
 					$sponsor_list = get_post_meta( $post->ID, 'wpcsp_session_sponsors', true );
